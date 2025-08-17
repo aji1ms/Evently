@@ -36,7 +36,7 @@ const Login = () => {
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-900 mb-4">
                                 Evently
                             </h1>
-                            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-700 mb-8 lg:mb-10">
+                            <h3 className="text-xl sm:text-2xl lg:text-2xl font-bold text-gray-700 mb-8 lg:mb-10">
                                 Sign in to your account
                             </h3>
 
