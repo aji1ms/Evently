@@ -1,4 +1,4 @@
-import bannerImage from "../../../assets/images/mainBannerImg.png";
+import bannerImage from "../../../../assets/images/mainBannerImg.png";
 
 const MainContainer = () => {
     return (

@@ -1,4 +1,4 @@
-import aboutUsImg from "../../../assets/images/aboutUsImg.webp";
+import aboutUsImg from "../../../../assets/images/aboutUsImg.webp";
 
 const GetAboutUsContainer = () => {
     return (

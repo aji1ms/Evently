@@ -1,4 +1,4 @@
-import discountImg from "../../../assets/images/discountImg.webp";
+import discountImg from "../../../../assets/images/discountImg.webp";
 
 const DiscountPoster = () => {
     return (

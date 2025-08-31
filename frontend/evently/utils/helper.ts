@@ -22,3 +22,10 @@ export const validatePassword = (password: string) => {
     return regex.test(password);
 }
 
+export const validateSubject = (subject: string) => {
+    const regex = /^[A-Za-z ]+$/;
+
+    return regex.test(subject)
+}
+
+
