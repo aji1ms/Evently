@@ -26,11 +26,6 @@ const ClientsContainer = () => {
                         </div>
                         <div className="border border-black p-4 rounded-2xl">
                             <div className="flex items-center">
-                                <img
-                                    src={reviewImg}
-                                    alt="Client"
-                                    className="w-20 h-20 rounded-full border border-slate-200"
-                                />
                                 <div className="flex flex-col ml-4">
                                     <h1 className="font-bold text-xl">John Doe</h1>
                                     <p className="text-gray-500">Web Developer</p>

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router";
 import img2 from "../../../../assets/images/whatWeDoImg.png";
 
 const WhatWeDoContainer = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="py-16 px-4 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
             <div className="max-w-7xl mx-auto">
@@ -34,7 +37,9 @@ const WhatWeDoContainer = () => {
                             </div>
                         </div>
                         <div className="pt-4">
-                            <button className="group relative bg-[#06B6D1] text-white font-semibold py-4 px-8 rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#0891b2] hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-cyan-200">
+                            <button className="group relative bg-[#06B6D1] text-white font-semibold py-4 px-8 rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#0891b2] hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-cyan-200"
+                                onClick={() => navigate("/events")}
+                            >
                                 <span className="relative z-10">Explore Now</span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </button>

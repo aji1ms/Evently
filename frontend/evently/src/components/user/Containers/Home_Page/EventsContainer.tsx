@@ -1,4 +1,5 @@
 import { FaRegBookmark, FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUsers, FaVideo, FaBuilding } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 type EventType = "offline" | "online";
 type Event = {
@@ -56,19 +57,26 @@ const events: Event[] = [
     },
 ];
 
-const EventsContainer = () => {
+type EventsContainerProps = {
+    showAll?: boolean
+}
+
+const EventsContainer = ({ showAll = false }: EventsContainerProps) => {
+    const navigate = useNavigate()
 
     return (
         <div className="px-4 lg:px-8 py-12 bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-screen">
             <div className="max-w-6xl mx-auto">
                 {/* Header Section */}
-                <div className="mb-12 text-center">
-                    <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
-                        Upcoming Events
-                    </h1>
-                    <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
-                    <p className="text-gray-600 mt-4 text-lg">Discover amazing events happening near you</p>
-                </div>
+                {showAll && (
+                    <div className="mb-12 text-center">
+                        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+                            Upcoming Events
+                        </h1>
+                        <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
+                        <p className="text-gray-600 mt-4 text-lg">Discover amazing events happening near you</p>
+                    </div>
+                )}
 
                 {events.length > 0 ? (
                     <div className="space-y-6">
@@ -154,9 +162,10 @@ const EventsContainer = () => {
                                                     <span className="font-medium">{event.count} people enrolled</span>
                                                 </div>
 
-                                                <button className="group/btn relative px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-200">
+                                                <button className="group/btn relative px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                                    onClick={() => navigate(`/events/${event.id}`)}
+                                                >
                                                     <span className="relative z-10">View Details</span>
-                                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
                                                 </button>
                                             </div>
                                         </div>
@@ -179,21 +188,23 @@ const EventsContainer = () => {
                         <p className="text-gray-500">Check back later for exciting upcoming events!</p>
                     </div>
                 )}
-
-                {/* explore button */}
-                <div className="flex justify-center mt-16">
-                    <button className="group relative px-12 py-4 bg-gradient-to-r from-gray-900 to-gray-700 text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-gray-300">
-                        <span className="relative z-10 flex items-center space-x-2">
-                            <span>Explore All Events</span>
-                            <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </button>
-                </div>
+                {/* View All Button */}
+                {showAll && (
+                    < div className="flex justify-center mt-16">
+                        <button className="group relative px-12 py-4 bg-gradient-to-r from-gray-900 to-gray-700 text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-gray-300"
+                            onClick={() => navigate("/events")}
+                        >
+                            <span className="relative z-10 flex items-center space-x-2">
+                                <span>View All</span>
+                                <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                )}
             </div>
-        </div>
+        </div >
     );
 };
 

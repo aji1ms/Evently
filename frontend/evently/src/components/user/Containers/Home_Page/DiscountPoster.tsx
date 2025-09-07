@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router";
 import discountImg from "../../../../assets/images/discountImg.webp";
 
 const DiscountPoster = () => {
+    const navigate = useNavigate();
+    
     return (
         <div className="px-4 py-16">
             <div className="max-w-6xl mx-auto">
@@ -23,8 +26,7 @@ const DiscountPoster = () => {
                             {/* main heading */}
                             <div className="space-y-3">
                                 <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-                                    <span className="text-yellow-300 text-5xl lg:text-6xl font-black">20%</span>
-                                    <span className="block">Off Your First Ticket</span>
+                                    <span className="block">Your Ticket Bookings</span>
                                 </h1>
                             </div>
 
@@ -35,16 +37,11 @@ const DiscountPoster = () => {
                             </p>
 
                             <div className="pt-2">
-                                <button className="bg-white text-[#06B6D1] font-bold text-lg px-8 py-3 rounded-xl hover:bg-yellow-50 hover:scale-105 transition-all duration-300 shadow-lg">
+                                <button className="bg-white text-[#06B6D1] font-bold text-lg px-8 py-3 rounded-xl hover:bg-yellow-50 hover:scale-105 transition-all duration-300 shadow-lg"
+                                    onClick={() => navigate("/events")}
+                                >
                                     Grab It Now
                                 </button>
-                            </div>
-
-                            <div className="flex items-center justify-center lg:justify-start space-x-2 text-white/80">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span className="text-sm">Limited time offer</span>
                             </div>
                         </div>
 

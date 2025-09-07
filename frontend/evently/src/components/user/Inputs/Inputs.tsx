@@ -17,37 +17,6 @@ const Inputs: React.FC<InputProps> = ({ value, type, label, placeholder, onChang
     }
 
     return (
-        //     <div>
-        //         <label className='ml-18 text-slate-800'>{label}</label>
-        //         <div className="input-box">
-        //             <input type={type == 'password' ? showPassword ? 'text' : 'password' : type}
-        //                 placeholder={placeholder}
-        //                 value={value}
-        //                 onChange={(e) => onChange(e)}
-        //                 className="w-full bg-transparent outline-none"
-        //             />
-        //             {type === "password" && (
-        //                 <>
-        //                     {showPassword ? (
-        //                         <FaRegEye
-        //                             size={22}
-        //                             className='text-gray-800 cursor-pointer'
-        //                             onClick={() => toggleShowPassword()}
-        //                         />
-        //                     ) : (
-        //                         <FaRegEyeSlash
-        //                             size={22}
-        //                             className='text-slate-800 cursor-pointer'
-        //                             onClick={() => toggleShowPassword()}
-        //                         />
-        //                     )}
-        //                 </>
-        //             )}
-        //         </div>
-        //     </div>
-        // )
-
-
         <div className="w-full">
             {label && (
                 <label className='block text-slate-800 text-sm font-medium mb-2'>

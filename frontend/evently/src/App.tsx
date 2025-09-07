@@ -8,6 +8,10 @@ import Events from "./pages/Events";
 import Profile from "./pages/Profile";
 import GPT from "./pages/GPT";
 import Notifications from "./pages/Notifications";
+import EventDetails from "./pages/EventDetails";
+import BookMark from "./pages/BookMark";
+import Tickets from "./pages/Tickets";
+import RatingPage from "./pages/RatingPage";
 
 
 function App() {
@@ -19,12 +23,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/gpt" element={<GPT />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/bookmarks" element={<BookMark />} />
+          <Route path="/gpt" element={<GPT />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/rateus" element={<RatingPage />} />
         </Route>
         {/* Admin */}
       </Routes>

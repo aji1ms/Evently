@@ -6,8 +6,10 @@ import event5Img from "../../../assets/images/events/event5Img.webp";
 import event6Img from "../../../assets/images/events/event6Img.webp";
 import event7Img from "../../../assets/images/events/event7Img.webp";
 import event8Img from "../../../assets/images/events/event8Img.webp";
+import { useNavigate } from "react-router";
 
 const EventGallery = () => {
+    const navigate = useNavigate();
 
     const eventImages = [
         { src: event1Img, alt: "Tech Conference 2024" },
@@ -67,12 +69,11 @@ const EventGallery = () => {
 
                     {/* Call to Action */}
                     <div className="text-center mt-16">
-                        <button className="group relative px-8 py-4 bg-gradient-to-r from-[#06B6D1] to-[#0891b2] text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-200">
+                        <button className="group relative px-8 py-4 bg-gradient-to-r from-[#06B6D1] to-[#0891b2] text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-200"
+                            onClick={() => navigate("/events")}
+                        >
                             <span className="relative z-10 flex items-center space-x-2">
                                 <span>View All Events</span>
-                                <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </button>

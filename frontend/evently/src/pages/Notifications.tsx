@@ -1,27 +1,24 @@
 import React from 'react';
-import { Bell, Calendar, Settings } from 'lucide-react';
+import { Bell, Calendar } from 'lucide-react';
+import Notification_Header from '../components/user/Containers/Notification_Page/Notification_Header';
 
 const Notifications: React.FC = () => {
     const notifications = [
         {
             id: 3,
-            type: 'success',
             title: 'Event Approved',
             message: 'Great news! Your event "Food Carnival" has been approved and listed.',
             eventName: 'Food Carnival',
             time: '1 hour ago',
-            read: true,
-            color: 'green'
+            read: false,
         },
         {
             id: 6,
-            type: 'success',
             title: 'Event Successfully Listed',
             message: 'Your event "Workshop: Digital Marketing" is now visible to attendees.',
             eventName: 'Workshop: Digital Marketing',
             time: '2 days ago',
-            read: true,
-            color: 'green'
+            read: false,
         }
     ];
 
@@ -29,24 +26,7 @@ const Notifications: React.FC = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-full">
-                                <Bell className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
-                                <p className="text-gray-600">Stay updated</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                            <button className="bg-gray-100 hover:bg-gray-200 p-2 rounded-lg transition-colors">
-                                <Settings className="w-5 h-5 text-gray-600" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <Notification_Header />
 
                 {/* Empty State*/}
                 {!notifications.length ? (
@@ -55,7 +35,6 @@ const Notifications: React.FC = () => {
                             <Bell className="w-8 h-8 text-gray-400" />
                         </div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">No Notifications Yet</h3>
-                        <p className="text-gray-600">When you list events, you'll see notifications here.</p>
                     </div>
                 ) : (
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

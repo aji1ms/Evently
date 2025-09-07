@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { IoIosNotifications, IoIosMenu, IoIosClose } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
+import { IoSettingsOutline } from "react-icons/io5";
 import { AiFillOpenAI } from "react-icons/ai";
 import { useState } from "react";
 
@@ -59,7 +59,7 @@ const Header = () => {
                         <AiFillOpenAI size={40} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
                     </Link>
                     <Link to="/profile">
-                        <CgProfile size={40} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
+                        <IoSettingsOutline size={40} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
                     </Link>
                 </div>
             </div>
@@ -94,8 +94,8 @@ const Header = () => {
                                 <span className="text-white">AI Assistant</span>
                             </Link>
                             <Link to="/profile" className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
-                                <CgProfile size={24} className="text-white" />
-                                <span className="text-white">Profile</span>
+                                <IoSettingsOutline size={24} className="text-white" />
+                                <span className="text-white">Settings</span>
                             </Link>
                         </div>
                     </div>
