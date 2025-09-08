@@ -1,6 +1,6 @@
-import { User, LogOut, Ticket, Star } from 'lucide-react';
+import { User, LogOut, Ticket, Star, LayoutDashboard, TicketPercent, Bookmark, Bell, ChartNoAxesCombined } from 'lucide-react';
 
-interface SideMenuItem {
+export interface SideMenuItem {
     _id: string;
     label: string;
     icon: React.ComponentType<any>;
@@ -33,3 +33,54 @@ export const SIDE_MENU_DATA: SideMenuItem[] = [
         path: "/logout"
     },
 ];
+
+export const SIDE_ADMIN_DATA: SideMenuItem[] = [
+    {
+        _id: "01",
+        label: "Dashboard",
+        icon: LayoutDashboard,
+        path: "/admin"
+    },
+    {
+        _id: "02",
+        label: "Users",
+        icon: User,
+        path: "/admin/users"
+    },
+    {
+        _id: "03",
+        label: "Events",
+        icon: TicketPercent,
+        path: "/admin/events"
+    },
+    {
+        _id: "04",
+        label: "Bookings",
+        icon: Bookmark,
+        path: "/admin/bookings"
+    },
+    {
+        _id: "05",
+        label: "Notifications",
+        icon: Bell,
+        path: "/admin/notifications"
+    },
+    {
+        _id: "06",
+        label: "Report",
+        icon: ChartNoAxesCombined,
+        path: "/admin/reports"
+    },
+    {
+        _id: "07",
+        label: "Reviews",
+        icon: Star,
+        path: "/admin/reviews"
+    },
+    {
+        _id: "08",
+        label: "Logout",
+        icon: LogOut,
+        path: "/logout"
+    },
+]

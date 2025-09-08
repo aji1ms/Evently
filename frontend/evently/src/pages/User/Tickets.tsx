@@ -1,7 +1,8 @@
-import Footer from "../components/user/Containers/Footer"
-import Header from "../components/user/Containers/Header"
-import MyTickets from "../components/user/Containers/Profile_Page/MyTickets"
-import SideMenu from "../components/user/Containers/Profile_Page/SideMenu"
+import { SIDE_MENU_DATA } from "../../../utils/Data"
+import Footer from "../../components/user/Containers/Footer"
+import Header from "../../components/user/Containers/Header"
+import MyTickets from "../../components/user/Containers/Profile_Page/MyTickets"
+import SideMenu from "../../components/user/Containers/Profile_Page/SideMenu"
 
 const Tickets = () => {
     return (
@@ -11,7 +12,7 @@ const Tickets = () => {
 
             {/* Main Content */}
             <div className="flex">
-                <SideMenu />
+                <SideMenu menuData={SIDE_MENU_DATA} />
                 <MyTickets />
             </div>
             <Footer />

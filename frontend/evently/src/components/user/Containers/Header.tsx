@@ -49,7 +49,7 @@ const Header = () => {
                 </button>
 
                 <div className="hidden lg:flex items-center">
-                    <Link to="/notifications">
+                    <Link to="/notification-center">
                         <IoIosNotifications size={40} className="mr-3 text-yellow-500 hover:scale-110 transition-transform duration-300" />
                     </Link>
                     <Link to="/bookmarks">

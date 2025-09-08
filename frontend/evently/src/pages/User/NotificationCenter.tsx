@@ -1,8 +1,8 @@
 import React from 'react';
 import { Bell, Calendar } from 'lucide-react';
-import Notification_Header from '../components/user/Containers/Notification_Page/Notification_Header';
+import Notification_Header from '../../components/user/Containers/Notification_Page/Notification_Header';
 
-const Notifications: React.FC = () => {
+const NotificationCenter: React.FC = () => {
     const notifications = [
         {
             id: 3,
@@ -93,4 +93,4 @@ const Notifications: React.FC = () => {
     );
 };
 
-export default Notifications;
+export default NotificationCenter;

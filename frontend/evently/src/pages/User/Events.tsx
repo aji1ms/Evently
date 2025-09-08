@@ -1,10 +1,10 @@
 import { FaFilter } from "react-icons/fa";
-import Footer from "../components/user/Containers/Footer";
-import Header from "../components/user/Containers/Header";
-import FilterSidebar from "../components/user/Containers/Events_Page/FilterSidebar";
+import Footer from "../../components/user/Containers/Footer";
+import Header from "../../components/user/Containers/Header";
+import FilterSidebar from "../../components/user/Containers/Events_Page/FilterSidebar";
 import { useEffect, useRef, useState } from "react";
-import EventsContainer from "../components/user/Containers/Home_Page/EventsContainer";
-import SortOption from "../components/user/Containers/Events_Page/SortOption";
+import EventsContainer from "../../components/user/Containers/Home_Page/EventsContainer";
+import SortOption from "../../components/user/Containers/Events_Page/SortOption";
 
 const Events = () => {
     const sidebarRef = useRef<HTMLDivElement>(null);

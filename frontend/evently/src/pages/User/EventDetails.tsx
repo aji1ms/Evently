@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, MapPin, Users, Video, User, Share2, Bookmark } from 'lucide-react';
-import Header from '../components/user/Containers/Header';
+import Header from '../../components/user/Containers/Header';
 
 type EventType = "offline" | "online";
 

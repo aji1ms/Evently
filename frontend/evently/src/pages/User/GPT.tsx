@@ -1,6 +1,6 @@
 import { Bot, User } from 'lucide-react';
-import InputArea from '../components/user/Containers/GPT_Page/InputArea';
-import GPT_Header from '../components/user/Containers/GPT_Page/GPT_Header';
+import InputArea from '../../components/user/Containers/GPT_Page/InputArea';
+import GPT_Header from '../../components/user/Containers/GPT_Page/GPT_Header';
 
 const GPT = () => {
     return (

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from "react-router";
-import { SIDE_MENU_DATA } from "../../../../../utils/Data";
+import type { SideMenuItem } from '../../../../../utils/Data';
 
-const SideMenu: React.FC = () => {
+interface SideMenuProps {
+    menuData: SideMenuItem[];
+}
+
+const SideMenu = ({ menuData }: SideMenuProps) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
@@ -44,12 +48,11 @@ const SideMenu: React.FC = () => {
 
             {/* Sidebar */}
             <div className={`
-                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80  md:relative ${isOpen ? 'block' : 'hidden'} fixed top-0 left-0 h-full z-40 w-80
+                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80  md:relative ${isOpen ? 'block' : 'hidden'} fixed top-0 left-0 h-screen z-40 w-80
             `}>
                 <div className="p-6">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-6">Settings</h2>
                     <nav className="space-y-2">
-                        {SIDE_MENU_DATA.map((item) => {
+                        {menuData.map((item) => {
                             const Icon = item.icon;
                             const isActive = location.pathname === item.path;;
 

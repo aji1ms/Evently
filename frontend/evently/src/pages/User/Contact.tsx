@@ -1,14 +1,10 @@
-import bannerImage from "../assets/images/mainBannerImg.png";
-import ClientsContainer from "../components/user/Containers/About_Page/ClientsContainer";
-import LeadingContainer from "../components/user/Containers/About_Page/LeadingContainer";
-import WelcomeContainer from "../components/user/Containers/About_Page/WelcomeContainer";
-import WhatWeDoContainer from "../components/user/Containers/About_Page/WhatWeDoContainer";
-import Footer from "../components/user/Containers/Footer";
-import Header from "../components/user/Containers/Header";
-import OverviewContainer from "../components/user/Containers/OverviewContainer";
+import Footer from "../../components/user/Containers/Footer"
+import Header from "../../components/user/Containers/Header"
+import bannerImage from "../../assets/images/mainBannerImg.png";
+import MessagingSection from "../../components/user/Containers/Contact_Page/ContactForm";
+import EmailSection from "../../components/user/Containers/Contact_Page/CardsSection";
 
-
-const About = () => {
+const Contact = () => {
     return (
         <div>
             <Header />
@@ -22,18 +18,15 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                     <h1 className="text-5xl md:text-7xl text-white font-bold">
-                        About Us
+                        Contact Us
                     </h1>
                 </div>
             </div>
-            <WelcomeContainer />
-            <WhatWeDoContainer />
-            <LeadingContainer />
-            <OverviewContainer />
-            <ClientsContainer />
+            <EmailSection />
+            <MessagingSection />
             <Footer />
         </div>
     )
 }
 
-export default About
+export default Contact

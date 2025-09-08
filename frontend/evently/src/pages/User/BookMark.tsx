@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bookmark, Calendar, MapPin, Clock, Users } from 'lucide-react';
-import Header from '../components/user/Containers/Header';
-import Footer from '../components/user/Containers/Footer';
+import Header from '../../components/user/Containers/Header';
+import Footer from '../../components/user/Containers/Footer';
 import { useNavigate } from 'react-router';
 
 interface Event {
