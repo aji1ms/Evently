@@ -1,12 +1,14 @@
 import { SIDE_ADMIN_DATA } from "../../../utils/Data";
 import SideMenu from "../../components/user/Containers/Profile_Page/SideMenu";
 
-const Users = () => {
+
+const AddEvents = () => {
     return (
-        <div className="flex">
+        <div>
             <SideMenu menuData={SIDE_ADMIN_DATA} />
+            Add Events
         </div>
     )
 }
 
-export default Users;
+export default AddEvents;

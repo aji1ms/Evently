@@ -19,6 +19,7 @@ import Bookings from "./pages/Admin/Bookings";
 import NotificationCenter from "./pages/User/NotificationCenter";
 import Notifications from "./pages/Admin/Notifications";
 import Reports from "./pages/Admin/Reports";
+import AddEvents from "./pages/Admin/AddEvents";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/events" element={<EventList />} />
+          <Route path="/admin/addEvents" element={<AddEvents />} />
           <Route path="/admin/bookings" element={<Bookings />} />
           <Route path="/admin/notifications" element={<Notifications />} />
           <Route path="/admin/reports" element={<Reports />} />
