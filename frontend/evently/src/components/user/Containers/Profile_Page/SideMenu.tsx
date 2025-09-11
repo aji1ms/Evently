@@ -4,9 +4,10 @@ import type { SideMenuItem } from '../../../../../utils/Data';
 
 interface SideMenuProps {
     menuData: SideMenuItem[];
+    isFixed?: boolean;
 }
 
-const SideMenu = ({ menuData }: SideMenuProps) => {
+const SideMenu = ({ menuData, isFixed = false }: SideMenuProps) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
@@ -41,17 +42,17 @@ const SideMenu = ({ menuData }: SideMenuProps) => {
 
             {isOpen && (
                 <div
-                    className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+                    className="md:hidden fixed inset-0 bg-gray-100 bg-opacity-50 z-30"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
             <div className={`
-                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80  md:relative ${isOpen ? 'block' : 'hidden'} fixed top-0 left-0 h-screen z-40 w-80
+                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80 ${isOpen ? 'block' : 'hidden'} ${isFixed ? `md:fixed` : `md:relative`} top-0 left-0 h-screen z-40 w-80
             `}>
                 <div className="p-6">
-                    <nav className="space-y-2">
+                    <nav className="space-y-2 ">
                         {menuData.map((item) => {
                             const Icon = item.icon;
                             const isActive = location.pathname === item.path;;

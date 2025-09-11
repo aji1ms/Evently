@@ -16,7 +16,7 @@ const AdminDashboard: React.FC = () => {
     };
 
     return (
-        <div className="flex-1 bg-gray-50 p-4 w-full">
+        <div className="flex-1 bg-gray-50 p-4 w-full md:ml-80">
             <div className="w-full">
                 {/* Header */}
                 <div className="mb-8">

@@ -5,7 +5,7 @@ import SideMenu from "../../components/user/Containers/Profile_Page/SideMenu";
 const EventList = () => {
     return (
         <div>
-            <SideMenu menuData={SIDE_ADMIN_DATA} />
+            <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} />
             Events
         </div>
     )

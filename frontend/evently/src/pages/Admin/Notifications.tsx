@@ -5,9 +5,9 @@ import SideMenu from "../../components/user/Containers/Profile_Page/SideMenu";
 const Notifications = () => {
     return (
         <div className="flex">
-            <SideMenu menuData={SIDE_ADMIN_DATA} />
-            
-            <div className="flex-1 bg-gray-50 p-6">
+            <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} />
+
+            <div className="flex-1 bg-gray-50 p-6 md:ml-80">
                 <div className="w-full ">
                     {/* Header */}
                     <div className="mb-8">
