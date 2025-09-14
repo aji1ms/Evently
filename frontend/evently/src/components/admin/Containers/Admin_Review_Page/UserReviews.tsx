@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Calendar, TrendingUp, Users } from 'lucide-react';
+import { Star, Calendar, TrendingUp } from 'lucide-react';
 import RatingFilters from './RatingFilters';
 import RatingDistribution from './RatingDistribution';
 import ReviewsList from './ReviewsList';
@@ -17,7 +17,7 @@ const UserReviews: React.FC = () => {
                 </div>
 
                 {/* Statistics Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <StatsCard
                         title='Total Reviews'
                         icon={<TrendingUp className="w-6 h-6 text-blue-600" />}
@@ -40,12 +40,6 @@ const UserReviews: React.FC = () => {
                         title='This Month'
                         icon={<Calendar className="w-6 h-6 text-purple-600" />}
                         value={5}
-                    />
-
-                    <StatsCard
-                        title='Total Reviews'
-                        icon={<Users className="w-6 h-6 text-purple-600" />}
-                        value={100}
                     />
                 </div>
 

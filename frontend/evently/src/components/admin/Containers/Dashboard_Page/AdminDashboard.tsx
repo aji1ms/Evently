@@ -11,8 +11,6 @@ const AdminDashboard: React.FC = () => {
         totalUsers: 2847,
         totalBookings: 1923,
         totalRevenue: 45670,
-        monthlyRevenue: 12450,
-        weeklyBookings: 287
     };
 
     return (
@@ -30,32 +28,24 @@ const AdminDashboard: React.FC = () => {
                         title="Total Events Listed"
                         value={stats.totalEvents}
                         icon={<Calendar className="w-6 h-6 text-blue-600" />}
-                        change="+12% from last month"
-                        changeType="positive"
                     />
 
                     <StatsCard
-                        title="Total Users Registered"
+                        title="Total Users"
                         value={stats.totalUsers}
                         icon={<Users className="w-6 h-6 text-green-600" />}
-                        change="+8.5% from last month"
-                        changeType="positive"
                     />
 
                     <StatsCard
                         title="Total Tickets Sold"
                         value={stats.totalBookings}
                         icon={<Ticket className="w-6 h-6 text-purple-600" />}
-                        change="-15.3% from last month"
-                        changeType="negative"
                     />
 
                     <StatsCard
                         title="Total Revenue"
                         value={`$${stats.totalRevenue}`}
                         icon={<DollarSign className="w-6 h-6 text-emerald-600" />}
-                        change="+22.1% from last month"
-                        changeType="neutral"
                     />
                 </div>
 

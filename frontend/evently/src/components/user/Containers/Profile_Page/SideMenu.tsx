@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import type { SideMenuItem } from '../../../../../utils/Data';
 
 interface SideMenuProps {
@@ -49,7 +49,8 @@ const SideMenu = ({ menuData, isFixed = false }: SideMenuProps) => {
 
             {/* Sidebar */}
             <div className={`
-                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80 ${isOpen ? 'block' : 'hidden'} ${isFixed ? `md:fixed` : `md:relative`} top-0 left-0 h-screen z-40 w-80
+                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80 ${isOpen ? 'block' : 'hidden'} ${isFixed ? `md:fixed` : `md:relative`} top-0 left-0
+                h-screen z-40 w-80  
             `}>
                 <div className="p-6">
                     <nav className="space-y-2 ">

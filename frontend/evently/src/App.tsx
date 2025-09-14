@@ -20,6 +20,7 @@ import NotificationCenter from "./pages/User/NotificationCenter";
 import Notifications from "./pages/Admin/Notifications";
 import Reports from "./pages/Admin/Reports";
 import AddEvents from "./pages/Admin/AddEvents";
+import AdminLogin from "./pages/Admin/AdminLogin";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         </Route>
         {/* Admin */}
         <Route>
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/events" element={<EventList />} />
