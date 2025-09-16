@@ -42,9 +42,14 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ isAdmin: false, email });
         if (!user) {
             res.status(400).json({ message: "User not found!" });
+            return;
+        }
+
+        if (user.isBlocked) {
+            res.status(400).json({ message: "User is blocked by admin!" });
             return;
         }
 
