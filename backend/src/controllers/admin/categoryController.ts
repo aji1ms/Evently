@@ -6,7 +6,7 @@ const Category = require("../../models/categorySchema");
 const addCategory = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, description } = req.body;
-
+     
         if (!name || !description) {
             res.status(400).json({ message: "Name and description are required!" });
             return;
@@ -93,13 +93,35 @@ const deleteCategory = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
+// Category Status
+
+const toggleCategoryStatus = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const { isActive } = req.body;
+
+        const updateCategory = await Category.findByIdAndUpdate(id, { isActive }, { new: true });
+        if (!updateCategory) {
+            res.status(404).json({ message: "Category not found!" });
+            return;
+        }
+
+        const status = isActive ? "activated" : "blocked";
+
+        res.status(200).json({ message: `Category ${status} successfully!` })
+    } catch (error) {
+        console.log("Error toggling status category: ", error);
+        res.status(500).json({ message: "Internal Server error" });
+    }
+}
+
 // Get Category Info
 
 const getAllCategories = async (req: Request, res: Response): Promise<void> => {
     try {
         const { search } = req.query;
 
-        let query: any = {};
+        let query: any = { isActive: true };
 
         if (search) {
             query.name = { $regex: search, $options: 'i' };
@@ -110,7 +132,7 @@ const getAllCategories = async (req: Request, res: Response): Promise<void> => {
         res.status(200).json({
             message: "Categories retrieved successfully!",
             data: categories,
-            count: categories.length 
+            count: categories.length
         });
     } catch (error) {
         console.log("Error getting category", error);
@@ -122,6 +144,7 @@ const getAllCategories = async (req: Request, res: Response): Promise<void> => {
 module.exports = {
     addCategory,
     editCategory,
+    toggleCategoryStatus,
     deleteCategory,
     getAllCategories
 }
