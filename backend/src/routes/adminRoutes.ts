@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import authenticateUser from "../middlewares/authMiddleware";
 const adminController = require("../controllers/admin/adminController");
+const userController = require("../controllers/admin/userController");
 const categoryController = require("../controllers/admin/categoryController");
 const eventController = require("../controllers/admin/eventController");
 
@@ -9,6 +10,12 @@ const eventController = require("../controllers/admin/eventController");
 
 router.post("/login", adminController.adminLogin);
 router.post("/logout", adminController.adminLogout);
+
+// User Management
+
+router.get("/users", authenticateUser(["admin"]), userController.userInfo);
+router.patch("/userStatus/:id", authenticateUser(["admin"]), userController.toggleUserStatus);
+router.patch("/editUser/:id", authenticateUser(["admin"]), userController.editUser);
 
 // Category Management
 
@@ -18,13 +25,12 @@ router.patch("/categoryStatus/:id", authenticateUser(["admin"]), categoryControl
 router.delete("/deleteCategory/:id", authenticateUser(["admin"]), categoryController.deleteCategory);
 router.get("/categories", authenticateUser(["admin"]), categoryController.getAllCategories);
 
-// Product Management
+// Event Management
 
 router.post("/addEvent", authenticateUser(["admin"]), eventController.addEvent);
 router.put("/editEvent/:id", authenticateUser(["admin"]), eventController.editEvent);
 router.delete("/event/:id", authenticateUser(["admin"]), eventController.deleteEvent);
-router.get("/events", authenticateUser(["admin"]), eventController.getAllEvents);
-
-module.exports = router;
+router.get("/events", authenticateUser(["admin"]), eventController.getAllEvents); 
 
  
+module.exports = router;

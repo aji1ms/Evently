@@ -1,4 +1,4 @@
-import { Document, Schema, Types } from "mongoose";
+import mongoose, { Document, mongo, Schema, Types } from "mongoose";
 
 export interface IUser extends Document {
     name: string;
@@ -45,6 +45,14 @@ export interface ICategory extends Document {
     name: string;
     description?: string;
     isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface IReview extends Document {
+    user: mongoose.Types.ObjectId;      
+    rating: number;                      
+    comment?: string;                   
     createdAt: Date;
     updatedAt: Date;
 }
