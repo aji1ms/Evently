@@ -1,4 +1,4 @@
-import mongoose, { Document, mongo, Schema, Types } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 export interface IUser extends Document {
     name: string;
@@ -12,6 +12,7 @@ export interface IUser extends Document {
     authSource: "self" | "google";
     bookings: Types.ObjectId[];
     bookmarks: Types.ObjectId[];
+    notifications: Types.ObjectId[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -50,9 +51,17 @@ export interface ICategory extends Document {
 }
 
 export interface IReview extends Document {
-    user: mongoose.Types.ObjectId;      
-    rating: number;                      
-    comment?: string;                   
+    user: mongoose.Types.ObjectId;
+    rating: number;
+    comment?: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface INotification extends Document {
+    title: string;
+    message: string;
+    isRead: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -61,6 +70,5 @@ export interface IBooking extends Document { }
 
 export interface IBookmark extends Document { }
 
-export interface INotification extends Document { }
 
 

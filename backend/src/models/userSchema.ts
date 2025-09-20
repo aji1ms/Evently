@@ -55,6 +55,17 @@ const userSchema = new Schema<IUser>(
             type: Schema.Types.ObjectId,
             ref: "Bookmark"
         }],
+        notifications: [{
+            notification: {
+                type: Schema.Types.ObjectId,
+                ref: "Notification",
+                required: true
+            },
+            isRead: {
+                type: Boolean,
+                default: false
+            },
+        }]
     },
     { timestamps: true }
 );
