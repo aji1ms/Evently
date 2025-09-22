@@ -15,7 +15,7 @@ const authenticateUser = (allowedRoles: string[] = []) => {
         try {
             const token = req.cookies.jwt;
             if (!token) {
-                res.status(401).json({ message: "Not authorized, no token" });
+                res.status(401).json({ message: "Not authorized, no token, please login!" });
                 return;
             }
 

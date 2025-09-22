@@ -68,7 +68,11 @@ export interface INotification extends Document {
 
 export interface IBooking extends Document { }
 
-export interface IBookmark extends Document { }
+export interface IBookmark extends Document {
+    user: mongoose.Types.ObjectId;
+    event: mongoose.Types.ObjectId;
+    createdAt: Date;
+}
 
 
 
