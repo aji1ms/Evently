@@ -6,6 +6,7 @@ const userController = require("../controllers/admin/userController");
 const categoryController = require("../controllers/admin/categoryController");
 const eventController = require("../controllers/admin/eventController");
 const notificationController = require("../controllers/admin/notificationController")
+const reviewController = require("../controllers/admin/reviewController")
 
 // Login Management
 
@@ -39,5 +40,11 @@ router.post("/createNotification", authenticateUser(["admin"]), notificationCont
 router.patch("/editNotification/:id", authenticateUser(["admin"]), notificationController.editNotification);
 router.delete("/deleteNotification/:id", authenticateUser(["admin"]), notificationController.deleteNotification);
 router.get("/notifications", authenticateUser(["admin"]), notificationController.getNotifications);
+
+// Review Management
+
+router.get("/reviews", authenticateUser(["admin"]), reviewController.getReviews);
+router.delete("/deleteReview/:id", authenticateUser(["admin"]), reviewController.delteReview);
+
 
 module.exports = router;

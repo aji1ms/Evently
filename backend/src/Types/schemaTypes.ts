@@ -52,6 +52,7 @@ export interface ICategory extends Document {
 
 export interface IReview extends Document {
     user: mongoose.Types.ObjectId;
+    name: string;
     rating: number;
     comment?: string;
     createdAt: Date;
