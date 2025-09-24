@@ -67,7 +67,19 @@ export interface INotification extends Document {
     updatedAt: Date;
 }
 
-export interface IBooking extends Document { }
+export interface IBooking extends Document {
+    user: Types.ObjectId;
+    event: Types.ObjectId;
+    totalQuantity: number;
+    totalAmount: number;
+    bookingDate: Date;
+    status: "pending" | "completed" | "cancelled";
+    paymentStatus: "pending" | "paid" | "failed";
+    paymentMethod: "card" | "paypal" | "stripe";
+    transactionId?: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 export interface IBookmark extends Document {
     user: mongoose.Types.ObjectId;

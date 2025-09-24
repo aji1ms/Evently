@@ -4,6 +4,8 @@ const router = express.Router();
 const userController = require("../controllers/user/authController");
 const bookmarkController = require("../controllers/user/bookmarkController");
 const reviewController = require("../controllers/user/reviewController");
+const checkoutController = require("../controllers/user/checkoutController");
+const bookingController = require("../controllers/user/bookingController");
 
 // Login Management
 
@@ -22,4 +24,13 @@ router.get("/bookmarks", authenticateUser(["user"]), bookmarkController.getBookm
 
 router.post("/createReview", authenticateUser(["user"]), reviewController.createReview);
 
-module.exports = router;
+// Checkout Management
+
+router.post("/checkout", authenticateUser(["user"]), checkoutController.checkout);
+
+// Booking Managment
+
+router.get("/bookings", authenticateUser(["user"]), bookingController.getBookings);
+router.get("/booking/:id", authenticateUser(["user"]), bookingController.bookingDetails);
+
+module.exports = router; 
