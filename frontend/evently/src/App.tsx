@@ -21,10 +21,12 @@ import Notifications from "./pages/Admin/Notifications";
 import Reports from "./pages/Admin/Reports";
 import AddEvents from "./pages/Admin/AddEvents";
 import AdminLogin from "./pages/Admin/AdminLogin";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         {/* User */}
         <Route>

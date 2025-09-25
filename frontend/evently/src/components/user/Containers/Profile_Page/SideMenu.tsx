@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import type { SideMenuItem } from '../../../../../utils/Data';
+import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { logout } from '../../../../Redux/slices/authSlice';
+import toast from 'react-hot-toast';
 
 interface SideMenuProps {
     menuData: SideMenuItem[];
@@ -8,13 +12,27 @@ interface SideMenuProps {
 }
 
 const SideMenu = ({ menuData, isFixed = false }: SideMenuProps) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleClick = (route: string) => {
+    const handleClick = async (route: string) => {
         if (route === '/logout') {
-            console.log('Logging out...');
+            try {
+                await axios.post(
+                    `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
+                    {},
+                    { withCredentials: true }
+                );
+                dispatch(logout());
+                toast.success("Logged out successfully", { duration: 2000 });
+                navigate("/login");
+
+            } catch (error) {
+                console.error("Logout failed", error);
+                toast.error("Logout failed. Please try again", { duration: 2000 });
+            }
             setIsOpen(false);
             return;
         }

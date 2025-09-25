@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import loginImg from "../../assets/images/loginImg.webp";
 import Inputs from "../../components/user/Inputs/Inputs";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { validateEmail, validatePassword } from "../../../utils/helper";
+import type { AppDispatch, RootState } from "../../Redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../Redux/slices/authSlice";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error, user } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate])
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [error, setError] = useState<string>("");
+    const [err, setError] = useState<string>("");
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,6 +34,7 @@ const Login = () => {
             setError("Password must be at least 6 characters with letters and numbers");
             return;
         }
+        dispatch(loginUser({ email, password }));
         setError("")
     }
 
@@ -56,6 +69,12 @@ const Login = () => {
                                     onChange={({ target }) => setPassword(target.value)}
                                 />
 
+                                {err && (
+                                    <p className='text-red-500 text-sm font-medium'>
+                                        {err}
+                                    </p>
+                                )}
+
                                 {error && (
                                     <p className='text-red-500 text-sm font-medium'>
                                         {error}
@@ -63,10 +82,11 @@ const Login = () => {
                                 )}
 
                                 <button
+                                    disabled={loading}
                                     type='submit'
                                     className='w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition-colors font-medium'
                                 >
-                                    Sign in
+                                    {loading ? "Signing in..." : "Sign in"}
                                 </button>
 
                                 <button

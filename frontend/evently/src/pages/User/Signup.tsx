@@ -1,18 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import signupImg from "../../assets/images/signupImg.webp";
 import Inputs from "../../components/user/Inputs/Inputs";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { validateEmail, validatePassword, validatePhone, validFullName } from "../../../utils/helper";
+import type { AppDispatch, RootState } from "../../Redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../Redux/slices/authSlice";
+import toast from 'react-hot-toast';
 
 const Signup = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error, user } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate])
 
     const [fullName, setFullName] = useState<string>("")
     const [phone, setPhone] = useState<string>("")
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [error, setError] = useState<string>("")
+    const [err, setError] = useState<string>("")
 
-    const handleSignup = (e: React.FormEvent) => {
+    const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validFullName(fullName)) {
@@ -34,6 +47,15 @@ const Signup = () => {
             setError("Password must be at least 6 characters with letters and numbers");
             return;
         }
+        try {
+            const resultAction = await dispatch(registerUser({ name: fullName, email, phone, password })).unwrap();
+
+            toast.success(`Welcome ${resultAction.name}! Registration successful.`, {
+                duration: 2000,
+            });
+        } catch (err) {
+            setError(err as string);
+        }
         setError("")
     }
 
@@ -41,7 +63,7 @@ const Signup = () => {
         <div className="bg-blue-100 min-h-screen flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-6xl rounded-2xl shadow-lg overflow-hidden">
                 <div className="flex flex-col lg:flex-row">
-      
+
                     <div className="flex-1 p-6 sm:p-8 lg:p-12">
                         <div className="max-w-md mx-auto lg:mx-0">
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-900 mb-4">
@@ -81,6 +103,12 @@ const Signup = () => {
                                     onChange={({ target }) => setPassword(target.value)}
                                 />
 
+                                {err && (
+                                    <p className='text-red-500 text-sm font-medium'>
+                                        {err}
+                                    </p>
+                                )}
+
                                 {error && (
                                     <p className='text-red-500 text-sm font-medium'>
                                         {error}
@@ -88,10 +116,11 @@ const Signup = () => {
                                 )}
 
                                 <button
+                                    disabled={loading}
                                     type='submit'
                                     className='w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition-colors font-medium'
                                 >
-                                    Sign up
+                                    {loading ? "Signing up..." : "Sign up"}
                                 </button>
 
                                 <p className='text-sm text-slate-800 text-center'>

@@ -5,8 +5,9 @@ const adminController = require("../controllers/admin/adminController");
 const userController = require("../controllers/admin/userController");
 const categoryController = require("../controllers/admin/categoryController");
 const eventController = require("../controllers/admin/eventController");
-const notificationController = require("../controllers/admin/notificationController")
-const reviewController = require("../controllers/admin/reviewController")
+const notificationController = require("../controllers/admin/notificationController");
+const reviewController = require("../controllers/admin/reviewController");
+const bookingController = require("../controllers/admin/bookingController");
 
 // Login Management
 
@@ -46,5 +47,9 @@ router.get("/notifications", authenticateUser(["admin"]), notificationController
 router.get("/reviews", authenticateUser(["admin"]), reviewController.getReviews);
 router.delete("/deleteReview/:id", authenticateUser(["admin"]), reviewController.delteReview);
 
+// Booking Management
+
+router.get("/bookings", authenticateUser(["admin"]), bookingController.listBookings);
+router.get("/bookings/:id", authenticateUser(["admin"]), bookingController.viewOrderDetails);
 
 module.exports = router;
