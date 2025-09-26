@@ -22,8 +22,25 @@ import Reports from "./pages/Admin/Reports";
 import AddEvents from "./pages/Admin/AddEvents";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "./Redux/slices/auth/authSlice";
+import { fetchAdmin } from "./Redux/slices/admin/adminAuthSlice";
+import type { AppDispatch } from "./Redux/store";
+import AdminProtectedRoute from "./helper/AdminProtectedRoute";
+import UserProtectedRoutes from "./helper/UserProtectedRoutes";
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchUser())
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAdmin());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Toaster position="top-right" reverseOrder={false} />
@@ -37,24 +54,28 @@ function App() {
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/notification-center" element={<NotificationCenter />} />
-          <Route path="/bookmarks" element={<BookMark />} />
-          <Route path="/gpt" element={<GPT />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/tickets" element={<Tickets />} />
-          <Route path="/rateus" element={<RatingPage />} />
+          <Route element={<UserProtectedRoutes />}>
+            <Route path="/notification-center" element={<NotificationCenter />} />
+            <Route path="/bookmarks" element={<BookMark />} />
+            <Route path="/gpt" element={<GPT />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/tickets" element={<Tickets />} />
+            <Route path="/rateus" element={<RatingPage />} />
+          </Route>
         </Route>
         {/* Admin */}
         <Route>
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/users" element={<Users />} />
-          <Route path="/admin/events" element={<EventList />} />
-          <Route path="/admin/addEvents" element={<AddEvents />} />
-          <Route path="/admin/bookings" element={<Bookings />} />
-          <Route path="/admin/notifications" element={<Notifications />} />
-          <Route path="/admin/reports" element={<Reports />} />
-          <Route path="/admin/reviews" element={<Reviews />} />
+          <Route element={<AdminProtectedRoute />}>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/events" element={<EventList />} />
+            <Route path="/admin/addEvents" element={<AddEvents />} />
+            <Route path="/admin/bookings" element={<Bookings />} />
+            <Route path="/admin/notifications" element={<Notifications />} />
+            <Route path="/admin/reports" element={<Reports />} />
+            <Route path="/admin/reviews" element={<Reviews />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

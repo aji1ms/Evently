@@ -12,7 +12,7 @@ const Profile: React.FC = () => {
 
       {/* Main Content */}
       <div className="flex">
-        <SideMenu menuData={SIDE_MENU_DATA} />
+        <SideMenu menuData={SIDE_MENU_DATA} role="user" />
         <ProfileDetail />
       </div>
       <Footer />

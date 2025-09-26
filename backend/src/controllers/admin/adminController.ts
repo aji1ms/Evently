@@ -23,7 +23,7 @@ const adminLogin = async (req: Request, res: Response): Promise<void> => {
         if (!isMatch) {
             res.status(400).json({ message: "Invalid password!" })
         }
-        const token = generateJWT(res, admin._id as string);
+        const token = generateJWT(res, admin._id as string, "adminToken");
 
         res.status(200).json({ message: "Login successfull!" });
     } catch (error) {
@@ -32,11 +32,43 @@ const adminLogin = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
+// Get Admin
+
+const getAdminInfo = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = req.user?._id;
+        if (!userId) {
+            res.status(401).json({ message: "Not authorized!" });
+            return;
+        }
+
+        const user = await User.findById(userId).select("-password -__v");
+        if (!user) {
+            res.status(404).json({ message: "Admin not found" });
+            return;
+        }
+
+        if (!user.isAdmin) {
+            res.status(403).json({ message: "Access denied. Admin privileges required!" });
+            return;
+        }
+
+        res.status(200).json({
+            message: "Admin info retrieved successfully!",
+            admin: user
+        });
+    } catch (error) {
+        console.error("Get admin Info Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+
 // Admin Logout
 
 const adminLogout = async (req: Request, res: Response): Promise<void> => {
     try {
-        clearJWT(res);
+        clearJWT(res, "adminToken");
         res.status(200).json({ message: "Logout successfull!" });
     } catch (error) {
         console.log("Admin logout error: ", error);
@@ -47,5 +79,6 @@ const adminLogout = async (req: Request, res: Response): Promise<void> => {
 
 module.exports = {
     adminLogin,
+    getAdminInfo,
     adminLogout
 }

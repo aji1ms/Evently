@@ -10,10 +10,10 @@ declare global {
     }
 }
 
-const authenticateUser = (allowedRoles: string[] = []) => {
+const authenticateUser = (allowedRoles: string[] = [], cookieName: string = "jwt") => {
     return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            const token = req.cookies.jwt;
+            const token = req.cookies?.[cookieName];
             if (!token) {
                 res.status(401).json({ message: "Not authorized, no token, please login!" });
                 return;

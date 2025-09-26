@@ -6,7 +6,7 @@ import SideMenu from "../../components/user/Containers/Profile_Page/SideMenu";
 const AddEvents = () => {
     return (
         <div className="flex">
-            <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} />
+            <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} role="admin" />
             <div className="flex-1 min-h-screen py-8 px-4 md:ml-80">
                 <div className="w-full mx-auto">
                     {/* Header */}

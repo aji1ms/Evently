@@ -68,12 +68,30 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+export const fetchUser = createAsyncThunk(
+    "auth/fetchUser",
+    async (_, { dispatch }) => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/getUser`,
+                { withCredentials: true }
+            );
+            dispatch(setUser(res.data));
+        } catch (err) {
+            dispatch(setUser(null));
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         logout(state) {
             state.user = null;
+        },
+        setUser(state, action) {
+            state.user = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -107,5 +125,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;

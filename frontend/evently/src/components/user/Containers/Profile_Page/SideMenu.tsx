@@ -3,15 +3,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import type { SideMenuItem } from '../../../../../utils/Data';
 import axios from 'axios';
 import { useDispatch } from "react-redux";
-import { logout } from '../../../../Redux/slices/authSlice';
+import { logout } from '../../../../Redux/slices/auth/authSlice';
 import toast from 'react-hot-toast';
+import { adminLogout } from '../../../../Redux/slices/admin/adminAuthSlice';
 
 interface SideMenuProps {
     menuData: SideMenuItem[];
     isFixed?: boolean;
+    role: "user" | "admin";
 }
 
-const SideMenu = ({ menuData, isFixed = false }: SideMenuProps) => {
+const SideMenu = ({ menuData, isFixed = false, role }: SideMenuProps) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,14 +22,25 @@ const SideMenu = ({ menuData, isFixed = false }: SideMenuProps) => {
     const handleClick = async (route: string) => {
         if (route === '/logout') {
             try {
-                await axios.post(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
-                    {},
-                    { withCredentials: true }
-                );
-                dispatch(logout());
+                if (role === "admin") {
+                    await axios.post(
+                        `${import.meta.env.VITE_BACKEND_URL}/api/admin/logout`,
+                        {},
+                        { withCredentials: true }
+                    );
+                    dispatch(adminLogout());
+                    navigate("/admin/login");
+                } else {
+                    await axios.post(
+                        `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
+                        {},
+                        { withCredentials: true }
+                    );
+                    dispatch(logout());
+                    navigate("/login");
+                }
+
                 toast.success("Logged out successfully", { duration: 2000 });
-                navigate("/login");
 
             } catch (error) {
                 console.error("Logout failed", error);

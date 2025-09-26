@@ -58,7 +58,7 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({ message: "Invalid password!" });
             return;
         }
-        const token = generateJWT(res, user._id as string);
+        const token = generateJWT(res, user._id as string, "userToken");
 
         res.status(200).json({ message: "Login successful!" });
     } catch (error) {
@@ -94,7 +94,7 @@ const getUserInfo = async (req: Request, res: Response): Promise<void> => {
 
 const logoutUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        clearJWT(res);
+        clearJWT(res, "userToken");
         res.status(200).json({ message: "Logout successfull!" });
     } catch (error) {
         console.error("Logout error:", error);

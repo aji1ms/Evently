@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import loginImg from "../../assets/images/loginImg.webp";
 import Inputs from "../../components/user/Inputs/Inputs";
 import { validateEmail, validatePassword } from "../../../utils/helper";
+import { adminLogin } from "../../Redux/slices/admin/adminAuthSlice";
+import type { RootState, AppDispatch } from "../../Redux/store";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
 
 const AdminLogin = () => {
 
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+    const { loading, error, admin } = useSelector((state: RootState) => state.adminAuth);
+
+    useEffect(() => {
+        if (admin) {
+            navigate("/admin");
+        }
+    }, [admin, navigate])
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [error, setError] = useState<string>("");
+    const [err, setError] = useState<string>("");
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validateEmail(email)) {
@@ -20,6 +36,11 @@ const AdminLogin = () => {
         if (!validatePassword(password)) {
             setError("Password must be at least 6 characters with letters and numbers");
             return;
+        }
+        const resultAction = await dispatch(adminLogin({ email, password }));
+        if (adminLogin.fulfilled.match(resultAction)) {
+            toast.success("Admin login successful!", { duration: 2000 });
+            navigate("/admin");
         }
         setError("")
     }
@@ -55,6 +76,12 @@ const AdminLogin = () => {
                                     onChange={({ target }) => setPassword(target.value)}
                                 />
 
+                                {err && (
+                                    <p className='text-red-500 text-sm font-medium'>
+                                        {err}
+                                    </p>
+                                )}
+
                                 {error && (
                                     <p className='text-red-500 text-sm font-medium'>
                                         {error}
@@ -62,10 +89,11 @@ const AdminLogin = () => {
                                 )}
 
                                 <button
+                                    disabled={loading}
                                     type='submit'
                                     className='w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition-colors font-medium'
                                 >
-                                    Log in
+                                    {loading ? "Loging in..." : "Login in"}
                                 </button>
                             </form>
                         </div>

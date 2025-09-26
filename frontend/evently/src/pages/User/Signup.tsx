@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { validateEmail, validatePassword, validatePhone, validFullName } from "../../../utils/helper";
 import type { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Redux/slices/authSlice";
+import { registerUser } from "../../Redux/slices/auth/authSlice";
 import toast from 'react-hot-toast';
 
 const Signup = () => {

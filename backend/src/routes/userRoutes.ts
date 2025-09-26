@@ -11,26 +11,26 @@ const bookingController = require("../controllers/user/bookingController");
 
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
-router.get("/getUser", authenticateUser(["user"]), userController.getUserInfo);
-router.post("/logout", userController.logoutUser);
+router.get("/getUser", authenticateUser(["user"], "userToken"), userController.getUserInfo);
+router.post("/logout", authenticateUser(["user"], "userToken"), userController.logoutUser);
 
 // Bookmark Management
 
-router.post("/addToBookmark", authenticateUser(["user"]), bookmarkController.addToBookmark);
-router.delete("/removeBookmark", authenticateUser(["user"]), bookmarkController.removeFromBookmark);
-router.get("/bookmarks", authenticateUser(["user"]), bookmarkController.getBookmarks);
+router.post("/addToBookmark", authenticateUser(["user"], "userToken"), bookmarkController.addToBookmark);
+router.delete("/removeBookmark", authenticateUser(["user"], "userToken"), bookmarkController.removeFromBookmark);
+router.get("/bookmarks", authenticateUser(["user"], "userToken"), bookmarkController.getBookmarks);
 
 // Review Management
 
-router.post("/createReview", authenticateUser(["user"]), reviewController.createReview);
+router.post("/createReview", authenticateUser(["user"], "userToken"), reviewController.createReview);
 
 // Checkout Management
 
-router.post("/checkout", authenticateUser(["user"]), checkoutController.checkout);
+router.post("/checkout", authenticateUser(["user"], "userToken"), checkoutController.checkout);
 
 // Booking Managment
 
-router.get("/bookings", authenticateUser(["user"]), bookingController.getBookings);
-router.get("/booking/:id", authenticateUser(["user"]), bookingController.bookingDetails);
+router.get("/bookings", authenticateUser(["user"], "userToken"), bookingController.getBookings);
+router.get("/booking/:id", authenticateUser(["user"], "userToken"), bookingController.bookingDetails);
 
 module.exports = router; 

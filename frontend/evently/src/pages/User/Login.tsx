@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { validateEmail, validatePassword } from "../../../utils/helper";
 import type { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../Redux/slices/authSlice";
+import { loginUser } from "../../Redux/slices/auth/authSlice";
 
 const Login = () => {
     const navigate = useNavigate();
