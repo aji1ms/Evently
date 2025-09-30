@@ -1,17 +1,51 @@
-import { Edit, Mail, Phone, Shield, ShieldOff, Users } from 'lucide-react'
-import type { User } from './UserManagement'
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from '../../../../Redux/store';
+import { editUserStatus, editUser } from '../../../../Redux/slices/admin/adminUsersSlice';
+import { Mail, Phone, Shield, ShieldOff, Users, UserRoundPen } from 'lucide-react';
+import type { User } from "../../../../Redux/slices/admin/adminUsersSlice";
+import toast from 'react-hot-toast';
+import ToastCustomAlert from "../../../user/Inputs/ToastCustomAlert";
 
 interface UsersData {
-    mockUsers: User[]
+    userDatas: User[]
 }
 
-const UserTable = ({ mockUsers }: UsersData) => {
+const UserTable = ({ userDatas }: UsersData) => {
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleToggleBlock = (id: string, currentStatus: boolean) => {
+        const action = currentStatus ? "unblock" : "block";
+        ToastCustomAlert(
+            `Are you sure you want to ${action} this user?`,
+            () => {
+                dispatch(editUserStatus({ userId: id, isBlocked: !currentStatus }))
+                    .unwrap()
+                    .then(() => toast.success(`User ${action}ed successfully!`, { duration: 2000 }))
+                    .catch((err) => toast.error(err, { duration: 2000 }));
+            }
+        );
+    };
+
+    const handleEditUser = (id: string, currentStatus: boolean, role: string) => {
+        const action = currentStatus ? 'user' : 'admin';
+        const newRole = role === "admin" ? "user" : "admin";
+        ToastCustomAlert(
+            `Are you sure you want to make this person as ${action}?`,
+            () => {
+                dispatch(editUser({ userId: id, isAdmin: !currentStatus, role: newRole }))
+                    .unwrap()
+                    .then(() => toast.success("User edited sucessfully!", { duration: 2000 }))
+                    .catch((err) => toast.error(err, { duration: 2000 }));
+            }
+        )
+    };
+
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
             <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-900">
-                        Users (6)
+                        Users {userDatas.length}
                     </h3>
                 </div>
             </div>
@@ -29,17 +63,19 @@ const UserTable = ({ mockUsers }: UsersData) => {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {mockUsers.map((user) => (
-                            <tr key={user.id} className="hover:bg-gray-50">
+                        {userDatas.map((user) => (
+                            <tr key={user._id} className="hover:bg-gray-50">
 
                                 <td className="px-6 py-4">
                                     <div className="flex items-center">
                                         <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                            <span className="text-sm font-semibold text-blue-600">{user.avatar}</span>
+                                            <span className="text-sm font-semibold text-blue-600">
+                                                {(user.avatar && user.avatar !== "" ? user.avatar : user.name?.slice(0, 2)?.toUpperCase()) || "NA"}
+                                            </span>
                                         </div>
                                         <div>
                                             <div className="font-semibold text-gray-900">{user.name}</div>
-                                            <div className="text-sm text-gray-600">ID: {user.id}</div>
+                                            <div className="text-sm text-gray-600">ID: {user._id}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -59,37 +95,40 @@ const UserTable = ({ mockUsers }: UsersData) => {
 
                                 <td className="px-6 py-4">
                                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                         ${user.status == "active" ? "bg-green-200" : "bg-red-200"}`}>
-                                        {user.status}
+                                         ${user.isBlocked == false ? "bg-green-200" : "bg-red-200"}`}>
+                                        {user.isBlocked == false ? "Active" : "Blocked"}
                                     </span>
                                 </td>
 
                                 <td className="px-6 py-4">
                                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                        ${user.role == "admin" ? "bg-yellow-200" : "bg-purple-300"}`}>
+                                        ${user.isAdmin ? "bg-yellow-200" : "bg-purple-300"}`}>
                                         {user.role}
                                     </span>
                                 </td>
 
                                 <td className="px-6 py-4 text-sm">
-                                    <div className="text-gray-900">{user.totalBookings} bookings</div>
-                                    <div className="text-gray-600">${user.totalSpent} spent</div>
+                                    <div className="text-gray-900">{user.bookings?.length || 0} bookings</div>
                                 </td>
 
                                 <td className="px-6 py-4">
                                     <div className="flex items-center space-x-2">
                                         <button
-                                            className={`p-2 rounded-lg text-sm font-medium ${user.status === 'blocked'
+                                            className={`p-2 rounded-lg text-sm font-medium ${user.isBlocked
                                                 ? 'bg-green-100 text-green-700 hover:bg-green-200'
                                                 : 'bg-red-100 text-red-700 hover:bg-red-200'
                                                 }`}
-                                            title={user.status === 'blocked' ? 'Unblock User' : 'Block User'}
+                                            title={user.isBlocked === true ? 'Unblock User' : 'Block User'}
+                                            onClick={() => handleToggleBlock(user._id, user.isBlocked)}
                                         >
-                                            {user.status === 'blocked' ? <Shield className="w-4 h-4" /> : <ShieldOff className="w-4 h-4" />}
+                                            {user.isBlocked ? <Shield className="w-4 h-4" /> : <ShieldOff className="w-4 h-4" />}
                                         </button>
 
-                                        <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50" title="Edit User">
-                                            <Edit className="w-4 h-4" />
+                                        <button className="p-2 text-gray-600 rounded-lg bg-blue-300 hover:bg-blue-400"
+                                            title={user.isAdmin ? 'Admin' : 'User'}
+                                            onClick={() => handleEditUser(user._id, user.isAdmin, user.role)}
+                                        >
+                                            <UserRoundPen className="w-4 h-4" />
                                         </button>
                                     </div>
                                 </td>
@@ -99,7 +138,7 @@ const UserTable = ({ mockUsers }: UsersData) => {
                 </table>
             </div>
 
-            {mockUsers.length === 0 && (
+            {userDatas.length === 0 && (
                 <div className="text-center py-12">
                     <Users className="mx-auto h-12 w-12 text-gray-400" />
                     <h3 className="mt-2 text-sm font-semibold text-gray-900">No users found</h3>

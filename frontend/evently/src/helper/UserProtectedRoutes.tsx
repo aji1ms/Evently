@@ -8,7 +8,7 @@ const UserProtectedRoutes: React.FC = () => {
     const user = useSelector((state: RootState) => state.auth.user);
 
     if (!user) {
-        toast.error("Please login to access this page!", { duration: 2000 });
+        toast.error("Please login!", { duration: 2000 });
         return <Navigate to="/login" replace />;
     }
 

@@ -39,9 +39,6 @@ const SideMenu = ({ menuData, isFixed = false, role }: SideMenuProps) => {
                     dispatch(logout());
                     navigate("/login");
                 }
-
-                toast.success("Logged out successfully", { duration: 2000 });
-
             } catch (error) {
                 console.error("Logout failed", error);
                 toast.error("Logout failed. Please try again", { duration: 2000 });

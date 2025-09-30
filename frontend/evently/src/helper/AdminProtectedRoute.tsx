@@ -8,7 +8,7 @@ const AdminProtectedRoute: React.FC = () => {
     const admin = useSelector((state: RootState) => state.adminAuth.admin);
 
     if (!admin) {
-        toast.error("Please Login", { duration: 2000 });
+        toast.error("Please Login!", { duration: 2000 });
         return <Navigate to="/admin/login" replace />;
     }
 
