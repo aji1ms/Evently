@@ -1,4 +1,4 @@
-import { User, LogOut, Ticket, Star, LayoutDashboard, TicketPercent, Bookmark, Bell, ChartNoAxesCombined, CirclePlus } from 'lucide-react';
+import { User, LogOut, Ticket, Star, LayoutDashboard, TicketPercent, Bookmark, Bell, ChartNoAxesCombined, CirclePlus, LayoutList } from 'lucide-react';
 
 export interface SideMenuItem {
     _id: string;
@@ -49,42 +49,48 @@ export const SIDE_ADMIN_DATA: SideMenuItem[] = [
     },
     {
         _id: "03",
+        label: "Category",
+        icon: LayoutList,
+        path: "/admin/category"
+    },
+    {
+        _id: "04",
         label: "Events",
         icon: TicketPercent,
         path: "/admin/events"
     },
     {
-        _id: "04",
+        _id: "05",
         label: "Add Events",
         icon: CirclePlus,
         path: "/admin/addEvents"
     },
     {
-        _id: "05",
+        _id: "06",
         label: "Bookings",
         icon: Bookmark,
         path: "/admin/bookings"
     },
     {
-        _id: "06",
+        _id: "07",
         label: "Notifications",
         icon: Bell,
         path: "/admin/notifications"
     },
     {
-        _id: "07",
+        _id: "08",
         label: "Report",
         icon: ChartNoAxesCombined,
         path: "/admin/reports"
     },
     {
-        _id: "08",
+        _id: "09",
         label: "Reviews",
         icon: Star,
         path: "/admin/reviews"
     },
     {
-        _id: "09",
+        _id: "10",
         label: "Logout",
         icon: LogOut,
         path: "/logout"

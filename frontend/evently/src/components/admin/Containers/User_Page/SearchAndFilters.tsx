@@ -1,4 +1,3 @@
-// SearchAndFilters.tsx
 import { Search } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../../../../Redux/store';
@@ -35,12 +34,12 @@ const SearchAndFilters = () => {
 
     const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setFilters({ status: e.target.value }));
-        dispatch(setPage(1)); 
+        dispatch(setPage(1));
     };
 
     const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setFilters({ role: e.target.value }));
-        dispatch(setPage(1)); 
+        dispatch(setPage(1));
     };
 
     const handleClearFilters = () => {

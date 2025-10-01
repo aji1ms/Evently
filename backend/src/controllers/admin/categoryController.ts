@@ -6,7 +6,7 @@ const Category = require("../../models/categorySchema");
 const addCategory = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, description } = req.body;
-     
+
         if (!name || !description) {
             res.status(400).json({ message: "Name and description are required!" });
             return;
@@ -25,7 +25,10 @@ const addCategory = async (req: Request, res: Response): Promise<void> => {
         const newCategory = new Category({ name: cleanName, description });
         await newCategory.save();
 
-        res.status(201).json({ message: "Category created successfully!" });
+        res.status(201).json({
+            message: "Category created successfully!",
+            data: newCategory,
+        });
     } catch (error) {
         console.log("Error adding category: ", error);
         res.status(500).json({ message: "Internal server error" });
@@ -65,7 +68,10 @@ const editCategory = async (req: Request, res: Response): Promise<void> => {
             description,
         }, { new: true });
 
-        res.status(200).json({ message: "Category updated successfully!" });
+        res.status(200).json({
+            message: "Category updated successfully!",
+            data: updateCategory,
+        });
     } catch (error) {
         console.log("Error edit category", error);
         res.status(500).json({ message: "Internal server error" });
@@ -108,7 +114,10 @@ const toggleCategoryStatus = async (req: Request, res: Response): Promise<void> 
 
         const status = isActive ? "activated" : "blocked";
 
-        res.status(200).json({ message: `Category ${status} successfully!` })
+        res.status(200).json({
+            message: `Category ${status} successfully!`,
+            data: updateCategory,
+        })
     } catch (error) {
         console.log("Error toggling status category: ", error);
         res.status(500).json({ message: "Internal Server error" });
@@ -121,7 +130,7 @@ const getAllCategories = async (req: Request, res: Response): Promise<void> => {
     try {
         const { search } = req.query;
 
-        let query: any = { isActive: true };
+        let query: any = {};
 
         if (search) {
             query.name = { $regex: search, $options: 'i' };

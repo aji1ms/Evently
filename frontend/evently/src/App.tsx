@@ -29,6 +29,7 @@ import { fetchAdmin } from "./Redux/slices/admin/adminAuthSlice";
 import type { AppDispatch } from "./Redux/store";
 import AdminProtectedRoute from "./helper/AdminProtectedRoute";
 import UserProtectedRoutes from "./helper/UserProtectedRoutes";
+import Category from "./pages/Admin/Category";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -69,6 +70,7 @@ function App() {
           <Route element={<AdminProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/category" element={<Category />} />
             <Route path="/admin/events" element={<EventList />} />
             <Route path="/admin/addEvents" element={<AddEvents />} />
             <Route path="/admin/bookings" element={<Bookings />} />

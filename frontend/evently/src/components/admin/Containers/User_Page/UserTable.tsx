@@ -42,17 +42,10 @@ const UserTable = ({ userDatas }: UsersData) => {
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-            <div className="p-6 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                        Users {userDatas.length}
-                    </h3>
-                </div>
-            </div>
 
             <div className="overflow-x-auto">
                 <table className="w-full">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-100">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
@@ -117,14 +110,14 @@ const UserTable = ({ userDatas }: UsersData) => {
                                             className={`p-2 rounded-lg text-sm font-medium ${user.isBlocked
                                                 ? 'bg-green-100 text-green-700 hover:bg-green-200'
                                                 : 'bg-red-100 text-red-700 hover:bg-red-200'
-                                                }`}
+                                                } cursor-pointer`}
                                             title={user.isBlocked === true ? 'Unblock User' : 'Block User'}
                                             onClick={() => handleToggleBlock(user._id, user.isBlocked)}
                                         >
                                             {user.isBlocked ? <Shield className="w-4 h-4" /> : <ShieldOff className="w-4 h-4" />}
                                         </button>
 
-                                        <button className="p-2 text-gray-600 rounded-lg bg-blue-300 hover:bg-blue-400"
+                                        <button className="p-2 text-gray-600 rounded-lg bg-blue-300 hover:bg-blue-400 cursor-pointer"
                                             title={user.isAdmin ? 'Admin' : 'User'}
                                             onClick={() => handleEditUser(user._id, user.isAdmin, user.role)}
                                         >
