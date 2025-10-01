@@ -43,7 +43,10 @@ const createNotification = async (req: Request, res: Response): Promise<void> =>
 
         await User.bulkWrite(userUpdates);
 
-        res.status(201).json({ message: `Notification sent to ${users.length} users successfully!` })
+        res.status(201).json({
+            message: `Notification sent to ${users.length} users successfully!`,
+            data: notification,
+        })
     } catch (error) {
         console.log("Error creating notification: ", error);
         res.status(500).json({ message: "Internal server error" });
@@ -72,7 +75,10 @@ const editNotification = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        res.status(200).json({ message: "Notification updated successfully!" });
+        res.status(200).json({
+            message: "Notification updated successfully!",
+            data: updatedNotification,
+        });
     } catch (error) {
         console.log("Error Editing notification: ", error);
         res.status(500).json({ message: "Internal server error" });
@@ -112,7 +118,11 @@ const deleteNotification = async (req: Request, res: Response): Promise<void> =>
 
 const getNotifications = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { search } = req.query;
+        const {
+            search,
+            page = 1,
+            limit = 5,
+        } = req.query;
 
         const query: any = {};
 
@@ -120,18 +130,32 @@ const getNotifications = async (req: Request, res: Response): Promise<void> => {
             query.title = { $regex: search, $options: 'i' };
         }
 
-        const notifications = await Notification.find(query).sort({ createdAt: -1 });
+        const pageNum = parseInt(page as string);
+        const limitNum = parseInt(limit as string);
+        const skip = (pageNum - 1) * limitNum;
+
+        const notifications = await Notification.find(query)
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limitNum)
+
+        const totalNotifications = await Notification.countDocuments(query);
+        const totalPages = Math.ceil(totalNotifications / limitNum);
 
         res.status(200).json({
             message: "Notification retrieved successfully!",
             data: notifications,
-            count: notifications.length
+            totalNotifications,
+            totalPages,
+            currentPage: pageNum,
+            hasNext: pageNum < totalPages,
+            hasPrev: pageNum > 1,
         });
     } catch (error) {
         console.log("Error getting notification: ", error);
         res.status(500).json({ message: "Internal server error!" });
     }
-}
+} 
 
 
 module.exports = {

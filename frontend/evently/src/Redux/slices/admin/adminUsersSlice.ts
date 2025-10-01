@@ -30,6 +30,8 @@ interface AdminUsersState {
         totalUsers: number;
         hasNext: boolean;
         hasPrev: boolean;
+        activeUsers?: number;
+        inactiveUsers?: number;
     }
 }
 
@@ -47,7 +49,9 @@ const initialState: AdminUsersState = {
         totalPages: 1,
         totalUsers: 0,
         hasNext: false,
-        hasPrev: false
+        hasPrev: false,
+        activeUsers: 0,
+        inactiveUsers: 0,
     }
 };
 
@@ -68,7 +72,7 @@ export const fetchAllUsers = createAsyncThunk(
             if (status && status !== 'all') queryParams.append('status', status);
             if (role && role !== 'all') queryParams.append('role', role);
             if (page) queryParams.append('page', page.toString());
-            queryParams.append('limit', '6');
+            queryParams.append('limit', '5');
 
             const res = await axios.get(
                 `${import.meta.env.VITE_BACKEND_URL}/api/admin/users?${queryParams}`,
@@ -82,7 +86,9 @@ export const fetchAllUsers = createAsyncThunk(
                     totalPages: res.data.totalPages,
                     totalUsers: res.data.totalUsers,
                     hasNext: res.data.hasNext,
-                    hasPrev: res.data.hasPrev
+                    hasPrev: res.data.hasPrev,
+                    activeUsers: res.data.activeUsers,
+                    inactiveUsers: res.data.inactiveUsers,
                 }
             };
         } catch (error: any) {
@@ -169,7 +175,15 @@ const adminUserSlice = createSlice({
             .addCase(fetchAllUsers.fulfilled, (state, action) => {
                 state.loading = false;
                 state.users = action.payload.users;
-                state.pagination = action.payload.pagination;
+                state.pagination = {
+                    currentPage: action.payload.pagination.currentPage,
+                    totalPages: action.payload.pagination.totalPages,
+                    totalUsers: action.payload.pagination.totalUsers,
+                    hasNext: action.payload.pagination.hasNext,
+                    hasPrev: action.payload.pagination.hasPrev,
+                    activeUsers: action.payload.pagination.activeUsers,
+                    inactiveUsers: action.payload.pagination.inactiveUsers,
+                };
             })
             .addCase(fetchAllUsers.rejected, (state, action) => {
                 state.loading = false;

@@ -30,8 +30,7 @@ const UserManagement: React.FC = () => {
             toast.error(error, { duration: 2000 });
         }
     }
-
-    const blockedUsers = users.filter(u => u.isBlocked);
+    
     return (
         <div className="flex-1 min-h-screen bg-gray-50 p-6 md:ml-80">
             <div className="max-w-7xl mx-auto">
@@ -63,9 +62,15 @@ const UserManagement: React.FC = () => {
                     />
 
                     <StatsCard
+                        title="Active Users"
+                        value={pagination?.activeUsers || 0}
+                        icon={<UserX className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <StatsCard
                         title="Blocked Users"
-                        value={blockedUsers?.length || 0}
-                        icon={<UserX className="w-6 h-6 text-purple-600" />}
+                        value={pagination?.inactiveUsers || 0}
+                        icon={<UserX className="w-6 h-6 text-red-600" />}
                     />
                 </div>
 

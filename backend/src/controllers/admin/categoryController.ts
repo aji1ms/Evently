@@ -128,7 +128,12 @@ const toggleCategoryStatus = async (req: Request, res: Response): Promise<void> 
 
 const getAllCategories = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { search } = req.query;
+        const {
+            search,
+            status,
+            page = 1,
+            limit = 5,
+        } = req.query;
 
         let query: any = {};
 
@@ -136,12 +141,40 @@ const getAllCategories = async (req: Request, res: Response): Promise<void> => {
             query.name = { $regex: search, $options: 'i' };
         }
 
-        const categories = await Category.find(query).sort({ createdAt: -1 });
+        if (status && status !== 'all') {
+            query.isActive = status == 'active'
+        }
+
+        const pageNum = parseInt(page as string);
+        const limitNum = parseInt(limit as string);
+        const skip = (pageNum - 1) * limitNum;
+
+        const categories = await Category.find(query)
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limitNum)
+
+        const activeCategories = await Category.countDocuments({ ...query, isActive: true });
+        const inactiveCategories = await Category.countDocuments({ ...query, isActive: false });
+
+        const totalCategories = await Category.countDocuments(query);
+        const totalPages = Math.ceil(totalCategories / limitNum);
+
+        if (!categories) {
+            res.status(500).json({ message: "Category not found!" });
+            return
+        }
 
         res.status(200).json({
             message: "Categories retrieved successfully!",
             data: categories,
-            count: categories.length
+            totalCategories,
+            totalPages,
+            currentPage: pageNum,
+            hasNext: pageNum < totalPages,
+            hasPrev: pageNum > 1,
+            activeCategories,
+            inactiveCategories
         });
     } catch (error) {
         console.log("Error getting category", error);

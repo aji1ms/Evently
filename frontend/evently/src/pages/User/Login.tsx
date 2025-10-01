@@ -6,6 +6,7 @@ import { validateEmail, validatePassword } from "../../../utils/helper";
 import type { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../Redux/slices/auth/authSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Login = () => {
     const [password, setPassword] = useState<string>("");
     const [err, setError] = useState<string>("");
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validateEmail(email)) {
@@ -34,7 +35,8 @@ const Login = () => {
             setError("Password must be at least 6 characters with letters and numbers");
             return;
         }
-        dispatch(loginUser({ email, password }));
+        await dispatch(loginUser({ email, password }));
+        toast.success("Login successfull!", { duration: 2000 });
         setError("")
     }
 

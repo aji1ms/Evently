@@ -13,23 +13,72 @@ interface AdminCategoryState {
     categories: Category[];
     loading: boolean;
     error: string | null;
+    search: string;
+    filters: { status: string };
+    pagination: {
+        currentPage: number;
+        totalPages: number;
+        totalCategories: number;
+        hasNext: boolean;
+        hasPrev: boolean;
+        activeCategories?: number;
+        inactiveCategories?: number;
+    }
 }
 
 const initialState: AdminCategoryState = {
     categories: [],
     loading: false,
-    error: null
+    error: null,
+    search: '',
+    filters: {
+        status: 'all',
+    },
+    pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalCategories: 0,
+        hasNext: false,
+        hasPrev: false,
+        activeCategories: 0,
+        inactiveCategories: 0,
+    }
 }
 
 export const fetchAllCategories = createAsyncThunk(
     "adminCategory/fetchAll",
-    async (_, { rejectWithValue }) => {
+    async (params: {
+        search?: string;
+        status?: string;
+        page?: number;
+    } = {}, { rejectWithValue }) => {
         try {
+
+            const { search, status, page } = params;
+
+            const queryParams = new URLSearchParams();
+            if (search) queryParams.append('search', search);
+            if (status && status !== 'all') queryParams.append('status', status);
+            if (page) queryParams.append('page', page.toString());
+            queryParams.append("limit", '5');
+
             const res = await axios.get(
-                `${import.meta.env.VITE_BACKEND_URL}/api/admin/categories`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/admin/categories?${queryParams}`,
                 { withCredentials: true }
             );
-            return res.data.data;
+
+            return {
+                categories: res.data.data,
+                pagination: {
+                    currentPage: res.data.currentPage,
+                    totalPages: res.data.totalPages,
+                    totalCategories: res.data.totalCategories,
+                    hasNext: res.data.hasNext,
+                    hasPrev: res.data.hasPrev,
+                    activeCategories: res.data.activeCategories,
+                    inactiveCategories: res.data.inactiveCategories,
+                }
+            };
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message || "Failed to fetch categories");
         }
@@ -103,7 +152,22 @@ export const deleteCategory = createAsyncThunk(
 const adminCategorySlice = createSlice({
     name: "adminCategories",
     initialState,
-    reducers: {},
+    reducers: {
+        setSearch: (state, action: PayloadAction<string>) => {
+            state.search = action.payload;
+        },
+        setFilters: (state, action: PayloadAction<{ status?: string }>) => {
+            state.filters = { ...state.filters, ...action.payload };
+        },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.pagination.currentPage = action.payload;
+        },
+        clearFilters: (state) => {
+            state.search = '';
+            state.filters = { status: 'all' };
+            state.pagination.currentPage = 1;
+        }
+    },
     extraReducers: (builder) => {
         builder
             // Fetch Categories
@@ -113,7 +177,16 @@ const adminCategorySlice = createSlice({
             })
             .addCase(fetchAllCategories.fulfilled, (state, action) => {
                 state.loading = false;
-                state.categories = action.payload;
+                state.categories = action.payload.categories;
+                state.pagination = {
+                    currentPage: action.payload.pagination.currentPage,
+                    totalPages: action.payload.pagination.totalPages,
+                    totalCategories: action.payload.pagination.totalCategories,
+                    hasNext: action.payload.pagination.hasNext,
+                    hasPrev: action.payload.pagination.hasPrev,
+                    activeCategories: action.payload.pagination.activeCategories,
+                    inactiveCategories: action.payload.pagination.inactiveCategories,
+                };
             })
             .addCase(fetchAllCategories.rejected, (state, action) => {
                 state.error = action.payload as string;
@@ -161,4 +234,5 @@ const adminCategorySlice = createSlice({
     }
 });
 
+export const { setSearch, setFilters, setPage, clearFilters } = adminCategorySlice.actions;
 export default adminCategorySlice.reducer;

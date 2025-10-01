@@ -40,6 +40,9 @@ const userInfo = async (req: Request, res: Response): Promise<void> => {
             .skip(skip)
             .limit(limitNum)
 
+        const activeUsers = await User.countDocuments({ ...query, isBlocked: false });
+        const inactiveUsers = await User.countDocuments({ ...query, isBlocked: true });
+
         const totalUsers = await User.countDocuments(query);
         const totalPages = Math.ceil(totalUsers / limitNum);
 
@@ -51,12 +54,13 @@ const userInfo = async (req: Request, res: Response): Promise<void> => {
         res.status(200).json({
             message: "Users retrieved successfully!",
             data: users,
-            count: users.length,
             totalUsers,
             totalPages,
             currentPage: pageNum,
             hasNext: pageNum < totalPages,
-            hasPrev: pageNum > 1
+            hasPrev: pageNum > 1,
+            activeUsers,
+            inactiveUsers,
         });
     } catch (error) {
         console.log("Error getting user info: ", error);

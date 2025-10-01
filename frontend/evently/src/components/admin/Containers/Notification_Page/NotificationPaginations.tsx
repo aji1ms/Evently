@@ -1,11 +1,11 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../../../../Redux/store';
-import { setPage } from '../../../../Redux/slices/admin/adminUsersSlice';
+import { setPage } from '../../../../Redux/slices/admin/adminNotificationSlice';
 
-const Pagination = () => {
+const NotificationPagination = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { pagination } = useSelector((state: RootState) => state.adminUsers);
+    const { pagination } = useSelector((state: RootState) => state.adminNotifications);
 
     const handlePageChange = (newPage: number) => {
         dispatch(setPage(newPage));
@@ -55,4 +55,4 @@ const Pagination = () => {
     );
 };
 
-export default Pagination;
+export default NotificationPagination;

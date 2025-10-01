@@ -8,35 +8,27 @@ import type { RootState, AppDispatch } from '../../../../Redux/store';
 import { createCategory, fetchAllCategories } from '../../../../Redux/slices/admin/adminCategorySlice';
 import CategorySearchFilter from './CategorySearchFilter';
 import toast from 'react-hot-toast';
+import CategoryPagination from './CategoryPagination';
 
 const CategoryManagement = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { categories, error, loading } = useSelector((state: RootState) => state.adminCategories);
+    const { categories, error, loading, pagination } = useSelector((state: RootState) => state.adminCategories);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
-        dispatch(fetchAllCategories());
+        dispatch(fetchAllCategories({}));
     }, [dispatch]);
 
     const handleAddCategory = async (categoryData: CategoryFormData) => {
         try {
             await dispatch(createCategory(categoryData)).unwrap();
             toast.success(`Category created successfully!`, { duration: 2000 });
-            dispatch(fetchAllCategories());
+            dispatch(fetchAllCategories({}));
             setIsModalOpen(false);
         } catch (err: any) {
             toast.error(error, { duration: 2000 });
         }
     }
-
-    const { active, inactive } = categories.reduce((acc, category) => {
-        if (category.isActive) {
-            acc.active++;
-        } else {
-            acc.inactive++;
-        }
-        return acc;
-    }, { active: 0, inactive: 0 });
 
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:ml-80">
@@ -62,19 +54,19 @@ const CategoryManagement = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
                     <StatsCard
                         title="Total Category"
-                        value={categories?.length || 0}
+                        value={pagination?.totalCategories || 0}
                         icon={<LayoutList className="w-6 h-6 text-blue-600" />}
                     />
 
                     <StatsCard
                         title="Active Category"
-                        value={active || 0}
+                        value={pagination?.activeCategories || 0}
                         icon={<LayoutList className="w-6 h-6 text-green-600" />}
                     />
 
                     <StatsCard
                         title="Inactive Category"
-                        value={inactive || 0}
+                        value={pagination?.inactiveCategories || 0}
                         icon={<LayoutList className="w-6 h-6 text-red-500" />}
                     />
                 </div>
@@ -91,6 +83,7 @@ const CategoryManagement = () => {
                 ) : (
                     <>
                         <CategoryTable categoryDatas={categories} />
+                        <CategoryPagination />
                     </>
                 )}
             </div>
