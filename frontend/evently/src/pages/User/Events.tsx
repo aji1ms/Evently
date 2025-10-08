@@ -3,15 +3,29 @@ import Footer from "../../components/user/Containers/Footer";
 import Header from "../../components/user/Containers/Header";
 import FilterSidebar from "../../components/user/Containers/Events_Page/FilterSidebar";
 import { useEffect, useRef, useState } from "react";
-import EventsContainer from "../../components/user/Containers/Home_Page/EventsContainer";
-import SortOption from "../../components/user/Containers/Events_Page/SortOption";
+import AllEvents from "./AllEvents";
+import SearchOption from "../../components/user/Containers/Events_Page/SearchOption";
+import { useDispatch } from "react-redux";
+import type { AppDispatch, } from "../../Redux/store";
+import { setFilters } from "../../Redux/slices/auth/authEventsSlice";
+import EventPagination from "../../components/user/Containers/Events_Page/EventPagination";
 
 const Events = () => {
+    const dispatch = useDispatch<AppDispatch>();
+
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
+
+    const handleFilterChange = (newFilters: { category?: string; type?: string }) => {
+        dispatch(setFilters(newFilters));
     };
 
     const handleClickOutside = (e: MouseEvent) => {
@@ -46,11 +60,12 @@ const Events = () => {
                 <div ref={sidebarRef}
                     className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300 lg:static lg:translate-x-0`}
                 >
-                    <FilterSidebar />
+                    <FilterSidebar onClose={closeSidebar} onFilterChange={handleFilterChange} />
                 </div>
                 <div className="flex-1 p-4">
-                    <SortOption />
-                    <EventsContainer />
+                    <SearchOption />
+                    <AllEvents />
+                    <EventPagination />
                 </div>
             </div>
             <Footer />

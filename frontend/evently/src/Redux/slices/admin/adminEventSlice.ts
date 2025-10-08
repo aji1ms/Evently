@@ -221,7 +221,7 @@ const adminEventSlice = createSlice({
                 state.error = action.payload as string;
             })
 
-            // Fetch ALl Events
+            // Fetch All Events
             .addCase(fetchAllEvents.pending, (state) => {
                 state.loading = true;
                 state.error = null;

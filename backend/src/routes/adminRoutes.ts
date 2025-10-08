@@ -40,7 +40,7 @@ router.post("/addCategory", authenticateUser(["admin"], "adminToken"), categoryC
 router.post("/editCategory/:id", authenticateUser(["admin"], "adminToken"), categoryController.editCategory);
 router.patch("/categoryStatus/:id", authenticateUser(["admin"], "adminToken"), categoryController.toggleCategoryStatus);
 router.delete("/deleteCategory/:id", authenticateUser(["admin"], "adminToken"), categoryController.deleteCategory);
-router.get("/categories", authenticateUser(["admin"], "adminToken"), categoryController.getAllCategories);
+router.get("/categories", categoryController.getAllCategories);
 
 // Event Management
 

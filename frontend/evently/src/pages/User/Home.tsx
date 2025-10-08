@@ -11,7 +11,7 @@ const Home = () => {
     <div>
       <Header />
       <MainContainer />
-      <EventsContainer showAll={true} />
+      <EventsContainer />
       <GetAboutUsContainer />
       <OverviewContainer />
       <DiscountPoster />

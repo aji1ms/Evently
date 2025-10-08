@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/auth/authSlice";
 import adminAuthReducer from "./slices/admin/adminAuthSlice";
 import adminUsersReducer from "./slices/admin/adminUsersSlice";
 import adminCategorySlice from "./slices/admin/adminCategorySlice";
 import adminNotificationSlice from "./slices/admin/adminNotificationSlice";
 import adminEventSlice from "./slices/admin/adminEventSlice";
+import authReducer from "./slices/auth/authSlice";
+import authEventsReducer from "./slices/auth/authEventsSlice";
 
 const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
 
         // AUTH
         auth: authReducer,
+        authEvents: authEventsReducer,
     },
 })
 export type RootState = ReturnType<typeof store.getState>;

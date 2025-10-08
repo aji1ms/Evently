@@ -6,6 +6,7 @@ const bookmarkController = require("../controllers/user/bookmarkController");
 const reviewController = require("../controllers/user/reviewController");
 const checkoutController = require("../controllers/user/checkoutController");
 const bookingController = require("../controllers/user/bookingController");
+const eventController = require("../controllers/user/eventController");
 
 // Login Management
 
@@ -13,6 +14,11 @@ router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 router.get("/getUser", authenticateUser(["user"], "userToken"), userController.getUserInfo);
 router.post("/logout", authenticateUser(["user"], "userToken"), userController.logoutUser);
+
+// Event Management
+
+router.get("/loadEvents", eventController.loadEvents);
+router.get("/events", eventController.getAllEvents);
 
 // Bookmark Management
 
@@ -33,4 +39,4 @@ router.post("/checkout", authenticateUser(["user"], "userToken"), checkoutContro
 router.get("/bookings", authenticateUser(["user"], "userToken"), bookingController.getBookings);
 router.get("/booking/:id", authenticateUser(["user"], "userToken"), bookingController.bookingDetails);
 
-module.exports = router; 
+module.exports = router;                                             

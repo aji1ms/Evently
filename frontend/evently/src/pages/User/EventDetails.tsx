@@ -60,7 +60,7 @@ const EventDetails: React.FC<{ event?: Event }> = ({ event = sampleEvent }) => {
                             <img
                                 src={event.image}
                                 alt={event.title}
-                                className="w-full h-full object-cover opacity-90"
+                                className="w-full h-full object-fill opacity-90"
                             />
                             <div className="absolute top-6 left-6">
                                 <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${event.type === 'online'
