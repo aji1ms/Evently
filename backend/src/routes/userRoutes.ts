@@ -19,6 +19,7 @@ router.post("/logout", authenticateUser(["user"], "userToken"), userController.l
 
 router.get("/loadEvents", eventController.loadEvents);
 router.get("/events", eventController.getAllEvents);
+router.get("/event/:id", eventController.eventDetails);
 
 // Bookmark Management
 
@@ -39,4 +40,4 @@ router.post("/checkout", authenticateUser(["user"], "userToken"), checkoutContro
 router.get("/bookings", authenticateUser(["user"], "userToken"), bookingController.getBookings);
 router.get("/booking/:id", authenticateUser(["user"], "userToken"), bookingController.bookingDetails);
 
-module.exports = router;                                             
+module.exports = router;                                                          

@@ -1,42 +1,30 @@
-import React from 'react';
-import { Calendar, MapPin, Users, Video, User, Share2, Bookmark } from 'lucide-react';
+import { useEffect } from 'react';
+import { Calendar, MapPin, Users, Video, Clock } from 'lucide-react';
 import Header from '../../components/user/Containers/Header';
+import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../../Redux/store';
+import { getEventDetails } from '../../Redux/slices/auth/authEventsSlice';
+import Footer from '../../components/user/Containers/Footer';
+import EventDetailsShimmer from '../../components/user/ShimmerUI/EventDetailsShimmer';
 
-type EventType = "offline" | "online";
+const EventDetails = () => {
+    const { id } = useParams();
+    const dispatch = useDispatch<AppDispatch>();
+    const { eventDetails, loading } = useSelector((state: RootState) => state.authEvents)
 
-type Event = {
-    id: string;
-    title: string;
-    conductedBy: string;
-    type: EventType;
-    count: number;
-    details: {
-        date: string;
-        time: string;
-        venue?: string;
-    };
-    description: string;
-    image: string;
-};
+    useEffect(() => {
+        if (id) {
+            dispatch(getEventDetails(id))
+        }
+    }, [dispatch, id]);
 
-const sampleEvent: Event = {
-    id: "evt-001",
-    title: "Cyber Security Webinar",
-    conductedBy: "Google",
-    type: "online",
-    count: 1247,
-    details: {
-        date: "2025-09-20",
-        time: "2:00 PM - 4:00 PM",
-        venue: "Google Meet"
-    },
-    description: "All about protecting systems, networks, and data from digital attacks. In this session, you'll learn the essentials of how hackers think, the common threats in today's digital world, and the tools and techniques used to defend against them. From understanding malware and phishing to exploring ethical hacking and secure coding, you'll gain practical knowledge that can help you safeguard both personal and organizational information.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-};
+    if (loading) {
+        return <EventDetailsShimmer />;
+    }
 
-const EventDetails: React.FC<{ event?: Event }> = ({ event = sampleEvent }) => {
-
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString: string | undefined) => {
+        if (!dateString) return 'Date TBA';
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
             weekday: 'short',
@@ -46,136 +34,198 @@ const EventDetails: React.FC<{ event?: Event }> = ({ event = sampleEvent }) => {
         });
     };
 
+    const calculateDiscount = () => {
+        if (!eventDetails?.regularPrice || !eventDetails?.salePrice) return 0;
+        return Math.round(((eventDetails.regularPrice - eventDetails.salePrice) / eventDetails.regularPrice) * 100);
+    };
+
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Header */}
+        <div className="min-h-screen bg-white">
             <Header />
             <div className="bg-gray-700 relative w-full h-[18vh] sm:h-[20vh] md:h-[20vh] lg:h-[20vh] overflow-hidden" />
 
-            <div className="max-w-7xl mx-auto px-6 py-8">
-                <div className="grid lg:grid-cols-3 gap-8">
-                    {/* Main Content */}
-                    <div className="lg:col-span-2 space-y-8">
-                        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-purple-700 h-80">
-                            <img
-                                src={event.image}
-                                alt={event.title}
-                                className="w-full h-full object-fill opacity-90"
-                            />
-                            <div className="absolute top-6 left-6">
-                                <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${event.type === 'online'
-                                    ? 'bg-blue-500 text-white'
-                                    : 'bg-green-500 text-white'
-                                    }`}>
-                                    {event.type === 'online' ? <Video className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
-                                    {event.type === 'online' ? 'Online Event' : 'Offline'}
-                                </span>
-                            </div>
-                        </div>
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                {/* Event Type Badge */}
+                <div className="mb-6">
+                    <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium border ${eventDetails?.eventType === 'online'
+                        ? 'bg-blue-50 text-blue-700 border-blue-200'
+                        : 'bg-green-50 text-green-700 border-green-200'
+                        }`}>
+                        {eventDetails?.eventType === 'online' ? <Video className="w-3.5 h-3.5" /> : <MapPin className="w-3.5 h-3.5" />}
+                        {eventDetails?.eventType === 'online' ? 'Online Event' : 'In-Person Event'}
+                    </span>
+                </div>
 
-                        {/* Event Info */}
-                        <div className="space-y-6">
-                            <div>
-                                <h1 className="text-4xl font-bold text-gray-900 mb-4">{event.title}</h1>
-                                <div className="flex items-center gap-6 text-gray-600">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                            <User className="w-4 h-4 text-blue-600" />
-                                        </div>
-                                        <span>by <strong className="text-gray-900">{event.conductedBy}</strong></span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Users className="w-5 h-5" />
-                                        <span><strong>{event.count.toLocaleString()}</strong> registered</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Description */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
-                                <h2 className="text-xl font-semibold text-gray-900 mb-4">What you will learn:</h2>
-                                <p className="text-gray-700 leading-relaxed">{event.description}</p>
-                                <p className="text-gray-700 leading-relaxed mt-4">
-                                    By the end, you'll know how to spot cyber risks, defend against them, and build a strong
-                                    foundation for a secure digital future.
-                                </p>
-                            </div>
-                        </div>
+                {/* Title Section */}
+                <div className="mb-8">
+                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                        {eventDetails?.title}
+                    </h1>
+                    <div className="flex items-center gap-3 text-sm text-gray-600">
+                        <span>Organized by <strong className="text-gray-900 font-medium">{eventDetails?.organizer}</strong></span>
+                        <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                        <span className="flex items-center gap-1.5">
+                            <Users className="w-4 h-4" />
+                            {(eventDetails?.totalSeats || 0) - (eventDetails?.availableSeats || 0)} attendees
+                        </span>
                     </div>
+                </div>
 
-                    {/* Sidebar */}
-                    <div className="space-y-6">
-                        {/* Pricing Card */}
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                            <div className="p-6">
-                                <div className="flex items-baseline gap-2 mb-6">
-                                    <span className="text-3xl font-bold text-green-600">$200</span>
-                                    <span className="text-gray-500">per ticket</span>
-                                </div>
+                {/* Event Image */}
+                <div className="mb-12 rounded-2xl overflow-hidden bg-gray-100" style={{ aspectRatio: '474/214' }}>
+                    <img
+                        src={eventDetails?.image}
+                        alt={eventDetails?.title}
+                        className="w-full h-full object-cover"
+                    />
+                </div>
 
-                                <button className="w-full bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl hover:bg-blue-700 transition-colors mb-4">
-                                    Buy Ticket
-                                </button>
-
-                                <p className="text-sm text-gray-500 text-center">
-                                    Free cancellation until 24 hours before event
+                <div className="grid lg:grid-cols-3 gap-12">
+                    <div className="lg:col-span-2 space-y-12">
+                        <div>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">About this event</h2>
+                            <div className="prose prose-gray max-w-none">
+                                <p className="text-gray-600 leading-relaxed text-base">
+                                    {eventDetails?.description}
+                                </p>
+                                <p className="text-gray-700 leading-relaxed mt-4">
+                                    Join this event to gain valuable insights, connect with like-minded individuals,
+                                    and acquire practical knowledge that you can apply immediately. Whether you're
+                                    looking to learn new skills, network with professionals, or explore new opportunities,
+                                    this event offers something for everyone.
                                 </p>
                             </div>
                         </div>
 
-                        {/* Event Details Card */}
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                            <h3 className="font-semibold text-gray-900 mb-4">Event Details</h3>
-
-                            <div className="space-y-4">
+                        {/* Event Details Grid */}
+                        <div>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Details</h2>
+                            <div className="space-y-6">
                                 {/* Date & Time */}
-                                <div className="flex items-start gap-3">
-                                    <div className="p-2 bg-red-100 rounded-lg mt-1">
-                                        <Calendar className="w-5 h-5 text-red-600" />
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+                                        <Calendar className="w-5 h-5 text-gray-700" />
                                     </div>
                                     <div>
-                                        <p className="font-medium text-gray-900">{formatDate(event.details.date)}</p>
-                                        <p className="text-gray-600 text-sm">{event.details.time}</p>
+                                        <p className="text-sm text-gray-500 mb-1">Date & Time</p>
+                                        <p className="text-gray-900 font-medium">{formatDate(eventDetails?.eventDate)}</p>
+                                        <p className="text-gray-600 text-sm flex items-center gap-1.5 mt-1">
+                                            <Clock className="w-3.5 h-3.5" />
+                                            {eventDetails?.eventTime}
+                                        </p>
                                     </div>
                                 </div>
 
                                 {/* Location */}
-                                <div className="flex items-start gap-3">
-                                    <div className="p-2 bg-red-100 rounded-lg mt-1">
-                                        {event.type === 'online' ? (
-                                            <Video className="w-5 h-5 text-red-600" />
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+                                        {eventDetails?.eventType === 'online' ? (
+                                            <Video className="w-5 h-5 text-gray-700" />
                                         ) : (
-                                            <MapPin className="w-5 h-5 text-red-600" />
+                                            <MapPin className="w-5 h-5 text-gray-700" />
                                         )}
                                     </div>
                                     <div>
-                                        <p className="font-medium text-gray-900">
-                                            {event.details.venue || 'Online Platform'}
-                                        </p>
-                                        <p className="text-gray-600 text-sm">
-                                            {event.type === 'online' ? 'Link will be shared before event' : 'Address details in confirmation email'}
-                                        </p>
+                                        <p className="text-sm text-gray-500 mb-1">Location</p>
+                                        {eventDetails?.eventType === 'online' ? (
+                                            <>
+                                                <p className="text-gray-900 font-medium">Online Event</p>
+                                                <p className="text-gray-600 text-sm mt-1">
+                                                    Join from anywhere • Link shared via email
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p className="text-gray-900 font-medium">
+                                                    {eventDetails?.location?.venue || 'Venue TBA'}
+                                                </p>
+                                                {eventDetails?.location?.address && (
+                                                    <p className="text-gray-600 text-sm mt-1">
+                                                        {eventDetails.location.address}
+                                                    </p>
+                                                )}
+                                                {(eventDetails?.location?.city || eventDetails?.location?.state) && (
+                                                    <p className="text-gray-600 text-sm">
+                                                        {[eventDetails?.location?.city, eventDetails?.location?.state]
+                                                            .filter(Boolean)
+                                                            .join(', ')}
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        {/* Organizer Card */}
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                            <h3 className="font-semibold text-gray-900 mb-4">Organized By</h3>
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                    {event.conductedBy.charAt(0)}
+                    {/* Sidebar - Sticky Booking Card */}
+                    <div className="lg:col-span-1">
+                        <div className="sticky top-8">
+                            <div className="border border-gray-200 rounded-2xl overflow-hidden">
+                                <div className="p-6 bg-gray-50 border-b border-gray-200">
+                                    <div className="mb-4">
+                                        {eventDetails?.regularPrice && eventDetails?.salePrice &&
+                                            eventDetails.regularPrice > eventDetails.salePrice ? (
+                                            <>
+                                                <div className="flex items-baseline gap-3 mb-2">
+                                                    <span className="text-3xl font-bold text-gray-900">
+                                                        ${eventDetails.salePrice}
+                                                    </span>
+                                                    <span className="text-lg text-gray-400 line-through">
+                                                        ${eventDetails.regularPrice}
+                                                    </span>
+                                                </div>
+                                                <div className="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 rounded-md text-xs font-semibold">
+                                                    Save {calculateDiscount()}%
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="flex items-baseline gap-2">
+                                                <span className="text-3xl font-bold text-gray-900">
+                                                    ${eventDetails?.salePrice || eventDetails?.regularPrice || 0}
+                                                </span>
+                                                <span className="text-sm text-gray-500">per ticket</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {eventDetails?.availableSeats !== undefined && eventDetails.availableSeats > 0 && (
+                                        <p className="text-sm text-gray-600">
+                                            {eventDetails.availableSeats} {eventDetails.availableSeats === 1 ? 'ticket' : 'tickets'} remaining
+                                        </p>
+                                    )}
                                 </div>
-                                <div>
-                                    <h4 className="font-semibold text-gray-900">{event.conductedBy}</h4>
-                                    <p className="text-gray-600 text-sm">Event Host</p>
+
+                                {/* CTA Button */}
+                                <div className="p-6">
+                                    <button
+                                        className="w-full bg-gray-900 text-white font-semibold py-4 px-6 rounded-xl hover:bg-gray-800 transition-colors mb-3"
+                                        disabled={eventDetails?.availableSeats === 0}
+                                    >
+                                        {eventDetails?.availableSeats === 0 ? 'Sold Out' : 'Get Tickets'}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Organizer Card */}
+                            <div className="mt-6 p-6 border border-gray-200 rounded-2xl">
+                                <p className="text-xs text-gray-500 uppercase tracking-wider mb-3">Organized by</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                                        {eventDetails?.organizer?.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-900 text-sm">{eventDetails?.organizer}</h4>
+                                        <p className="text-gray-500 text-xs">Event Host</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

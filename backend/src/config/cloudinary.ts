@@ -18,6 +18,7 @@ const storage = new CloudinaryStorage({
             if (originalName.endsWith('.webp')) return 'webp';
             if (originalName.endsWith('.png')) return 'png';
             if (originalName.endsWith('.jpg')) return 'jpg';
+            if (originalName.endsWith('.jpeg')) return 'jpeg';
             return 'auto';
         },
         public_id: (req: Request, file: Express.Multer.File) => {

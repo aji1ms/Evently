@@ -86,11 +86,39 @@ const getAllEvents = async (req: Request, res: Response): Promise<void> => {
             totalEvents,
             totalPages,
             currentPage: pageNum,
-            hasNext: pageNum < totalPages,
+            hasNext: pageNum < totalPages,                                                                
             hasPrev: pageNum > 1,
         })
     } catch (error) {
         console.log("Error getting event: ", error);
+        res.status(500).json({ message: "Internal server error" });                    
+    }
+}
+
+// Event Details
+
+const eventDetails = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            res.status(404).json({ message: "Event id is missing!" });
+            return;
+        }
+
+        const event = await Events.findById(id)
+            .select('-meetingLink')
+            .populate('category');
+        if (!event) {
+            res.status(404).json({ message: "Event not found!" });
+            return;
+        }
+
+        res.status(200).json({
+            message: "Events retrieved successfully!",
+            data: event,
+        })
+    } catch (error) {
+        console.log("Error getting event details: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -98,4 +126,5 @@ const getAllEvents = async (req: Request, res: Response): Promise<void> => {
 module.exports = {
     loadEvents,
     getAllEvents,
+    eventDetails,
 }

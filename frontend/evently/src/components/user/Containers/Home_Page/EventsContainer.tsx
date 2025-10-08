@@ -137,7 +137,7 @@ const EventsContainer = () => {
                                         <button
                                             className="absolute top-6 right-6 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-200"
                                         >
-                                            <FaRegBookmark className="text-gray-400 hover:text-yellow-500 text-xl transition-colors duration-300" />
+                                            <FaRegBookmark className="text-gray-400 text-xl transition-colors duration-300" />
                                         </button>
                                     </div>
                                 </div>

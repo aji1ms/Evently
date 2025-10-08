@@ -27,6 +27,7 @@ export interface EventData {
 
 interface EventState {
     events: EventData[];
+    eventDetails: EventData | null;
     loading: boolean;
     error: string | null;
     search: string;
@@ -45,6 +46,7 @@ interface EventState {
 
 const initialState: EventState = {
     events: [],
+    eventDetails: null,
     loading: false,
     error: null,
     search: '',
@@ -116,6 +118,22 @@ export const fetchAllEvents = createAsyncThunk(
     }
 );
 
+export const getEventDetails = createAsyncThunk(
+    'auth/getEventDetails',
+    async (id: string, { rejectWithValue }) => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/event/${id}`,
+                { withCredentials: true }
+            );
+
+            return res.data.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data?.message || "Failed to load event details");
+        }
+    }
+)
+
 const authEventslice = createSlice({
     name: "authEvents",
     initialState,
@@ -168,6 +186,20 @@ const authEventslice = createSlice({
                 }
             })
             .addCase(fetchAllEvents.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+
+            // Event Details
+            .addCase(getEventDetails.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getEventDetails.fulfilled, (state, action) => {
+                state.loading = false;
+                state.eventDetails = action.payload;
+            })
+            .addCase(getEventDetails.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })
