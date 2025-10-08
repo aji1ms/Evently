@@ -4,6 +4,7 @@ import adminAuthReducer from "./slices/admin/adminAuthSlice";
 import adminUsersReducer from "./slices/admin/adminUsersSlice";
 import adminCategorySlice from "./slices/admin/adminCategorySlice";
 import adminNotificationSlice from "./slices/admin/adminNotificationSlice";
+import adminEventSlice from "./slices/admin/adminEventSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         adminUsers: adminUsersReducer,
         adminCategories: adminCategorySlice,
         adminNotifications: adminNotificationSlice,
+        adminEvents: adminEventSlice,
 
         // AUTH
         auth: authReducer,

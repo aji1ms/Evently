@@ -74,7 +74,7 @@ const eventSchema = new Schema<IEvent>(
         },
         status: {
             type: String,
-            enum: ["upcoming", "ongoing", "completed", "cancelled"],
+            enum: ["upcoming", "ongoing", "completed"],
             default: "upcoming",
         },
         organizer: {

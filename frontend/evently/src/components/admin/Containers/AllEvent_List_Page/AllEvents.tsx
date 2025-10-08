@@ -1,69 +1,24 @@
-import { TrendingUp, Ticket } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import StatsCard from '../Dashboard_Page/StatsCard';
 import AllEventsGrid from './AllEventsGrid';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../../../../Redux/store';
+import { useEffect } from 'react';
+import { fetchAllEvents } from '../../../../Redux/slices/admin/adminEventSlice';
+import EventSearchFilter from './EventSearchFilter';
+import EventPagination from './EventPagination';
 
-export interface Event {
-    id: number;
-    title: string;
-    description: string;
-    date: string;
-    venue: string;
-    image: string;
-    capacity: number;
-    isBlocked: boolean;
-    attendees: number;
-}
 
 const AllEvents = () => {
-    const events: Event[] = [
-        {
-            id: 1,
-            title: "Tech Conference 2024",
-            description: "Join us for the biggest tech conference of the year featuring industry leaders, innovative workshops, and networking opportunities.",
-            date: "2024-11-15",
-            venue: "Convention Center, New York",
-            image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=250&fit=crop",
-            capacity: 500,
-            isBlocked: false,
-            attendees: 320
-        },
-        {
-            id: 2,
-            title: "Digital Marketing Summit",
-            description: "Learn the latest digital marketing strategies from experts and boost your online presence with cutting-edge techniques.",
-            date: "2024-12-03",
-            venue: "Business Hub, San Francisco",
-            image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=250&fit=crop",
-            capacity: 300,
-            isBlocked: false,
-            attendees: 185
-        },
-        {
-            id: 3,
-            title: "Music Festival 2024",
-            description: "Experience an unforgettable night of music with top artists from around the world in this outdoor festival.",
-            date: "2024-10-28",
-            venue: "Central Park, New York",
-            image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop",
-            capacity: 1000,
-            isBlocked: true,
-            attendees: 750
-        },
-        {
-            id: 4,
-            title: "Startup Pitch Competition",
-            description: "Watch innovative startups pitch their ideas to top investors and compete for funding opportunities.",
-            date: "2024-11-20",
-            venue: "Innovation Center, Austin",
-            image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=250&fit=crop",
-            capacity: 200,
-            isBlocked: false,
-            attendees: 150
-        }
-    ];
+    const dispatch = useDispatch<AppDispatch>();
+    const { events, loading, pagination } = useSelector((state: RootState) => state.adminEvents);
+
+    useEffect(() => {
+        dispatch(fetchAllEvents({}))
+    }, [dispatch]);
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6 md:ml-80">
+        <div className="min-h-screen bg-gray-50 p-6 md:ml-80 w-full">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
@@ -75,26 +30,39 @@ const AllEvents = () => {
                     <StatsCard
                         title='Total Events'
                         icon={<TrendingUp className="w-6 h-6 text-blue-600" />}
-                        value={events.length}
+                        value={pagination?.totalEvents || 0}
                     />
-
                     <StatsCard
-                        title='Active Events'
-                        icon={<Ticket className="w-6 h-6 text-green-600" />}
-                        value={events.filter(e => !e.isBlocked).length}
+                        title='Upcoming Events'
+                        icon={<TrendingUp className="w-6 h-6 text-purple-600" />}
+                        value={pagination?.upcomingEvents || 0}
                     />
-
                     <StatsCard
-                        title='Blocked'
-                        icon={<Ticket className="w-6 h-6 text-red-600" />}
-                        value={events.filter(e => e.isBlocked).length}
+                        title='Ongoing Events'
+                        icon={<TrendingUp className="w-6 h-6 text-green-600" />}
+                        value={pagination?.ongoingEvents || 0}
+                    />
+                    <StatsCard
+                        title='Completed Events'
+                        icon={<TrendingUp className="w-6 h-6 text-red-600" />}
+                        value={pagination?.completedEvents || 0}
                     />
                 </div>
 
+                <EventSearchFilter />
+
                 {/* Events Grid */}
-
-                <AllEventsGrid events={events} />
-
+                {loading ? (
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                        <p className="mt-2 text-gray-600">Loading events...</p>
+                    </div>
+                ) : (
+                    <>
+                        < AllEventsGrid events={events} />
+                        <EventPagination />
+                    </>
+                )}
             </div>
         </div>
     );

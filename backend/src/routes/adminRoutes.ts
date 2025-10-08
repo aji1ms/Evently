@@ -1,13 +1,26 @@
 import express from "express";
 const router = express.Router();
+import { Request, Response, NextFunction } from 'express';
 import authenticateUser from "../middlewares/authMiddleware";
 const adminController = require("../controllers/admin/adminController");
 const userController = require("../controllers/admin/userController");
 const categoryController = require("../controllers/admin/categoryController");
+const { upload } = require("../config/cloudinary");
 const eventController = require("../controllers/admin/eventController");
 const notificationController = require("../controllers/admin/notificationController");
 const reviewController = require("../controllers/admin/reviewController");
 const bookingController = require("../controllers/admin/bookingController");
+
+const handleUpload = (req: Request, res: Response, next: NextFunction): void => {
+    upload.single('image')(req, res, (err: any) => {
+        if (err) {
+            return res.status(400).json({
+                message: err.message || "File upload error"
+            });
+        }
+        next();
+    });
+};
 
 // Login Management
 
@@ -31,8 +44,8 @@ router.get("/categories", authenticateUser(["admin"], "adminToken"), categoryCon
 
 // Event Management
 
-router.post("/addEvent", authenticateUser(["admin"], "adminToken"), eventController.addEvent);
-router.put("/editEvent/:id", authenticateUser(["admin"], "adminToken"), eventController.editEvent);
+router.post("/addEvent", authenticateUser(["admin"], "adminToken"), handleUpload, eventController.addEvent);
+router.put("/editEvent/:id", authenticateUser(["admin"], "adminToken"), handleUpload, eventController.editEvent);
 router.delete("/event/:id", authenticateUser(["admin"], "adminToken"), eventController.deleteEvent);
 router.get("/events", authenticateUser(["admin"], "adminToken"), eventController.getAllEvents);
 
