@@ -6,6 +6,7 @@ import adminNotificationSlice from "./slices/admin/adminNotificationSlice";
 import adminEventSlice from "./slices/admin/adminEventSlice";
 import authReducer from "./slices/auth/authSlice";
 import authEventsReducer from "./slices/auth/authEventsSlice";
+import authBookmarksReducer from "./slices/auth/authBookmarkSlice";
 
 const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
         // AUTH
         auth: authReducer,
         authEvents: authEventsReducer,
+        authBookmarks: authBookmarksReducer,
     },
 })
 export type RootState = ReturnType<typeof store.getState>;

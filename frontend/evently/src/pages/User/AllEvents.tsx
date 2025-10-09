@@ -1,16 +1,19 @@
-import { FaRegBookmark, FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUsers, FaVideo, FaBuilding } from "react-icons/fa";
+import { FaRegBookmark, FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUsers, FaVideo, FaBuilding, FaBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import type { AppDispatch, RootState } from "../../Redux/store";
 import { useEffect } from "react";
 import { fetchAllEvents } from "../../Redux/slices/auth/authEventsSlice";
-import EventShimmer from "../../components/user/ShimmerUI/eventShimmer";
+import EventShimmer from "../../components/user/ShimmerUI/EventShimmer";
+import { addToBookmark, getUserBookmarks, removeFromBookmark } from "../../Redux/slices/auth/authBookmarkSlice";
+import toast from "react-hot-toast";
 
 
 const AllEvents = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
     const { events, loading, filters, search, pagination } = useSelector((state: RootState) => state.authEvents);
+    const { bookmarks, loading: bookmarkLoading } = useSelector((state: RootState) => state.authBookmarks);
 
     useEffect(() => {
         dispatch(fetchAllEvents({
@@ -19,6 +22,7 @@ const AllEvents = () => {
             category: filters.category,
             page: pagination.currentPage
         }));
+        dispatch(getUserBookmarks());
     }, [search, filters, pagination.currentPage, dispatch]);
 
     if (loading) {
@@ -33,6 +37,30 @@ const AllEvents = () => {
             day: 'numeric'
         });
     };
+
+    const isEventBookmarked = (eventId: string) => {
+        return bookmarks.some(bookmark => {
+            const bEvent: any = bookmark.event;
+            const bEventId = bEvent?._id ? String(bEvent._id) : String(bEvent);
+            return bEventId === eventId;
+        });
+    }
+
+    const handleBookmarkToggle = async (eventId: string) => {
+        try {
+            if (isEventBookmarked(eventId)) {
+                await dispatch(removeFromBookmark(eventId)).unwrap();
+                toast.success("Event removed successfully!", { duration: 2000 })
+            } else {
+                await dispatch(addToBookmark(eventId)).unwrap()
+                toast.success("Event bookmarked succcessfully!", { duration: 2000 })
+            }
+            await dispatch(getUserBookmarks());
+        } catch (err: any) {
+            const msg = err?.message || err || "Something went wrong";
+            toast.error(msg, { duration: 2000 });
+        }
+    }
 
     return (
         < div className="px-4 lg:px-8 py-12 bg-gradient-to-br from-gray-50 via-white to-blue-50" >
@@ -131,9 +159,16 @@ const AllEvents = () => {
 
                                         {/* bookmark */}
                                         <button
-                                            className="absolute top-6 right-6 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                            className="absolute top-6 right-6 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-200 cursor-pointer"
+                                            onClick={() => handleBookmarkToggle(event._id)}
+                                            disabled={bookmarkLoading}
+                                            title={isEventBookmarked(event._id) ? "Remove bookmark" : "Add bookmark"}
                                         >
-                                            <FaRegBookmark className="text-gray-400 text-xl transition-colors duration-300" />
+                                            {isEventBookmarked(event._id) ? (
+                                                <FaBookmark className="text-red-500 text-xl transition-colors duration-300" />
+                                            ) : (
+                                                <FaRegBookmark className="text-gray-400 text-xl transition-colors duration-300" />
+                                            )}
                                         </button>
                                     </div>
                                 </div>

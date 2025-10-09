@@ -15,7 +15,7 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const existingEmail = await User.findOne({ email });
+        const existingEmail = await User.findOne({ email }); 
         if (existingEmail) {
             res.status(400).json({ message: "Email already exists" });
             return;

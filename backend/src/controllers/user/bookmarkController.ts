@@ -52,7 +52,10 @@ const addToBookmark = async (req: Request, res: Response): Promise<void> => {
             $push: { bookmarks: bookmark._id }
         });
 
-        res.status(201).json({ message: "Event added to bookmarks successfully!" });
+        res.status(201).json({
+            message: "Event added to bookmarks successfully!",
+            data: bookmark,
+        });
     } catch (error) {
         console.log("Error add to bookmark: ", error);
         res.status(500).json({ message: "Internal server error" });
@@ -85,7 +88,10 @@ const removeFromBookmark = async (req: Request, res: Response): Promise<void> =>
             $pull: { bookmarks: deletedBookmark._id }
         });
 
-        res.status(200).json({ message: "Event removed from bookmarks successfully!" });
+        res.status(200).json({
+            message: "Event removed from bookmarks successfully!",
+            data: deletedBookmark,
+        });
     } catch (error) {
         console.log("Error removing bookmark: ", error);
         res.status(500).json({ message: "Internal server error" });
@@ -102,7 +108,16 @@ const getBookmarks = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const bookmarks = await Bookmark.find({ user: userId }).sort({ createdAt: -1 });
+        const bookmarks = await Bookmark.find({ user: userId })
+            .populate({
+                path: 'event',
+                select: '-meetingLink', 
+                populate: {
+                    path: 'category',
+                    select: 'name' 
+                }
+            })
+            .sort({ createdAt: -1 });
         if (!bookmarks) {
             res.status(400).json({ message: "No bookmarks found!" });
             return;
