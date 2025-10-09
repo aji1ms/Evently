@@ -75,7 +75,7 @@ export interface IBooking extends Document {
     bookingDate: Date;
     status: "pending" | "completed" | "cancelled";
     paymentStatus: "pending" | "paid" | "failed";
-    paymentMethod: "card" | "paypal" | "stripe";
+    paymentMethod: "paypal";
     transactionId?: string;
     createdAt: Date;
     updatedAt: Date;

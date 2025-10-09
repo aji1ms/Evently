@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.9",
     "@types/jsonwebtoken": "^9.0.10",
@@ -21,7 +22,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
     "multer": "^2.0.2",
-    "multer-storage-cloudinary": "^4.0.0"
+    "multer-storage-cloudinary": "^4.0.0",
+    "paypal-rest-sdk": "^1.8.1",
+    "stripe": "^19.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

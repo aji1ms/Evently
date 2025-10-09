@@ -149,7 +149,7 @@ const AllEvents = () => {
                                                     <span className="font-medium">{event?.totalSeats - event?.availableSeats} people enrolled</span>
                                                 </div>
 
-                                                <button className="group/btn relative px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                                <button className="group/btn relative px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-200 cursor-pointer"
                                                     onClick={() => navigate(`/events/${event?._id}`)}
                                                 >
                                                     <span className="relative z-10">View Details</span>

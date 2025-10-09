@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "./pages/User/Home";
 import Login from "./pages/User/Login";
@@ -21,15 +23,14 @@ import Notifications from "./pages/Admin/Notifications";
 import Reports from "./pages/Admin/Reports";
 import AddEvents from "./pages/Admin/AddEvents";
 import AdminLogin from "./pages/Admin/AdminLogin";
+import CheckoutPage from "./pages/User/CheckoutPage";
+import Category from "./pages/Admin/Category";
 import { Toaster } from 'react-hot-toast';
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { fetchUser } from "./Redux/slices/auth/authSlice";
 import { fetchAdmin } from "./Redux/slices/admin/adminAuthSlice";
 import type { AppDispatch } from "./Redux/store";
 import AdminProtectedRoute from "./helper/AdminProtectedRoute";
 import UserProtectedRoutes from "./helper/UserProtectedRoutes";
-import Category from "./pages/Admin/Category";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -56,6 +57,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route element={<UserProtectedRoutes />}>
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/notification-center" element={<NotificationCenter />} />
             <Route path="/bookmarks" element={<BookMark />} />
             <Route path="/gpt" element={<GPT />} />

@@ -28,17 +28,16 @@ const bookingSchema = new Schema<IBooking>(
         },
         status: {
             type: String,
-            enum: ["pending", "cancelled", "completed"],
-            default: "completed"
+            enum: ["pending", "completed"],
+            default: "pending"
         },
         paymentStatus: {
             type: String,
-            enum: ["pending", "paid", "failed"],
+            enum: ["pending", "paid"],
             default: "pending"
         },
         paymentMethod: {
             type: String,
-            enum: ["card", "paypal", "stripe"],
             required: true
         },
         transactionId: {

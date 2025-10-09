@@ -17,12 +17,12 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         const {
             eventId,
             quantity,
-            paymentMethod,
+            transactionId,
         } = req.body;
 
-        if (!eventId || !quantity || !paymentMethod) {
+        if (!eventId || !quantity || !transactionId) {
             res.status(400).json({
-                message: "Event ID, quantity, and payment method are required!"
+                message: "Event ID, quantity, and transactionId are required!"
             });
             return;
         }
@@ -47,7 +47,7 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         if (quantity <= 0) {
             res.status(400).json({ message: "Quantity must be greater than 0!" });
             return;
-        }    
+        }
 
         const totalAmount = quantity * event.salePrice;
 
@@ -61,53 +61,31 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
             event: eventId,
             totalQuantity: quantity,
             totalAmount: totalAmount,
-            paymentMethod: paymentMethod,
-            status: "pending",
-            paymentStatus: "pending"
+            status: "completed",
+            paymentStatus: "paid",
+            paymentMethod: "paypal",
+            transactionId: transactionId,
         });
-        // await booking.save();
 
-        const paymentResult: IPaymentResult = await processPayment(booking, paymentMethod);
+        await booking.save();
 
-        if (paymentResult.success) {
-            booking.paymentStatus = "paid";
-            booking.status = "completed";
-            booking.transactionId = paymentResult.transactionId;
-            
-            await booking.save();
+        await Event.findByIdAndUpdate(eventId, {
+            $inc: { availableSeats: -quantity }
+        });
 
-            await Event.findByIdAndUpdate(eventId, {
-                $inc: { availableSeats: -quantity }
-            });
+        await User.findByIdAndUpdate(userId, {
+            $push: { bookings: booking._id }
+        });
 
-            await User.findByIdAndUpdate(userId, {
-                $push: { bookings: booking._id }
-            });
-
-            res.status(201).json({ message: "Booking confirmed successfully!" });
-        } else {
-            res.status(400).json({ message: "Payment failed!" });
-        }
+        res.status(201).json({
+            message: "Booking confirmed successfully!",
+            data: booking
+        });
     } catch (error) {
-        console.error("Error during checkout: ", error);
+        console.error("Error during PayPal checkout: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
-
-// Sample Payment Integration
-
-const processPayment = async (booking: any, paymentMethod: string): Promise<IPaymentResult> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const success = Math.random() > 0.1;
-            resolve({
-                success: success,
-                transactionId: success ? `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` : null,
-                error: success ? null : "Payment processing failed"
-            });
-        }, 1000);
-    });
-};
 
 module.exports = {
     checkout,

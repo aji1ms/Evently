@@ -15,7 +15,7 @@ interface AuthState {
 
 const initialState: AuthState = {
     user: null,
-    loading: false,
+    loading: true,
     error: null,
 };
 
@@ -70,15 +70,15 @@ export const loginUser = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk(
     "auth/fetchUser",
-    async (_, { dispatch }) => {
+    async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
                 `${import.meta.env.VITE_BACKEND_URL}/api/auth/getUser`,
                 { withCredentials: true }
             );
-            dispatch(setUser(res.data));
+            return res.data as User;
         } catch (err) {
-            dispatch(setUser(null));
+            return rejectWithValue(null);
         }
     }
 );
@@ -121,6 +121,20 @@ const authSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+
+            // Fetch User
+            .addCase(fetchUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(fetchUser.rejected, (state) => {
+                state.loading = false;
+                state.user = null;
             });
     },
 });

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Calendar, MapPin, Users, Video, Clock } from 'lucide-react';
 import Header from '../../components/user/Containers/Header';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../Redux/store';
 import { getEventDetails } from '../../Redux/slices/auth/authEventsSlice';
@@ -10,6 +10,7 @@ import EventDetailsShimmer from '../../components/user/ShimmerUI/EventDetailsShi
 
 const EventDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
     const { eventDetails, loading } = useSelector((state: RootState) => state.authEvents)
 
@@ -165,29 +166,17 @@ const EventDetails = () => {
                             <div className="border border-gray-200 rounded-2xl overflow-hidden">
                                 <div className="p-6 bg-gray-50 border-b border-gray-200">
                                     <div className="mb-4">
-                                        {eventDetails?.regularPrice && eventDetails?.salePrice &&
-                                            eventDetails.regularPrice > eventDetails.salePrice ? (
-                                            <>
-                                                <div className="flex items-baseline gap-3 mb-2">
-                                                    <span className="text-3xl font-bold text-gray-900">
-                                                        ${eventDetails.salePrice}
-                                                    </span>
-                                                    <span className="text-lg text-gray-400 line-through">
-                                                        ${eventDetails.regularPrice}
-                                                    </span>
-                                                </div>
-                                                <div className="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 rounded-md text-xs font-semibold">
-                                                    Save {calculateDiscount()}%
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <div className="flex items-baseline gap-2">
-                                                <span className="text-3xl font-bold text-gray-900">
-                                                    ${eventDetails?.salePrice || eventDetails?.regularPrice || 0}
-                                                </span>
-                                                <span className="text-sm text-gray-500">per ticket</span>
-                                            </div>
-                                        )}
+                                        <div className="flex items-baseline gap-3 mb-2">
+                                            <span className="text-3xl font-bold text-gray-900">
+                                                ${eventDetails?.salePrice}
+                                            </span>
+                                            <span className="text-lg text-gray-400 line-through">
+                                                ${eventDetails?.regularPrice}
+                                            </span>
+                                        </div>
+                                        <div className="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 rounded-md text-xs font-semibold">
+                                            Save {calculateDiscount()}%
+                                        </div>
                                     </div>
 
                                     {eventDetails?.availableSeats !== undefined && eventDetails.availableSeats > 0 && (
@@ -200,8 +189,20 @@ const EventDetails = () => {
                                 {/* CTA Button */}
                                 <div className="p-6">
                                     <button
-                                        className="w-full bg-gray-900 text-white font-semibold py-4 px-6 rounded-xl hover:bg-gray-800 transition-colors mb-3"
+                                        className="w-full bg-gray-900 text-white font-semibold py-4 px-6 rounded-xl hover:bg-gray-800 transition-colors mb-3 cursor-pointer"
                                         disabled={eventDetails?.availableSeats === 0}
+                                        onClick={() => navigate(`/checkout`, {
+                                            state: {
+                                                eventData: {
+                                                    _id: eventDetails?._id,
+                                                    title: eventDetails?.title,
+                                                    image: eventDetails?.image,
+                                                    salePrice: eventDetails?.salePrice,
+                                                    eventDate: eventDetails?.eventDate,
+                                                    eventLocation: eventDetails?.location?.city
+                                                }
+                                            }
+                                        })}
                                     >
                                         {eventDetails?.availableSeats === 0 ? 'Sold Out' : 'Get Tickets'}
                                     </button>
