@@ -31,6 +31,8 @@ import { fetchAdmin } from "./Redux/slices/admin/adminAuthSlice";
 import type { AppDispatch } from "./Redux/store";
 import AdminProtectedRoute from "./helper/AdminProtectedRoute";
 import UserProtectedRoutes from "./helper/UserProtectedRoutes";
+import TicketDetails from "./pages/User/TicketDetails";
+import BookingDetails from "./components/admin/Containers/Booking_Management/BookingDetails";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -63,6 +65,7 @@ function App() {
             <Route path="/gpt" element={<GPT />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/tickets" element={<Tickets />} />
+            <Route path="/ticket/:id" element={<TicketDetails />} />
             <Route path="/rateus" element={<RatingPage />} />
           </Route>
         </Route>
@@ -76,6 +79,7 @@ function App() {
             <Route path="/admin/events" element={<EventList />} />
             <Route path="/admin/addEvents" element={<AddEvents />} />
             <Route path="/admin/bookings" element={<Bookings />} />
+            <Route path="/admin/booking/:id" element={<BookingDetails />} />
             <Route path="/admin/notifications" element={<Notifications />} />
             <Route path="/admin/reports" element={<Reports />} />
             <Route path="/admin/reviews" element={<Reviews />} />

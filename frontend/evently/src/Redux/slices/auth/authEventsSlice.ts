@@ -5,7 +5,11 @@ export interface EventData {
     _id: string;
     title: string;
     description: string;
-    category: string;
+    category: { 
+        _id: string;
+        name: string;
+        description?: string;
+    };
     eventType: string;
     meetingLink?: string;
     location?: {
