@@ -1,4 +1,4 @@
-import { User, Ticket, DollarSign } from 'lucide-react';
+import {  Ticket, DollarSign } from 'lucide-react';
 import StatsCard from '../Dashboard_Page/StatsCard';
 import SearchFilter from './SearchFilter';
 import BookedList from './BookedList';
@@ -39,14 +39,14 @@ const AllTicketBookings = () => {
 
                     <StatsCard
                         title="Total Revenue"
-                        value={`$${stats?.totalRevenue}.00`}
+                        value={`$${stats?.totalRevenue}`}
                         icon={<DollarSign className="w-6 h-6 text-green-600" />}
                     />
 
                     <StatsCard
                         title="Total Tickets Sold"
                         value={stats?.totalTicketsSold}
-                        icon={<User className="w-6 h-6 text-purple-600" />}
+                        icon={<Ticket className="w-6 h-6 text-purple-600" />}
                     />
                 </div>
 

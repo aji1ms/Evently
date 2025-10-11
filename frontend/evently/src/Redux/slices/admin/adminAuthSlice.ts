@@ -16,7 +16,7 @@ interface AdminAuthState {
 
 const initialState: AdminAuthState = {
     admin: null,
-    loading: false,
+    loading: true,
     error: null,
 }
 
@@ -66,6 +66,7 @@ const adminAuthSlice = createSlice({
         },
         setAdmin: (state, action: PayloadAction<Admin | null>) => {
             state.admin = action.payload;
+            state.loading = false;
         },
     },
     extraReducers: (builder) => {
@@ -82,8 +83,18 @@ const adminAuthSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             })
+            // Fetch Admin
+            .addCase(fetchAdmin.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
             .addCase(fetchAdmin.fulfilled, (state, action) => {
+                state.loading = false;
                 state.admin = action.payload;
+            })
+            .addCase(fetchAdmin.rejected, (state) => {
+                state.loading = false;
+                state.admin = null;
             })
     },
 });

@@ -3,8 +3,10 @@ import axios from "axios";
 
 interface User {
     _id: string;
+    avatar: string;
     name: string;
     email: string;
+    phone?: string;
 }
 
 interface AuthState {
@@ -83,6 +85,28 @@ export const fetchUser = createAsyncThunk(
     }
 );
 
+export const updateProfile = createAsyncThunk(
+    "auth/update",
+    async (formData: FormData, { rejectWithValue }) => {
+        try {
+            const res = await axios.patch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/profile`,
+                formData,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                }
+            )
+
+            return res.data.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data?.message || "Failed to update profile!");
+        }
+    }
+)
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -135,7 +159,21 @@ const authSlice = createSlice({
             .addCase(fetchUser.rejected, (state) => {
                 state.loading = false;
                 state.user = null;
-            });
+            })
+
+            // Update Profile
+            .addCase(updateProfile.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
     },
 });
 

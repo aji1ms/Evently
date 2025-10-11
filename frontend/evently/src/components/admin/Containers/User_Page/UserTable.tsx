@@ -63,7 +63,17 @@ const UserTable = ({ userDatas }: UsersData) => {
                                     <div className="flex items-center">
                                         <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                                             <span className="text-sm font-semibold text-blue-600">
-                                                {(user.avatar && user.avatar !== "" ? user.avatar : user.name?.slice(0, 2)?.toUpperCase()) || "NA"}
+                                                {user.avatar && user.avatar !== "" ? (
+                                                    <img
+                                                        src={user.avatar}
+                                                        alt={user.name}
+                                                        className="w-10 h-10 rounded-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-semibold">
+                                                        {user.name?.slice(0, 2)?.toUpperCase() || "NA"}
+                                                    </div>
+                                                )}
                                             </span>
                                         </div>
                                         <div>

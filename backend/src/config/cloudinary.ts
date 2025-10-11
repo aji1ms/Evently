@@ -9,27 +9,8 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: 'events',
-        format: async (req: Request, file: Express.Multer.File) => {
-            const originalName = file.originalname.toLowerCase();
-            if (originalName.endsWith('.webp')) return 'webp';
-            if (originalName.endsWith('.png')) return 'png';
-            if (originalName.endsWith('.jpg')) return 'jpg';
-            if (originalName.endsWith('.jpeg')) return 'jpeg';
-            return 'auto';
-        },
-        public_id: (req: Request, file: Express.Multer.File) => {
-            return `event-${Date.now()}`;
-        }
-    } as any,
-});
-
 const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback): void => {
     const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-
     if (allowedMimeTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
@@ -37,10 +18,42 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallb
     }
 };
 
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 },
-    fileFilter: fileFilter
+const eventStorage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'events',
+        format: async (req: Request, file: Express.Multer.File) => {
+            return file.mimetype.split('/')[1] || 'jpg';
+        },
+        public_id: (req: Request, file: Express.Multer.File) => {
+            return `event-${Date.now()}`;
+        },
+    } as any,
 });
 
-export { upload, cloudinary };
+const profileStorage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'profiles',
+        format: async (req: Request, file: Express.Multer.File) => {
+            return file.mimetype.split('/')[1] || 'jpg';
+        },
+        public_id: (req: Request, file: Express.Multer.File) => {
+            return `profile-${Date.now()}`;
+        },
+    } as any,                                                                 
+});                                                                                                                   
+                                                                                                               
+export const uploadEventImage = multer({
+    storage: eventStorage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter,
+});
+
+export const uploadProfileImage = multer({
+    storage: profileStorage,
+    limits: { fileSize: 3 * 1024 * 1024 },
+    fileFilter,
+});
+
+export { cloudinary };

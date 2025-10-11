@@ -15,7 +15,7 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const existingEmail = await User.findOne({ email }); 
+        const existingEmail = await User.findOne({ email });
         if (existingEmail) {
             res.status(400).json({ message: "Email already exists" });
             return;
@@ -102,10 +102,53 @@ const logoutUser = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
+// Edit User Info
+
+const updateProfile = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = req.user?._id;
+        const { name, phone, avatar } = req.body;
+
+        if (!userId) {
+            res.status(401).json({ message: "Please login to update profile!" });
+            return;
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(404).json({ message: "User not found!" });
+            return;
+        }
+
+        const updateData: any = {};
+        if (name) updateData.name = name;
+        if (phone) updateData.phone = phone;
+        if (req.file && req.file.path) updateData.avatar = req.file.path;
+
+        const updatedUser = await User.findByIdAndUpdate(userId, { $set: updateData }, { new: true, runValidators: true })
+            .select("-password");
+
+        if (!updatedUser) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            data: updatedUser
+        });
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 
 module.exports = {
     registerUser,
     loginUser,
     getUserInfo,
-    logoutUser
+    logoutUser,
+    updateProfile,
 }

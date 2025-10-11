@@ -7,12 +7,14 @@ const reviewController = require("../controllers/user/reviewController");
 const checkoutController = require("../controllers/user/checkoutController");
 const bookingController = require("../controllers/user/bookingController");
 const eventController = require("../controllers/user/eventController");
+import { uploadProfileImage } from "../config/cloudinary";
 
 // Login Management
 
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 router.get("/getUser", authenticateUser(["user"], "userToken"), userController.getUserInfo);
+router.patch("/profile", authenticateUser(["user"], "userToken"), uploadProfileImage.single('avatar'), userController.updateProfile);
 router.post("/logout", authenticateUser(["user"], "userToken"), userController.logoutUser);
 
 // Event Management

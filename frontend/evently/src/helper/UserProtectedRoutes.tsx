@@ -2,12 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import type { RootState } from "../Redux/store";
+import LoadingSpinner from "../components/user/ShimmerUI/loadingSpinner";
 
 const UserProtectedRoutes: React.FC = () => {
     const { user, loading } = useSelector((state: RootState) => state.auth);
 
     if (loading) {
-        return <div className="flex justify-center items-center h-screen text-lg">Checking login...</div>;
+        return <LoadingSpinner />
     }
 
     if (!user) {
