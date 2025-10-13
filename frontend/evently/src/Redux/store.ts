@@ -14,6 +14,7 @@ import authBookmarksReducer from "./slices/auth/authBookmarkSlice";
 import authBookingReducer from "./slices/auth/authBookingSlice";
 import authTicketReducer from "./slices/auth/authTicketSlice";
 import authReviewReducer from "./slices/auth/authReviewSlice";
+import authNotificationReducer from "./slices/auth/authNotificationSlice";
 
 const store = configureStore({
     reducer: {
@@ -35,6 +36,7 @@ const store = configureStore({
         authBookings: authBookingReducer,
         authTickets: authTicketReducer,
         authReviews: authReviewReducer,
+        authNotifications: authNotificationReducer,
     },
 })
 export type RootState = ReturnType<typeof store.getState>;

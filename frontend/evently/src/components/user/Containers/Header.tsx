@@ -3,10 +3,19 @@ import { IoIosNotifications, IoIosMenu, IoIosClose } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { AiFillOpenAI } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchNotifications } from "../../../Redux/slices/auth/authNotificationSlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../../Redux/store";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const { notifications } = useSelector((state: RootState) => state.authNotifications);
+
+    useEffect(() => {
+        dispatch(fetchNotifications());
+    }, [dispatch]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -49,8 +58,16 @@ const Header = () => {
                 </button>
 
                 <div className="hidden lg:flex items-center">
-                    <Link to="/notification-center">
-                        <IoIosNotifications size={40} className="mr-3 text-yellow-500 hover:scale-110 transition-transform duration-300" />
+                    <Link to="/notification-center" className="relative mr-3">
+                        <IoIosNotifications
+                            size={40}
+                            className="text-yellow-500 hover:scale-110 transition-transform duration-300"
+                        />
+                        {notifications.length > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                {notifications.length > 0 ? '1+' : "0"}
+                            </span>
+                        )}
                     </Link>
                     <Link to="/bookmarks">
                         <FaBookmark size={30} className="mr-3 text-red-500 hover:scale-110 transition-transform duration-300" />

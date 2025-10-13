@@ -7,6 +7,7 @@ const reviewController = require("../controllers/user/reviewController");
 const checkoutController = require("../controllers/user/checkoutController");
 const bookingController = require("../controllers/user/bookingController");
 const eventController = require("../controllers/user/eventController");
+const notificationController = require("../controllers/user/notificationController");
 import { uploadProfileImage } from "../config/cloudinary";
 
 // Login Management
@@ -41,5 +42,10 @@ router.post("/checkout", authenticateUser(["user"], "userToken"), checkoutContro
 
 router.get("/bookings", authenticateUser(["user"], "userToken"), bookingController.getBookings);
 router.get("/booking/:id", authenticateUser(["user"], "userToken"), bookingController.bookingDetails);
+
+// Notification Management
+
+router.get("/notifications", authenticateUser(["user"], "userToken"), notificationController.getNotifications);
+router.patch("/mark-all-read", authenticateUser(["user"], "userToken"), notificationController.markAllAsRead);
 
 module.exports = router;                                                          
