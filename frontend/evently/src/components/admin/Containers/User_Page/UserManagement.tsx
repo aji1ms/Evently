@@ -30,7 +30,7 @@ const UserManagement: React.FC = () => {
             toast.error(error, { duration: 2000 });
         }
     }
-    
+
     return (
         <div className="flex-1 min-h-screen bg-gray-50 p-6 md:ml-80">
             <div className="max-w-7xl mx-auto">
@@ -43,7 +43,7 @@ const UserManagement: React.FC = () => {
                         </div>
                         <div className="flex items-center space-x-3">
                             <button
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 flex items-center"
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 flex items-center cursor-pointer"
                                 onClick={() => setIsModalOpen(true)}
                             >
                                 <Users className="w-4 h-4 mr-2" />

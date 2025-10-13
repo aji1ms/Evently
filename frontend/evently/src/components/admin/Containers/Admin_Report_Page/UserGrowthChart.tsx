@@ -1,16 +1,12 @@
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { RefreshCw } from 'lucide-react';
+import type { UserGrowth } from '../../../../Redux/slices/admin/adminReportSlice';
 
-const userGrowthData = [
-    { month: 'Jan', users: 1200, newUsers: 150 },
-    { month: 'Feb', users: 1380, newUsers: 180 },
-    { month: 'Mar', users: 1650, newUsers: 270 },
-    { month: 'Apr', users: 1890, newUsers: 240 },
-    { month: 'May', users: 2140, newUsers: 250 },
-    { month: 'Jun', users: 2450, newUsers: 310 },
-];
+interface IUserGrowthData {
+    userData: UserGrowth[] | undefined;
+}
 
-const UserGrowthChart = () => {
+const UserGrowthChart = ({ userData }: IUserGrowthData) => {
     return (
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-6">
@@ -20,7 +16,7 @@ const UserGrowthChart = () => {
                 </button>
             </div>
             <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={userGrowthData}>
+                <AreaChart data={userData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="month" stroke="#6b7280" />
                     <YAxis stroke="#6b7280" />

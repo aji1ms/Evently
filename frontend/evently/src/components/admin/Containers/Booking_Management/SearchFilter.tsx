@@ -79,14 +79,14 @@ const SearchFilter = () => {
                 {hasActiveFilters && (
                     <button
                         onClick={handleClearFilters}
-                        className="px-3 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="px-3 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
                     >
                         Clear
                     </button>
                 )}
 
                 {/* Export Button */}
-                <button className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
+                <button className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2 cursor-pointer">
                     <Download className="w-4 h-4" />
                     Export
                 </button>

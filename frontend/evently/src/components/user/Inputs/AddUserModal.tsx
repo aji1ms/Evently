@@ -79,7 +79,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onSubmit }
                     <h2 className="text-2xl font-bold text-gray-800">Add New User</h2>
                     <button
                         onClick={handleClose}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer"
                         aria-label="Close modal"
                     >
                         <X className="w-5 h-5 text-gray-500" />
@@ -168,14 +168,14 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onSubmit }
                         <button
                             type="button"
                             onClick={handleClose}
-                            className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200"
+                            className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
                         >
                             Cancel
                         </button>
                         <button
                             type="button"
                             onClick={(e) => handleSubmit(e)}
-                            className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                            className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl cursor-pointer"
                         >
                             Add User
                         </button>

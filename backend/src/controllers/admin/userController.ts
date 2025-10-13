@@ -43,7 +43,7 @@ const userInfo = async (req: Request, res: Response): Promise<void> => {
         const activeUsers = await User.countDocuments({ ...query, isBlocked: false });
         const inactiveUsers = await User.countDocuments({ ...query, isBlocked: true });
 
-        const totalUsers = await User.countDocuments(query);
+        const totalUsers = await User.countDocuments();
         const totalPages = Math.ceil(totalUsers / limitNum);
 
         if (!users) {

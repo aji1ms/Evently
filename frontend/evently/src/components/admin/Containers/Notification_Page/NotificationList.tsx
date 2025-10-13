@@ -87,14 +87,14 @@ const NotificationList = ({ notifications }: NotificationData) => {
                                         <td className="px-6 py-4 whitespace-nowrap text-center">
                                             <div className="flex items-center justify-center gap-2">
                                                 <button
-                                                    className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                                                    className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer"
                                                     title="Edit"
                                                     onClick={() => handleEditNotification(notification)}
                                                 >
                                                     <Edit2 size={18} />
                                                 </button>
                                                 <button
-                                                    className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                                                    className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors cursor-pointer"
                                                     title="Delete"
                                                     onClick={() => handleDelete(notification._id)}
                                                 >

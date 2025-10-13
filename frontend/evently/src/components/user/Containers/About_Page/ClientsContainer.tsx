@@ -1,4 +1,4 @@
-import reviewImg from "../../../../assets/images/reviewImg.webp"
+import { reviewImg } from "../../../../../utils/Constants"
 
 const ClientsContainer = () => {
     return (

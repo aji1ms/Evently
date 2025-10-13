@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import type { BookingTrend } from '../../../../Redux/slices/admin/adminReportSlice';
 
-const bookingTrendsData = [
-    { week: 'Week 1', bookings: 245 },
-    { week: 'Week 2', bookings: 380 },
-    { week: 'Week 3', bookings: 290 },
-    { week: 'Week 4', bookings: 420 },
-    { week: 'Week 5', bookings: 350 },
-    { week: 'Week 6', bookings: 480 },
-    { week: 'Week 7', bookings: 390 },
-    { week: 'Week 8', bookings: 520 },
-];
+interface IBookingTrendsData {
+    bookingData: BookingTrend[] | undefined;
+}
 
-const BookingTrends = () => {
+const BookingTrends = ({ bookingData }: IBookingTrendsData) => {
     const [selectedMetric, setSelectedMetric] = useState('bookings');
 
     return (
@@ -29,19 +23,10 @@ const BookingTrends = () => {
                     >
                         Weekly
                     </button>
-                    <button
-                        onClick={() => setSelectedMetric('monthly')}
-                        className={`px-3 py-1 rounded text-sm ${selectedMetric === 'monthly'
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'text-gray-600 hover:bg-gray-100'
-                            }`}
-                    >
-                        Monthly
-                    </button>
                 </div>
             </div>
             <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={bookingTrendsData}>
+                <LineChart data={bookingData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="week" stroke="#6b7280" />
                     <YAxis stroke="#6b7280" />

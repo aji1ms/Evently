@@ -10,6 +10,8 @@ const eventController = require("../controllers/admin/eventController");
 const notificationController = require("../controllers/admin/notificationController");
 const reviewController = require("../controllers/admin/reviewController");
 const bookingController = require("../controllers/admin/bookingController");
+const reportController = require("../controllers/admin/reportController");
+const dashboardController = require("../controllers/admin/dashboardController");
 
 // Login Management
 
@@ -54,5 +56,13 @@ router.delete("/deleteReview/:id", authenticateUser(["admin"], "adminToken"), re
 
 router.get("/bookings", authenticateUser(["admin"], "adminToken"), bookingController.listBookings);
 router.get("/bookings/:id", authenticateUser(["admin"], "adminToken"), bookingController.viewOrderDetails);
+
+// Report & Analytics
+
+router.get("/reports", authenticateUser(["admin"], "adminToken"), reportController.getAdminReport);
+
+// Dashboard
+
+router.get("/dashboard", authenticateUser(["admin"], "adminToken"), dashboardController.getAdminDashboard);
 
 module.exports = router;

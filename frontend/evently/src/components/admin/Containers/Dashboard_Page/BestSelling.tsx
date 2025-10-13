@@ -1,20 +1,11 @@
 import { Ticket } from 'lucide-react';
+import type { BestSellingEvent } from '../../../../Redux/slices/admin/adminDashboardSlice';
 
 interface EventData {
-    name: string;
-    ticketPrice: number;
-    sold: number;
-    revenue: number;
+    bestSelling: BestSellingEvent[] | undefined;
 }
 
-const BestSelling = () => {
-    const bestSellingEvents: EventData[] = [
-        { name: "Tech Conference 2024", ticketPrice: 299, sold: 156, revenue: 46644 },
-        { name: "Music Festival Summer", ticketPrice: 89, sold: 234, revenue: 20826 },
-        { name: "Business Workshop Series", ticketPrice: 149, sold: 87, revenue: 12963 },
-        { name: "Art Gallery Opening", ticketPrice: 45, sold: 198, revenue: 8910 },
-        { name: "Food & Wine Tasting", ticketPrice: 75, sold: 112, revenue: 8400 }
-    ];
+const BestSelling = ({ bestSelling }: EventData) => {
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-4">
@@ -32,12 +23,12 @@ const BestSelling = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {bestSellingEvents.map((event, index) => (
+                        {bestSelling?.map((event, index) => (
                             <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                                <td className="py-3 px-2 font-medium text-gray-900">{event.name}</td>
-                                <td className="py-3 px-2 text-right text-gray-700">${event.ticketPrice}</td>
-                                <td className="py-3 px-2 text-right text-gray-700">{event.sold}</td>
-                                <td className="py-3 px-2 text-right font-semibold text-green-600">${event.revenue.toLocaleString()}</td>
+                                <td className="py-3 px-2 font-medium text-gray-900">{event?.name}</td>
+                                <td className="py-3 px-2 text-right text-gray-700">${event?.price}</td>
+                                <td className="py-3 px-2 text-right text-gray-700">{event?.sold}</td>
+                                <td className="py-3 px-2 text-right font-semibold text-green-600">${event?.revenue.toLocaleString()}</td>
                             </tr>
                         ))}
                     </tbody>

@@ -29,7 +29,7 @@ const ToastCustomAlert = (
                         onCancel?.();
                         toast.dismiss(t.id);
                     }}
-                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 px-4 rounded-lg font-medium transition-colors border border-gray-300"
+                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 px-4 rounded-lg font-medium transition-colors border border-gray-300 cursor-pointer"
                 >
                     Cancel
                 </button>
@@ -38,7 +38,7 @@ const ToastCustomAlert = (
                         onConfirm();
                         toast.dismiss(t.id);
                     }}
-                    className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2.5 px-4 rounded-lg font-medium transition-colors shadow-sm"
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2.5 px-4 rounded-lg font-medium transition-colors shadow-sm cursor-pointer"
                 >
                     Yes, Confirm
                 </button>

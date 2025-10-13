@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import img2 from "../../../../assets/images/whatWeDoImg.png";
+import { AboutImg2 } from "../../../../../utils/Constants";
 
 const WhatWeDoContainer = () => {
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ const WhatWeDoContainer = () => {
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
                             <img
-                                src={img2}
+                                src={AboutImg2}
                                 alt="About Us - EVENTLY Events"
                                 className="relative w-full max-w-lg h-auto rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
                             />

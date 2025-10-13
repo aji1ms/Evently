@@ -54,7 +54,7 @@ const NotifactionSearch = () => {
                 {(localSearch) && (
                     <button
                         onClick={handleClearSearch}
-                        className="px-3 py-2 mx-1 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="px-3 py-2 mx-1 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
                     >
                         Clear
                     </button>

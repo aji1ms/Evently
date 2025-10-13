@@ -247,7 +247,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
                     <h2 className="text-2xl font-semibold text-gray-800">Edit Event</h2>
                     <button
                         onClick={handleClose}
-                        className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-lg hover:bg-gray-100"
+                        className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-lg hover:bg-gray-100 cursor-pointer"
                     >
                         <X size={24} />
                     </button>
@@ -590,14 +590,14 @@ const EditEventModal: React.FC<EditEventModalProps> = ({
                     <button
                         onClick={handleClose}
                         disabled={editLoading}
-                        className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50"
+                        className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50 cursor-pointer"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={editLoading}
-                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:bg-blue-400 disabled:cursor-not-allowed"
+                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:bg-blue-400 disabled:cursor-not-allowed cursor-pointer"
                     >
                         {editLoading && <Loader2 size={16} className="animate-spin" />}
                         {editLoading ? 'Saving...' : 'Save Changes'}

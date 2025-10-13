@@ -1,26 +1,8 @@
-import event1Img from "../../../assets/images/events/eventImg.webp";
-import event2Img from "../../../assets/images/events/event2Img.webp";
-import event3Img from "../../../assets/images/events/event3Img.webp";
-import event4Img from "../../../assets/images/events/event4Img.webp";
-import event5Img from "../../../assets/images/events/event5Img.webp";
-import event6Img from "../../../assets/images/events/event6Img.webp";
-import event7Img from "../../../assets/images/events/event7Img.webp";
-import event8Img from "../../../assets/images/events/event8Img.webp";
 import { useNavigate } from "react-router";
+import { eventImages } from "../../../../utils/Constants";
 
 const EventGallery = () => {
     const navigate = useNavigate();
-
-    const eventImages = [
-        { src: event1Img, alt: "Tech Conference 2024" },
-        { src: event2Img, alt: "Startup Talks" },
-        { src: event3Img, alt: "Business Summit" },
-        { src: event4Img, alt: "LinkedIn Webinar" },
-        { src: event5Img, alt: "Coding Bootcamp" },
-        { src: event6Img, alt: "Job Expos" },
-        { src: event7Img, alt: "Innovation Workshop" },
-        { src: event8Img, alt: "Networking Event" }
-    ];
 
     return (
         <div>

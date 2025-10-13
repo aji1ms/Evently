@@ -6,6 +6,8 @@ import adminNotificationSlice from "./slices/admin/adminNotificationSlice";
 import adminEventSlice from "./slices/admin/adminEventSlice";
 import adminReviewSlice from "./slices/admin/adminReviewSlice";
 import adminBookingSlice from "./slices/admin/adminBookingSlice";
+import adminReportSlice from "./slices/admin/adminReportSlice";
+import adminDashboardSlice from "./slices/admin/adminDashboardSlice";
 import authReducer from "./slices/auth/authSlice";
 import authEventsReducer from "./slices/auth/authEventsSlice";
 import authBookmarksReducer from "./slices/auth/authBookmarkSlice";
@@ -23,6 +25,8 @@ const store = configureStore({
         adminEvents: adminEventSlice,
         adminBookings: adminBookingSlice,
         adminReviews: adminReviewSlice,
+        adminReport: adminReportSlice,
+        adminDashboard: adminDashboardSlice,
 
         // AUTH
         auth: authReducer,

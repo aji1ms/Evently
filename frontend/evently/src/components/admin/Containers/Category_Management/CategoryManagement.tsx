@@ -41,7 +41,7 @@ const CategoryManagement = () => {
                             <p className="text-gray-600 mt-1">Manage your product categories</p>
                         </div>
                         <button
-                            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
                             onClick={() => setIsModalOpen(true)}
                         >
                             <Plus size={20} />

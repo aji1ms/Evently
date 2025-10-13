@@ -1,4 +1,4 @@
-import bannerImage from "../../assets/images/mainBannerImg.png";
+import { bannerImg } from "../../../utils/Constants";
 import ClientsContainer from "../../components/user/Containers/About_Page/ClientsContainer";
 import LeadingContainer from "../../components/user/Containers/About_Page/LeadingContainer";
 import WelcomeContainer from "../../components/user/Containers/About_Page/WelcomeContainer";
@@ -14,7 +14,7 @@ const About = () => {
             <Header />
             <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[80vh] overflow-hidden">
                 <img
-                    src={bannerImage}
+                    src={bannerImg}
                     alt="Event planning and management banner"
                     className="w-full h-full object-cover"
                 />

@@ -1,4 +1,4 @@
-import welcomeImg from '../../../../assets/images/welcomeImg.jpg'
+import { AboutImg1 } from "../../../../../utils/Constants";
 
 const WelcomeContainer = () => {
     return (
@@ -10,7 +10,7 @@ const WelcomeContainer = () => {
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
                             <img
-                                src={welcomeImg}
+                                src={AboutImg1}
                                 alt="Welcome - EVENTLY Events"
                                 className="relative w-full max-w-lg h-auto rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
                             />

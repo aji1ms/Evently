@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import bannerImage from "../../../../assets/images/mainBannerImg.png";
+import { bannerImg } from "../../../../../utils/Constants";
 
 const MainContainer = () => {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ const MainContainer = () => {
 
             <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen overflow-hidden rounded-2xl lg:rounded-4xl">
                 <img
-                    src={bannerImage}
+                    src={bannerImg}
                     alt="Event planning and management banner"
                     className="w-full h-full object-cover"
                 />

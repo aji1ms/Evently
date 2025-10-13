@@ -1,8 +1,8 @@
 import Footer from "../../components/user/Containers/Footer"
 import Header from "../../components/user/Containers/Header"
-import bannerImage from "../../assets/images/mainBannerImg.png";
 import MessagingSection from "../../components/user/Containers/Contact_Page/ContactForm";
 import EmailSection from "../../components/user/Containers/Contact_Page/CardsSection";
+import { bannerImg } from "../../../utils/Constants";
 
 const Contact = () => {
     return (
@@ -10,7 +10,7 @@ const Contact = () => {
             <Header />
             <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[80vh] overflow-hidden">
                 <img
-                    src={bannerImage}
+                    src={bannerImg}
                     alt="Event planning and management banner"
                     className="w-full h-full object-cover"
                 />
