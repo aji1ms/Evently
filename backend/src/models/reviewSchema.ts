@@ -3,6 +3,11 @@ import { IReview } from "../Types/schemaTypes";
 
 const reviewSchema = new Schema<IReview>(
     {
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true
+        },
         name: {
             type: String,
             required: true,
@@ -16,7 +21,7 @@ const reviewSchema = new Schema<IReview>(
         comment: {
             type: String,
             default: "",
-        }
+        },
     },
     { timestamps: true }
 )

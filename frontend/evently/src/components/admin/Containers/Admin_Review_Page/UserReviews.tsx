@@ -1,12 +1,26 @@
-import React from 'react';
-import { Star, Calendar, TrendingUp } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Star, TrendingUp } from 'lucide-react';
 import RatingFilters from './RatingFilters';
-import RatingDistribution from './RatingDistribution';
 import ReviewsList from './ReviewsList';
 import StatsCard from '../Dashboard_Page/StatsCard';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../../../../Redux/store';
+import { fetchReviews } from '../../../../Redux/slices/admin/adminReviewSlice';
+import ReviewPagination from './ReviewPagination';
 
 
 const UserReviews: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const { stats, loading, filters, pagination, reviews } = useSelector((state: RootState) => state.adminReviews)
+
+    useEffect(() => {
+        dispatch(fetchReviews({
+            rating: filters.rating,
+            dateFilter: filters.dateFilter,
+            page: pagination.currentPage
+        }))
+    }, [dispatch, filters, pagination.currentPage]);
+
     return (
         <div className="flex-1 min-h-screen bg-gray-50 p-6 md:ml-80">
             <div className="max-w-7xl mx-auto">
@@ -21,36 +35,37 @@ const UserReviews: React.FC = () => {
                     <StatsCard
                         title='Total Reviews'
                         icon={<TrendingUp className="w-6 h-6 text-blue-600" />}
-                        value={5}
+                        value={stats?.totalReviews || 0}
                     />
 
                     <StatsCard
                         title='Average Rating'
                         icon={<Star className="w-6 h-6 text-yellow-600" />}
-                        value={3.8}
+                        value={stats?.averageRating || 0}
                     />
 
                     <StatsCard
                         title='5 Star Reviews'
                         icon={<Star className="w-6 h-6 text-green-600" />}
-                        value={5}
-                    />
-
-                    <StatsCard
-                        title='This Month'
-                        icon={<Calendar className="w-6 h-6 text-purple-600" />}
-                        value={5}
+                        value={stats?.fiveStarCount || 0}
                     />
                 </div>
-
-                {/* Rating Distribution */}
-                <RatingDistribution />
 
                 {/* Filters */}
                 <RatingFilters />
 
                 {/* Reviews List */}
-                <ReviewsList />
+                {loading ? (
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                        <p className="mt-2 text-gray-600">Loading Reviews...</p>
+                    </div>
+                ) : (
+                    <>
+                        < ReviewsList reviewData={reviews} />
+                        <ReviewPagination />
+                    </>
+                )}
             </div>
         </div>
     );

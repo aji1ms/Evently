@@ -73,7 +73,7 @@ const ProfileDetail: React.FC = () => {
             toast.success("Profile updated successfully!");
             setIsEditing(false);
             setSelectedFile(null);
-            setErrors({ name: "", phone: "" }); 
+            setErrors({ name: "", phone: "" });
         } catch (error: any) {
             toast.error(error || "Failed to update profile");
         }
@@ -89,7 +89,7 @@ const ProfileDetail: React.FC = () => {
         }
         setIsEditing(false);
         setSelectedFile(null);
-        setErrors({ name: "", phone: "" }); 
+        setErrors({ name: "", phone: "" });
     };
 
     const handleInputChange = (field: string, value: string) => {
@@ -129,7 +129,7 @@ const ProfileDetail: React.FC = () => {
                         {!isEditing ? (
                             <button
                                 onClick={() => setIsEditing(true)}
-                                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
                             >
                                 <Edit3 className="w-4 h-4" /> Edit
                             </button>
@@ -138,14 +138,15 @@ const ProfileDetail: React.FC = () => {
                                 <button
                                     onClick={handleSave}
                                     disabled={loading}
-                                    className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50"
+                                    className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 cursor-pointer"
                                 >
                                     <Save className="w-4 h-4" />
                                     {loading ? "Saving..." : "Save"}
                                 </button>
                                 <button
                                     onClick={handleCancel}
-                                    className="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors
+                                    cursor-pointer"
                                 >
                                     <X className="w-4 h-4" /> Cancel
                                 </button>

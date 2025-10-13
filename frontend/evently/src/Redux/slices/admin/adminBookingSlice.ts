@@ -1,4 +1,3 @@
-// slices/adminBookingsSlice.ts
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { EventData } from "./adminEventSlice";
