@@ -107,6 +107,23 @@ export const updateProfile = createAsyncThunk(
     }
 )
 
+export const googleLogin = createAsyncThunk(
+    "auth/googleLogin",
+    async (idToken: string, { rejectWithValue }) => {
+        try {
+            const res = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/google-signin`,
+                { idToken },
+                { withCredentials: true }
+            );
+
+            return res.data.user;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data?.message || "Google login failed");
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -171,6 +188,20 @@ const authSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(updateProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+
+            // Google Login
+            .addCase(googleLogin.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(googleLogin.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(googleLogin.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })

@@ -5,8 +5,9 @@ import { Link, useNavigate } from "react-router";
 import { validateEmail, validatePassword } from "../../../utils/helper";
 import type { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../Redux/slices/auth/authSlice";
+import { googleLogin, loginUser } from "../../Redux/slices/auth/authSlice";
 import toast from "react-hot-toast";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -35,10 +36,29 @@ const Login = () => {
             setError("Password must be at least 6 characters with letters and numbers");
             return;
         }
-        await dispatch(loginUser({ email, password }));
+        const result = await dispatch(loginUser({ email, password })).unwrap();
         toast.success("Login successfull!", { duration: 2000 });
         setError("")
     }
+
+    const handleGoogleSuccess = async (credentialResponse: any) => {
+        try {
+            const idToken = credentialResponse.credential;
+            if (!idToken) {
+                toast.error("Google sign-in failed. Try again.");
+                return;
+            }
+
+            await dispatch(googleLogin(idToken));
+            toast.success("Logged in with Google!");
+        } catch (error) {
+            toast.error("Google sign-in failed");
+        }
+    };
+
+    const handleGoogleError = () => {
+        toast.error("Google login was cancelled or failed");
+    };
 
     return (
 
@@ -91,12 +111,13 @@ const Login = () => {
                                     {loading ? "Signing in..." : "Sign in"}
                                 </button>
 
-                                <button
-                                    type='button'
-                                    className='w-full bg-blue-700 text-white py-3 rounded hover:bg-blue-800 transition-colors font-medium'
-                                >
-                                    Sign up with google
-                                </button>
+                                <div className="flex justify-center my-4">
+                                    <GoogleLogin
+                                        onSuccess={handleGoogleSuccess}
+                                        onError={handleGoogleError}
+                                        useOneTap
+                                    />
+                                </div>
 
                                 <p className='text-sm text-slate-800 text-center'>
                                     Don't have an account?{" "}
