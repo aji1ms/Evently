@@ -2,21 +2,22 @@ import { Send } from 'lucide-react';
 
 const InputArea = () => {
     return (
-        <div className="bg-black/20 backdrop-blur-sm border-t border-white/10 p-4">
-            <div className="max-w-4xl mx-auto">
-                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 p-2">
-                    <input
-                        type="text"
-                        placeholder="Type your message here..."
-                        className="flex-1 bg-transparent text-white placeholder-purple-200 px-4 py-2 outline-none"
-                    />
-                    <button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white p-3 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl">
+        <div className="bg-white border-t border-gray-200 px-6 py-4">
+            <div className="max-w-6xl mx-auto">
+                <div className="flex items-end space-x-3">
+                    <div className="flex-1 bg-gray-100 rounded-2xl border border-gray-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+                        <input
+                            type="text"
+                            placeholder="Type a message..."
+                            className="w-full bg-transparent text-gray-900 placeholder-gray-400 px-4 py-3 outline-none"
+                        />
+                    </div>
+                    <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-xl transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed mb-1"
+                    >
                         <Send className="w-5 h-5" />
                     </button>
                 </div>
-                <p className="text-purple-200 text-xs text-center mt-2">
-                    Press Enter to send • Shift + Enter for new line
-                </p>
             </div>
         </div>
     )

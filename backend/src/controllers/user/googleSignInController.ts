@@ -60,7 +60,7 @@ const googleSignIn = async (req: Request, res: Response) => {
             if (modified) await user.save();
         }
 
-        generateJWT(res, user._id.toString(), "jwt");
+        generateJWT(res, user._id.toString(), "userToken");
 
         const safeUser = {
             id: user._id,

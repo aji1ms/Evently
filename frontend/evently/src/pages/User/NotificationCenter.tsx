@@ -91,15 +91,15 @@ const NotificationCenter = () => {
                                 );
                             })}
                         </div>
+                        <div className="flex justify-center space-x-4 mt-6">
+                            <button
+                                onClick={handleMarkAll}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors cursor-pointer">
+                                Mark All as Read
+                            </button>
+                        </div>
                     </div>
                 )}
-                <div className="flex justify-center space-x-4 mt-6">
-                    <button
-                        onClick={handleMarkAll}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors cursor-pointer">
-                        Mark All as Read
-                    </button>
-                </div>
             </div>
         </div >
     );

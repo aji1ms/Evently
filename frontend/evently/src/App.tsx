@@ -9,7 +9,7 @@ import EventDetails from "./pages/User/EventDetails";
 import About from "./pages/User/About";
 import Contact from "./pages/User/Contact";
 import BookMark from "./pages/User/BookMark";
-import GPT from "./pages/User/GPT";
+import Chat from "./pages/User/Chat";
 import Profile from "./pages/User/Profile";
 import Tickets from "./pages/User/Tickets";
 import RatingPage from "./pages/User/RatingPage";
@@ -41,6 +41,8 @@ function App() {
     dispatch(fetchUser())
   }, [dispatch]);
 
+  console.log(dispatch)
+
   useEffect(() => {
     dispatch(fetchAdmin());
   }, [dispatch]);
@@ -62,7 +64,7 @@ function App() {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/notification-center" element={<NotificationCenter />} />
             <Route path="/bookmarks" element={<BookMark />} />
-            <Route path="/gpt" element={<GPT />} />
+            <Route path="/chat" element={<Chat />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/ticket/:id" element={<TicketDetails />} />

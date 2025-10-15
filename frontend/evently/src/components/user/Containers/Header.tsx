@@ -2,11 +2,11 @@ import { Link } from "react-router";
 import { IoIosNotifications, IoIosMenu, IoIosClose } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
-import { AiFillOpenAI } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { fetchNotifications } from "../../../Redux/slices/auth/authNotificationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../Redux/store";
+import { MessageCircleMore } from "lucide-react";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,18 +65,18 @@ const Header = () => {
                         />
                         {notifications.length > 0 && (
                             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                {notifications.length > 0 ? '1+' : "0"}
+                                {notifications.length > 0 ? `${notifications.length}+` : ""}
                             </span>
                         )}
                     </Link>
                     <Link to="/bookmarks">
                         <FaBookmark size={30} className="mr-3 text-red-500 hover:scale-110 transition-transform duration-300" />
                     </Link>
-                    <Link to="/gpt">
-                        <AiFillOpenAI size={40} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
+                    <Link to="/chat">
+                        <MessageCircleMore size={35} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
                     </Link>
                     <Link to="/profile">
-                        <IoSettingsOutline size={40} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
+                        <IoSettingsOutline size={39} className="mr-3 text-white hover:scale-110 transition-transform duration-300" />
                     </Link>
                 </div>
             </div>
@@ -106,9 +106,9 @@ const Header = () => {
                                 <FaBookmark size={20} className="text-red-500" />
                                 <span className="text-white">Bookmarks</span>
                             </Link>
-                            <Link to="/gpt" className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
-                                <AiFillOpenAI size={24} className="text-white" />
-                                <span className="text-white">AI Assistant</span>
+                            <Link to="/chat" className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
+                                <MessageCircleMore size={24} className="text-white" />
+                                <span className="text-white">Community</span>
                             </Link>
                             <Link to="/profile" className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
                                 <IoSettingsOutline size={24} className="text-white" />
