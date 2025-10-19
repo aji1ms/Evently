@@ -41,8 +41,6 @@ function App() {
     dispatch(fetchUser())
   }, [dispatch]);
 
-  console.log(dispatch)
-
   useEffect(() => {
     dispatch(fetchAdmin());
   }, [dispatch]);

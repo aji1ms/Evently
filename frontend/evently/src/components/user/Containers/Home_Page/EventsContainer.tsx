@@ -187,7 +187,7 @@ const EventsContainer = () => {
                 )}
                 {/* View All Button */}
                 < div className="flex justify-center mt-16">
-                    <button className="group relative px-12 py-4 bg-gradient-to-r from-gray-900 to-gray-700 text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-gray-300"
+                    <button className="group relative px-12 py-4 bg-gradient-to-r from-gray-900 to-gray-700 text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-gray-300"
                         onClick={() => navigate("/events")}
                     >
                         <span className="relative z-10 flex items-center space-x-2">

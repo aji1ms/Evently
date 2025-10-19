@@ -61,7 +61,7 @@ const FilterSidebar = ({ onClose, onFilterChange }: FilterSidebarProps) => {
                             name="category"
                             checked={filters.category === category?.name}
                             onChange={() => handleCategoryChange(category?.name || "")}
-                            className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
+                            className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300 cursor-pointer"
                         />
                         <span className="text-gray-700">{category?.name}</span>
                     </div>
@@ -78,7 +78,7 @@ const FilterSidebar = ({ onClose, onFilterChange }: FilterSidebarProps) => {
                             name="location"
                             checked={filters.type === location}
                             onChange={() => handleTypeChange(location)}
-                            className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
+                            className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300 cursor-pointer"
                         />
                         <span className="text-gray-700">{location}</span>
                     </div>

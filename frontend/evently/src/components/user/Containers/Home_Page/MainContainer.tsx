@@ -35,7 +35,7 @@ const MainContainer = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     <button
-                        className="group relative bg-white text-gray-900 font-semibold text-lg sm:text-xl py-4 px-8 sm:px-10 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-white/30"
+                        className="group relative bg-white text-gray-900 font-semibold text-lg sm:text-xl py-4 px-8 sm:px-10 rounded-xl overflow-hidden transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-white/30"
                         onClick={() => navigate("/events")}
                     >
                         <span className="relative z-10 flex items-center justify-center space-x-2">

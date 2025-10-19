@@ -1,7 +1,7 @@
 const EventShimmer = () => {
     return (
         <div className="px-4 lg:px-8 py-12 bg-gradient-to-br from-gray-50 via-white to-blue-50">
-            <div className="max-w-6xl mx-auto">
+            <div className="mx-auto">
                 <div className="space-y-6">
                     {[...Array(2)].map((_, index) => (
                         <div

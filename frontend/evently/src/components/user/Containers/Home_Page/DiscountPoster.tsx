@@ -3,7 +3,7 @@ import discountImg from "../../../../assets/images/discountImg.webp";
 
 const DiscountPoster = () => {
     const navigate = useNavigate();
-    
+
     return (
         <div className="px-4 py-16">
             <div className="max-w-6xl mx-auto">
@@ -37,7 +37,7 @@ const DiscountPoster = () => {
                             </p>
 
                             <div className="pt-2">
-                                <button className="bg-white text-[#06B6D1] font-bold text-lg px-8 py-3 rounded-xl hover:bg-yellow-50 hover:scale-105 transition-all duration-300 shadow-lg"
+                                <button className="bg-white text-[#06B6D1] font-bold text-lg px-8 py-3 rounded-xl hover:bg-yellow-50 hover:scale-105 transition-all duration-300 shadow-lg cursor-pointer"
                                     onClick={() => navigate("/events")}
                                 >
                                     Grab It Now

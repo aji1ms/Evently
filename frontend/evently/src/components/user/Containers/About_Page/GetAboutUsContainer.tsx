@@ -57,7 +57,7 @@ const GetAboutUsContainer = () => {
                         </div>
 
                         <div className="pt-4">
-                            <button className="group relative bg-[#06B6D1] text-white font-semibold py-4 px-8 rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#0891b2] hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-cyan-200"
+                            <button className="group relative bg-[#06B6D1] text-white font-semibold py-4 px-8 rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#0891b2] hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-cyan-200 cursor-pointer"
                                 onClick={() => navigate("/about")}
                             >
                                 <span className="relative z-10">Read More</span>

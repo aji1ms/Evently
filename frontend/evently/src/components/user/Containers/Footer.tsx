@@ -96,25 +96,6 @@ const Footer = () => {
                                     <span className="text-gray-300 text-sm">hello@evently.com</span>
                                 </div>
                             </div>
-
-                            <div>
-                                <h5 className="font-semibold mb-3">Subscribe Newsletter</h5>
-                                <form className="space-y-3">
-                                    <input
-                                        type="email"
-                                        onChange={(e) => (e.target.value)}
-                                        placeholder="Enter your email"
-                                        className="w-full px-4 py-3 bg-gray-800 rounded-lg border border-gray-700 focus:border-[#06B6D1] focus:outline-none text-white placeholder-gray-400"
-                                        required
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="w-full bg-[#06B6D1] text-white py-3 rounded-lg font-semibold hover:bg-[#0891b2] transition-colors duration-300"
-                                    >
-                                        Subscribe
-                                    </button>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -51,7 +51,7 @@ const Events = () => {
             <div className="flex flex-col lg:flex-row">
                 <button
                     onClick={toggleSidebar}
-                    className="lg:hidden p-2 flex justify-center items-center"
+                    className="lg:hidden p-2 flex justify-center items-center cursor-pointer"
                 >
                     <FaFilter className="mr-2" /> Filters
                 </button>

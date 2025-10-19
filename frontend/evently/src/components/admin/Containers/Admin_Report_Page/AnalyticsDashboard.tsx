@@ -20,7 +20,7 @@ const AnalyticsDashboard: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 w-full p-6 md:ml-80">
-            <div className="max-w-7xl mx-auto">
+            <div className="mx-auto">
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center justify-between">

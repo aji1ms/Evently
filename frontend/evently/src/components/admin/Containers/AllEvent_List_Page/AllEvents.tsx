@@ -19,7 +19,7 @@ const AllEvents = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:ml-80 w-full">
-            <div className="max-w-7xl mx-auto">
+            <div className="mx-auto">
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Event Management</h1>

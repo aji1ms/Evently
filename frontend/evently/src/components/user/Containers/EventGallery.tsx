@@ -51,7 +51,7 @@ const EventGallery = () => {
 
                     {/* Call to Action */}
                     <div className="text-center mt-16">
-                        <button className="group relative px-8 py-4 bg-gradient-to-r from-[#06B6D1] to-[#0891b2] text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-200"
+                        <button className="group relative px-8 py-4 bg-gradient-to-r from-[#06B6D1] to-[#0891b2] text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-200 cursor-pointer"
                             onClick={() => navigate("/events")}
                         >
                             <span className="relative z-10 flex items-center space-x-2">

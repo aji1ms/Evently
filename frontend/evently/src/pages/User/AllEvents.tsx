@@ -64,7 +64,7 @@ const AllEvents = () => {
 
     return (
         < div className="px-4 lg:px-8 py-12 bg-gradient-to-br from-gray-50 via-white to-blue-50" >
-            <div className="max-w-6xl mx-auto">
+            <div className="mx-auto">
                 {events.length > 0 ? (
                     <div className="space-y-6">
                         {events.map(event => (

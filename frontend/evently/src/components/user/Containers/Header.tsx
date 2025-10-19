@@ -98,7 +98,7 @@ const Header = () => {
 
                     <div className="border-t border-white/20 pt-6">
                         <div className="grid grid-cols-2 gap-3">
-                            <Link to="/notifications" className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/notification-center" className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
                                 <IoIosNotifications size={24} className="text-yellow-500" />
                                 <span className="text-white">Notifications</span>
                             </Link>

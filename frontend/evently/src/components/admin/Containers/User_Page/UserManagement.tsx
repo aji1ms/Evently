@@ -33,7 +33,7 @@ const UserManagement: React.FC = () => {
 
     return (
         <div className="flex-1 min-h-screen bg-gray-50 p-6 md:ml-80">
-            <div className="max-w-7xl mx-auto">
+            <div className="mx-auto">
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center justify-between">
