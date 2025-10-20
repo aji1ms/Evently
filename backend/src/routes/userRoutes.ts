@@ -18,7 +18,7 @@ router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 router.get("/getUser", authenticateUser(["user"], "userToken"), userController.getUserInfo);
 router.patch("/profile", authenticateUser(["user"], "userToken"), uploadProfileImage.single('avatar'), userController.updateProfile);
-router.post("/logout", authenticateUser(["user"], "userToken"), userController.logoutUser);
+router.post("/logout", userController.logoutUser);
 
 // Google SignIn 
 
