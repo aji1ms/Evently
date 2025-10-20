@@ -64,7 +64,7 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePaymentError = (err: any) => {
+  const handlePaymentError = (_err: any) => {
     toast('Payment failed. Please try again!', { duration: 2000 });
   };
 
