@@ -11,7 +11,7 @@ const GPT = () => {
     const messages = useSelector((state: RootState) => state.authChats.messages);
     const typingUsers = useSelector((state: RootState) => state.authChats.typingUsers);
 
-    const [isConnected, setIsConnected] = useState(false);
+    const [_isConnected, setIsConnected] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { sendMessage, sendTyping } = useChat();
 

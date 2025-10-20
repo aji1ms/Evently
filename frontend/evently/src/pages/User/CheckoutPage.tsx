@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, Minus, Plus } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../Redux/store';
 import PaypalButton from '../../components/user/Inputs/PaypalButton';

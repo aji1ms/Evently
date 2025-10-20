@@ -36,7 +36,7 @@ const Login = () => {
             setError("Password must be at least 6 characters with letters and numbers");
             return;
         }
-        const result = await dispatch(loginUser({ email, password })).unwrap();
+        await dispatch(loginUser({ email, password })).unwrap();
         toast.success("Login successfull!", { duration: 2000 });
         setError("")
     }

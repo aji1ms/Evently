@@ -16,7 +16,7 @@ const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
         }}>
             <PayPalButtons
                 style={{ layout: "vertical" }}
-                createOrder={(data, actions) => {
+                createOrder={(_data, actions) => {
                     if (!actions.order) {
                         throw new Error('PayPal order actions not available');
                     }
@@ -30,7 +30,7 @@ const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
                         }]
                     });
                 }}
-                onApprove={async (data, actions) => {
+                onApprove={async (_data, actions) => {
                     try {
                         if (!actions.order) {
                             throw new Error('PayPal order actions not available');
