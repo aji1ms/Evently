@@ -11,7 +11,6 @@ const LoadingSpinner = () => {
 
                 {/* Loading text with animated dots */}
                 <div className="flex items-center justify-center gap-1">
-                    <span className="text-xl font-semibold text-gray-700">Checking login</span>
                     <span className="flex gap-1">
                         <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                         <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>

@@ -40,7 +40,7 @@ const NotificationList = ({ notifications }: NotificationData) => {
             `Are you sure to delete this notification?`,
             () => {
                 dispatch(deleteNotification(id)).unwrap()
-                    .then(() => toast.success(`Category deleted successfully`, { duration: 2000 }))
+                    .then(() => toast.success(`Notification deleted successfully`, { duration: 2000 }))
                     .catch((err) => toast.error(err, { duration: 2000 }));
             }
         )

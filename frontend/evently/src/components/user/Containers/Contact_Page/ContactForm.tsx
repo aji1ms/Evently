@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { validateEmail, validateSubject, validFullName } from '../../../../../utils/helper';
+import toast from 'react-hot-toast';
 
 interface FormData {
     name: string;
@@ -51,7 +52,7 @@ const ContactForm = () => {
         }
 
         setError('');
-        console.log(formData)
+        toast.success("Thank you for contacting us!", { duration: 2000 })
         setFormData({
             name: '',
             email: '',

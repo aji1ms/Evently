@@ -25,8 +25,15 @@ const ClientsContainer = () => {
                             <div className="w-20 h-1 bg-gradient-to-r from-[#06B6D1] to-cyan-400 rounded-full"></div>
                         </div>
                         <div className="border border-black p-4 rounded-2xl">
-                            <div className="flex items-center">
-                                <div className="flex flex-col ml-4">
+                            <div className="flex items-center gap-4">
+                                <div className="flex-shrink-0">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                                        alt="John Doe"
+                                        className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+                                    />
+                                </div>
+                                <div className="flex flex-col">
                                     <h1 className="font-bold text-xl">John Doe</h1>
                                     <p className="text-gray-500">Web Developer</p>
                                 </div>

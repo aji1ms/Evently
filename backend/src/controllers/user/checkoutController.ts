@@ -1,13 +1,17 @@
 import { Request, Response } from "express";
+import { sendMail } from "../../Utils/sendMail";
 const User = require("../../models/userSchema");
 const Event = require("../../models/eventSchema");
 const Booking = require("../../models/bookingSchema");
 
-interface IPaymentResult {
-    success: boolean;
-    transactionId: string | null;
-    error: string | null;
-}
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+};
 
 // Checkout
 
@@ -76,6 +80,45 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         await User.findByIdAndUpdate(userId, {
             $push: { bookings: booking._id }
         });
+
+        let subject = "🎟️ Your Ticket Booking is Confirmed!";
+        let html = "";
+
+        if (event.eventType === "online") {
+            html = `
+                <h2>Hi ${user.name},</h2>
+                <p>Your booking for <b>${event.title}</b> is confirmed!</p>
+                <p><b>Date:</b> ${formatDate(event.eventDate)}</p>
+                <p><b>Time:</b> ${event.eventTime}</p>
+                <p><b>Meeting Link:</b> <a href="${event.meetingLink}">${event.meetingLink}</a></p>
+                <p>We can’t wait to see you online 🎥</p>
+                <br/>
+                <p>– Team Evently</p>
+            `;
+        } else {
+            html = `
+                <h2>Hi ${user.name},</h2>
+                <p>Your booking for <b>${event.title}</b> is confirmed!</p>
+                <p><b>Date:</b> ${formatDate(event.eventDate)}</p>
+                <p><b>Time:</b> ${event.eventTime}</p>
+                <p><b>Venue:</b> 
+                ${event?.location?.address},
+                 ${event?.location?.venue}, 
+                 ${event?.location?.city},
+                 ${event?.location?.state}
+                  </p>
+                <p>We look forward to seeing you there 🎉</p>
+                <br/>
+                <p>– Team Evently</p>
+            `;
+        }
+
+        await sendMail({
+            to: user.email,
+            subject,
+            html,
+        });
+
 
         res.status(201).json({
             message: "Booking confirmed successfully!",

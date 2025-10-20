@@ -32,23 +32,8 @@ export const useChat = () => {
             }
         });
 
-        socket.on('user-connected', (data) => {
-            if (data && data.username) {
-                toast.success(`${data.username} joined the community`, {
-                    icon: '👋',
-                    duration: 1000
-                });
-            }
-        });
-
-        socket.on('user-disconnected', (data) => {
-            if (data && data.username) {
-                toast(`${data.username} left the community`, {
-                    icon: '👋',
-                    duration: 1000
-                });
-            }
-        });
+        socket.on('user-connected', () => { });
+        socket.on('user-disconnected', () => { });
 
         return () => {
             socket.off('load-messages');

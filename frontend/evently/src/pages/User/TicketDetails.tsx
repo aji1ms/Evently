@@ -264,12 +264,12 @@ const TicketDetails = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
+                {/* <div className="flex flex-col sm:flex-row gap-4">
                     <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center">
                         <Download className="w-5 h-5 mr-2" />
                         Download Ticket
                     </button>
-                </div>
+                </div> */}
 
                 {/* Additional Info */}
                 {currentTicket?.event?.eventType === "offline" && (

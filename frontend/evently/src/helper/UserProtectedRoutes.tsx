@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import type { RootState } from "../Redux/store";
-import LoadingSpinner from "../components/user/ShimmerUI/loadingSpinner";
+import LoadingSpinner from "../components/user/ShimmerUI/LoadingSpinner";
 
 const UserProtectedRoutes: React.FC = () => {
     const { user, loading } = useSelector((state: RootState) => state.auth);
