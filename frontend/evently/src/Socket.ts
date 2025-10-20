@@ -16,7 +16,7 @@ export function connectWS(): Socket {
         hasShownError = false;
     });
 
-    socket.on("connect_error", (error) => {
+    socket.on("connect_error", (_error) => {
         if (!hasShownError) {
             toast.error("Failed to connect to chat. Please check your connection.");
             hasShownError = true;
