@@ -103,10 +103,7 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": [
+    "server.ts",
     "**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
   ]
 }
