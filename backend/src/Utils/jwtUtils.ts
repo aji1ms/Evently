@@ -10,8 +10,8 @@ const generateJWT = (res: Response, userId: string, cookieName: string = "jwt") 
 
     res.cookie(cookieName, token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         maxAge: cookieMaxAge,
         path: '/',
     });
@@ -20,8 +20,8 @@ const generateJWT = (res: Response, userId: string, cookieName: string = "jwt") 
 const clearJWT = (res: Response, cookieName: string = "jwt") => {
     res.cookie(cookieName, "", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         expires: new Date(0),
         path: '/',
     });
