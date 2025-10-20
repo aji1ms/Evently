@@ -50,14 +50,14 @@ const CheckoutPage = () => {
     }
 
     try {
-      await dispatch(
+      const result = await dispatch(
         createPayPalBooking({
           eventId: eventData._id,
           quantity: ticketCount,
           transactionId: details.id
         })
       ).unwrap();
-
+      console.log("Booking result:", result);
       setIsPaymentSuccess(true);
     } catch (error) {
       toast('Payment successful but booking creation failed. Please contact support!', { duration: 2000 });
