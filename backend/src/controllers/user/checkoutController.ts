@@ -18,15 +18,7 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         const userId = req.user?._id;
         const { eventId, quantity, transactionId } = req.body;
 
-        console.log('=== Checkout Started ===');
-        console.log('User ID:', userId);
-        console.log('Event ID:', eventId);
-        console.log('Quantity:', quantity);
-        console.log('Transaction ID:', transactionId);
-
-        // Validation
         if (!eventId || !quantity || !transactionId) {
-            console.log('❌ Missing required fields');
             res.status(400).json({
                 message: "Event ID, quantity, and transactionId are required!"
             });
@@ -34,31 +26,23 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         }
 
         if (!userId) {
-            console.log('❌ User not authenticated');
             res.status(401).json({ message: "Please login to book tickets!" });
             return;
         }
 
-        // Fetch user
         const user = await User.findById(userId);
         if (!user) {
-            console.log('❌ User not found');
             res.status(404).json({ message: "User not found!" });
             return;
         }
-        console.log('✅ User found:', user.email);
 
-        // Fetch event
         const event = await Event.findById(eventId);
         if (!event) {
-            console.log('❌ Event not found');
             res.status(404).json({ message: "Event not found!" });
             return;
         }
-        console.log('✅ Event found:', event.title);
 
         if (quantity <= 0) {
-            console.log('❌ Invalid quantity');
             res.status(400).json({ message: "Quantity must be greater than 0!" });
             return;
         }
@@ -66,15 +50,12 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         const totalAmount = quantity * event.salePrice;
 
         if (event.availableSeats < quantity) {
-            console.log('❌ Not enough seats');
             res.status(400).json({
                 message: `Only ${event.availableSeats} seats available!`
             });
             return;
         }
 
-        // Create booking
-        console.log('📝 Creating booking...');
         const booking = new Booking({
             user: userId,
             event: eventId,
@@ -87,33 +68,20 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         });
 
         await booking.save();
-        console.log('✅ Booking created:', booking._id);
 
-        // Update event seats
-        console.log('🪑 Updating event seats...');
         await Event.findByIdAndUpdate(eventId, {
             $inc: { availableSeats: -quantity }
         });
-        console.log('✅ Seats updated');
 
-        // Update user bookings
-        console.log('👤 Updating user bookings...');
         await User.findByIdAndUpdate(userId, {
             $push: { bookings: booking._id }
         });
-        console.log('✅ User updated');
 
-        // CRITICAL: Send response BEFORE attempting email
-        // This ensures the frontend gets a success response even if email fails
         res.status(201).json({
             message: "Booking confirmed successfully!",
             data: booking
         });
 
-        console.log('✅ Response sent to frontend');
-
-        // Send email AFTER response (asynchronously)
-        // This won't block the response or cause 500 errors
         (async () => {
             try {
                 let subject = "🎟️ Your Ticket Booking is Confirmed!";
@@ -148,32 +116,22 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
                     `;
                 }
 
-                console.log('📧 Attempting to send email to:', user.email);
                 await sendMail({
                     to: user.email,
                     subject,
                     html,
                 });
-                console.log('✅ Email sent successfully to:', user.email);
             } catch (error) {
-                console.error('❌ Email sending failed:', error);
-                // Log but don't crash - booking is already complete
-                console.error('Email error details:', {
-                    err: error,
-                    to: user.email,
-                    bookingId: booking._id
+                res.status(500).json({
+                    message: "Internal server error"
                 });
             }
         })();
 
-        console.log('=== Checkout Completed Successfully ===');
 
     } catch (error: any) {
-        console.error('❌ Checkout error:', error);
-        console.error('Error stack:', error.stack);
         res.status(500).json({
-            message: "Internal server error",
-            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+            message: "Internal server error"
         });
     }
 }
