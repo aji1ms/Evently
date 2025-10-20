@@ -73,7 +73,6 @@ const googleSignIn = async (req: Request, res: Response) => {
 
         return res.status(200).json({ message: "Logged in with Google", user: safeUser });
     } catch (error) {
-        console.error("googleSignIn error:", error);
         return res.status(500).json({ message: "Server error during Google signin" });
     }
 };

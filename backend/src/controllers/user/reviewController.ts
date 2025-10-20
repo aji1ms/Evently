@@ -31,7 +31,6 @@ const createReview = async (req: Request, res: Response): Promise<void> => {
             data: review,
         });
     } catch (error) {
-        console.log("Error creating error: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

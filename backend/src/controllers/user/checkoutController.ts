@@ -125,7 +125,6 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
             data: booking
         });
     } catch (error) {
-        console.error("Error during PayPal checkout: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

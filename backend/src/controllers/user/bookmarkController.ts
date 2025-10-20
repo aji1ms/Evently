@@ -57,7 +57,6 @@ const addToBookmark = async (req: Request, res: Response): Promise<void> => {
             data: bookmark,
         });
     } catch (error) {
-        console.log("Error add to bookmark: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -93,7 +92,6 @@ const removeFromBookmark = async (req: Request, res: Response): Promise<void> =>
             data: deletedBookmark,
         });
     } catch (error) {
-        console.log("Error removing bookmark: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -129,7 +127,6 @@ const getBookmarks = async (req: Request, res: Response): Promise<void> => {
             count: bookmarks.length,
         })
     } catch (error) {
-        console.log("Error getting bookmark: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

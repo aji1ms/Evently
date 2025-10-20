@@ -27,7 +27,6 @@ const adminLogin = async (req: Request, res: Response): Promise<void> => {
 
         res.status(200).json({ message: "Login successfull!" });
     } catch (error) {
-        console.log("Admin login error: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -58,7 +57,6 @@ const getAdminInfo = async (req: Request, res: Response): Promise<void> => {
             admin: user
         });
     } catch (error) {
-        console.error("Get admin Info Error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -71,7 +69,6 @@ const adminLogout = async (req: Request, res: Response): Promise<void> => {
         clearJWT(res, "adminToken");
         res.status(200).json({ message: "Logout successfull!" });
     } catch (error) {
-        console.log("Admin logout error: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

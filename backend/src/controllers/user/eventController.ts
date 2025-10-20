@@ -22,7 +22,6 @@ const loadEvents = async (req: Request, res: Response): Promise<void> => {
             data: events,
         })
     } catch (error) {
-        console.log("Error getting event: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -90,7 +89,6 @@ const getAllEvents = async (req: Request, res: Response): Promise<void> => {
             hasPrev: pageNum > 1,
         })
     } catch (error) {
-        console.log("Error getting event: ", error);
         res.status(500).json({ message: "Internal server error" });                    
     }
 }
@@ -118,7 +116,6 @@ const eventDetails = async (req: Request, res: Response): Promise<void> => {
             data: event,
         })
     } catch (error) {
-        console.log("Error getting event details: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

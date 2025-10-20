@@ -105,7 +105,6 @@ const addEvent = async (req: Request, res: Response): Promise<void> => {
             event: newEvent,
         });
     } catch (error) {
-        console.error("Error creating event:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -241,7 +240,6 @@ const editEvent = async (req: Request, res: Response): Promise<void> => {
             data: updatedEvent,
         });
     } catch (error) {
-        console.error("Error editing event:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -262,7 +260,6 @@ const deleteEvent = async (req: Request, res: Response): Promise<void> => {
 
         res.status(200).json({ message: "Event deleted successfully!" })
     } catch (error) {
-        console.log("Error deleting event: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -336,7 +333,6 @@ const getAllEvents = async (req: Request, res: Response): Promise<void> => {
             upcomingEvents,
         });
     } catch (error) {
-        console.log("Error getting event: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

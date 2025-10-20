@@ -40,4 +40,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/admin", adminRoute);
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => console.log(`server running on port ${PORT}`));        
+server.listen(PORT, () => console.log(`server running.....`));        

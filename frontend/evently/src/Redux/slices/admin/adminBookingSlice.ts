@@ -116,7 +116,6 @@ export const getBookingDetails = createAsyncThunk(
                 `${import.meta.env.VITE_BACKEND_URL}/api/admin/bookings/${id}`,
                 { withCredentials: true }
             )
-            console.log(res.data)
             return res.data.data;
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message || "Failed to fetch bookings details!");

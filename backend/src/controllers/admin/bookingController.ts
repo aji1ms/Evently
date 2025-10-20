@@ -114,7 +114,6 @@ const listBookings = async (req: Request, res: Response): Promise<void> => {
             hasPrevPage: pageNum > 1,
         });
     } catch (error) {
-        console.error("Error listing bookings:", error);
         res.status(500).json({ message: "Internal server error!" });
     }
 };
@@ -141,7 +140,6 @@ const viewOrderDetails = async (req: Request, res: Response): Promise<void> => {
             data: booking,
         });
     } catch (error) {
-        console.log("Error viewing booking details: ", error);
         res.status(500).json({ message: "Internal server error!" });
     }
 }

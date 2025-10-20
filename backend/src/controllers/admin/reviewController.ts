@@ -81,7 +81,6 @@ const getReviews = async (req: Request, res: Response): Promise<void> => {
             hasPrevPage: pageNum > 1,
         });
     } catch (error) {
-        console.log("Error Getting reviews: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -103,7 +102,6 @@ const delteReview = async (req: Request, res: Response): Promise<void> => {
             data: review,
         });
     } catch (error) {
-        console.log("Error deleting reviews: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

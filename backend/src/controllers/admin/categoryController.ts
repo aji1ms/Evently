@@ -30,7 +30,6 @@ const addCategory = async (req: Request, res: Response): Promise<void> => {
             data: newCategory,
         });
     } catch (error) {
-        console.log("Error adding category: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -73,7 +72,6 @@ const editCategory = async (req: Request, res: Response): Promise<void> => {
             data: updateCategory,
         });
     } catch (error) {
-        console.log("Error edit category", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -94,7 +92,6 @@ const deleteCategory = async (req: Request, res: Response): Promise<void> => {
 
         res.status(200).json({ message: "Category deleted successfully!", });
     } catch (error) {
-        console.log("Error deleting category", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -119,7 +116,6 @@ const toggleCategoryStatus = async (req: Request, res: Response): Promise<void> 
             data: updateCategory,
         })
     } catch (error) {
-        console.log("Error toggling status category: ", error);
         res.status(500).json({ message: "Internal Server error" });
     }
 }
@@ -177,7 +173,6 @@ const getAllCategories = async (req: Request, res: Response): Promise<void> => {
             inactiveCategories
         });
     } catch (error) {
-        console.log("Error getting category", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

@@ -143,7 +143,6 @@ const getAdminReport = async (req: Request, res: Response): Promise<void> => {
             mostAttendedEvents
         });
     } catch (error) {
-        console.error("Error generating admin report:", error);
         res.status(500).json({ message: "Internal server error!" });
     }
 };

@@ -23,7 +23,6 @@ const getMessages = async (req: AuthRequest, res: Response) => {
             messages: messages.reverse()
         });
     } catch (error) {
-        console.log("Error fetching messages: ", error)
         res.status(500).json({ message: "Internal server error" });
     }
 };

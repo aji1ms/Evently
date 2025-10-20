@@ -26,7 +26,6 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
 
         res.status(201).json({ message: "User created successfully!" });
     } catch (error) {
-        console.error("Registration error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -62,7 +61,6 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
 
         res.status(200).json({ message: "Login successful!" });
     } catch (error) {
-        console.error("Login error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -85,7 +83,6 @@ const getUserInfo = async (req: Request, res: Response): Promise<void> => {
 
         res.status(200).json(user);
     } catch (error) {
-        console.error("Get User Info Error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -103,7 +100,6 @@ const logoutUser = async (req: Request, res: Response) => {
 
         return res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
-        console.error("Logout error:", error);
         return res.status(500).json({ message: "Server error during logout" });
     }
 };
@@ -145,7 +141,6 @@ const updateProfile = async (req: Request, res: Response): Promise<void> => {
             data: updatedUser
         });
     } catch (error) {
-        console.error("Error updating profile:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }

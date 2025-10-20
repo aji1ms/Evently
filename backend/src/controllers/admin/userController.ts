@@ -63,7 +63,6 @@ const userInfo = async (req: Request, res: Response): Promise<void> => {
             inactiveUsers,
         });
     } catch (error) {
-        console.log("Error getting user info: ", error);
         res.status(500).json({ message: "Internal server error" })
     }
 }
@@ -88,7 +87,6 @@ const toggleUserStatus = async (req: Request, res: Response): Promise<void> => {
             data: updatedUser
         });
     } catch (error) {
-        console.log("Error toggling User status: ", error);
         res.status(500).json({ message: "Internal Server error" });
     }
 }
@@ -111,7 +109,6 @@ const editUser = async (req: Request, res: Response): Promise<void> => {
             data: editedUser,
         });
     } catch (error) {
-        console.log("Error editing user: ", error);
         res.status(500).json({ message: "Internal Server error" });
     }
 }

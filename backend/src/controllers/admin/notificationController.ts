@@ -48,7 +48,6 @@ const createNotification = async (req: Request, res: Response): Promise<void> =>
             data: notification,
         })
     } catch (error) {
-        console.log("Error creating notification: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -80,7 +79,6 @@ const editNotification = async (req: Request, res: Response): Promise<void> => {
             data: updatedNotification,
         });
     } catch (error) {
-        console.log("Error Editing notification: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -109,7 +107,6 @@ const deleteNotification = async (req: Request, res: Response): Promise<void> =>
 
         res.status(200).json({ message: "Notification deleted successfully!" });
     } catch (error) {
-        console.error("Error deleting notification: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
@@ -152,7 +149,6 @@ const getNotifications = async (req: Request, res: Response): Promise<void> => {
             hasPrev: pageNum > 1,
         });
     } catch (error) {
-        console.log("Error getting notification: ", error);
         res.status(500).json({ message: "Internal server error!" });
     }
 } 

@@ -161,7 +161,6 @@ const getAdminDashboard = async (req: Request, res: Response): Promise<void> => 
             }
         })
     } catch (error) {
-        console.error("Error generating admin dashboard:", error);
         res.status(500).json({ message: "Internal server error!" });
     }
 }

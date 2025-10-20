@@ -39,7 +39,6 @@ const getNotifications = async (req: Request, res: Response): Promise<void> => {
             count: notifications.length
         });
     } catch (error) {
-        console.log("Error getting notifications: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -68,7 +67,6 @@ const markAllAsRead = async (req: Request, res: Response): Promise<void> => {
             message: "All notifications marked as read successfully"
         });
     } catch (error) {
-        console.log("Error marking all notifications as read: ", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
