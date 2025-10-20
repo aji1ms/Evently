@@ -2,7 +2,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 interface PaypalButtonProps {
     amount: number;
-    onSuccess: (details: any) => void;
+    onSuccess: (details: any) => Promise<void>;
     onError: (error: any) => void;
 }
 
@@ -28,7 +28,7 @@ const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
                                 currency_code: "USD"
                             }
                         }]
-                        
+
                     });
                 }}
                 onApprove={async (_data, actions) => {
@@ -37,13 +37,15 @@ const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
                             throw new Error('PayPal order actions not available');
                         }
                         const details = await actions.order.capture();
-                        
-                        onSuccess(details);
+
+                        await onSuccess(details);
                     } catch (error) {
                         onError(error);
                     }
                 }}
-                onError={onError}
+                onError={(error) => {
+                    onError(error);
+                }}
             />
         </PayPalScriptProvider>
     );
