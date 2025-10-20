@@ -36,6 +36,12 @@ const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
                             throw new Error('PayPal order actions not available');
                         }
                         const details = await actions.order.capture();
+                        console.log("Captured details:", details);
+
+                        if (!details || !details.id) {
+                            throw new Error("Payment capture failed or details.id missing");
+                        }
+
                         onSuccess(details);
                     } catch (error) {
                         onError(error);

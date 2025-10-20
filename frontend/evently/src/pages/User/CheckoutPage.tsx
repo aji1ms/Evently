@@ -54,7 +54,7 @@ const CheckoutPage = () => {
         createPayPalBooking({
           eventId: eventData._id,
           quantity: ticketCount,
-          transactionId: details.id
+          transactionId: details?.id || details?.orderID,
         })
       ).unwrap();
       console.log("Booking result:", result);
