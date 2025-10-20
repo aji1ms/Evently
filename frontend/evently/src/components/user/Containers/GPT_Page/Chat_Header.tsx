@@ -16,6 +16,7 @@ const GPT_Header = () => {
                     </div>
                     <div>
                         <h1 className="text-gray-900 text-lg font-semibold">Community Chat</h1>
+                        <p className="text-sm text-gray-600">Connect with everyone in the community</p>
                     </div>
                 </div>
                 <div className="flex items-center space-x-2">

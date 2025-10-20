@@ -9,13 +9,13 @@ const generateJWT = (res: Response, userId: string, cookieName: string = "jwt") 
     const cookieMaxAge = 24 * 60 * 60 * 1000;
 
     res.cookie(cookieName, token, {
-        httpOnly: true,                                                                       
+        httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: "strict",
         maxAge: cookieMaxAge,
         path: '/',
     });
-};                                                             
+};
 
 const clearJWT = (res: Response, cookieName: string = "jwt") => {
     res.cookie(cookieName, "", {
@@ -27,4 +27,6 @@ const clearJWT = (res: Response, cookieName: string = "jwt") => {
     });
 }
 
-export { generateJWT, clearJWT }; 
+export {
+    generateJWT, clearJWT
+};                                                                                                                                                                                                               

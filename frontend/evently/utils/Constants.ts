@@ -9,7 +9,7 @@ import event8Img from "../src/assets/images/events/event8Img.webp";
 import bannerImage from "../src/assets/images/mainBannerImg.png";
 import AboutImage1 from '../src/assets/images/welcomeImg.jpg'
 import AboutImage2 from "../src/assets/images/whatWeDoImg.png";
-import AboutImage3 from "../src/assets/images/whatWeDoImg.png";
+import AboutImage3 from "../src/assets/images/leadingTechImg.jpg";
 import reviewImage from "../src/assets/images/reviewImg.webp"
 
 export const eventImages = [

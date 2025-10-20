@@ -87,5 +87,17 @@ export interface IBookmark extends Document {
     createdAt: Date;
 }
 
+export interface IMessage extends Document {
+    userId: mongoose.Types.ObjectId;
+    username: string;
+    message: string;
+    timestamp: Date;
+}
 
-
+export interface IRoom extends Document {
+    name: string;
+    description?: string;
+    participants: mongoose.Types.ObjectId[];
+    createdBy: mongoose.Types.ObjectId;
+    createdAt: Date;
+}

@@ -9,6 +9,7 @@ const bookingController = require("../controllers/user/bookingController");
 const eventController = require("../controllers/user/eventController");
 const notificationController = require("../controllers/user/notificationController");
 const googleSignInController = require("../controllers/user/googleSignInController")
+const chatController = require("../controllers/user/chatController")
 import { uploadProfileImage } from "../config/cloudinary";
 
 // Login Management
@@ -52,5 +53,9 @@ router.get("/booking/:id", authenticateUser(["user"], "userToken"), bookingContr
 
 router.get("/notifications", authenticateUser(["user"], "userToken"), notificationController.getNotifications);
 router.patch("/mark-all-read", authenticateUser(["user"], "userToken"), notificationController.markAllAsRead);
+
+// Chat Management
+
+router.get("/messages", authenticateUser(["user"], "userToken"), chatController.getMessages)
 
 module.exports = router;                                                          

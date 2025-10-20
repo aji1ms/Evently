@@ -15,6 +15,7 @@ import authBookingReducer from "./slices/auth/authBookingSlice";
 import authTicketReducer from "./slices/auth/authTicketSlice";
 import authReviewReducer from "./slices/auth/authReviewSlice";
 import authNotificationReducer from "./slices/auth/authNotificationSlice";
+import chatReducer from "./slices/auth/chatSlice";
 
 const store = configureStore({
     reducer: {
@@ -37,6 +38,7 @@ const store = configureStore({
         authTickets: authTicketReducer,
         authReviews: authReviewReducer,
         authNotifications: authNotificationReducer,
+        authChats: chatReducer,
     },
 })
 export type RootState = ReturnType<typeof store.getState>;
