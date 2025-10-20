@@ -13,7 +13,11 @@ const app = express();
 const server = createServer(app);
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: [
+        'https://evently.website',
+        'https://www.evently.website',
+        'http://localhost:5173'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
