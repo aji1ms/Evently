@@ -56,7 +56,7 @@ const SideMenu = ({ menuData, isFixed = false, role }: SideMenuProps) => {
             {/* Mobile Menu Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden fixed top-4 left-4 z-50 p-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600"
+                className="md:hidden fixed top-4 left-4 z-[60] p-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600"
             >
                 {isOpen ? (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,17 +71,15 @@ const SideMenu = ({ menuData, isFixed = false, role }: SideMenuProps) => {
 
             {isOpen && (
                 <div
-                    className="md:hidden fixed inset-0 bg-gray-100 bg-opacity-50 z-30"
+                    className="md:hidden fixed inset-0 bg-gray-100 bg-opacity-50 z-40"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
-            <div className={`
-                bg-slate-100 border-r border-gray-200 shadow-sm md:block md:w-80 ${isOpen ? 'block' : 'hidden'} ${isFixed ? `md:fixed` : `md:relative`} top-0 left-0
-                h-screen z-40 w-80  
-            `}>
-                <div className="p-6">
+            <div className={`bg-slate-100 border-r border-gray-200 shadow-sm ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:${isFixed ? 'fixed' : 'relative'}
+                top-0 left-0 h-screen z-50 md:z-40 w-80 md:w-80 transition-transform duration-300 ease-in-out overflow-y-auto`}>
+                <div className="p-6 pt-20 md:pt-6">
                     <nav className="space-y-2 ">
                         {menuData.map((item) => {
                             const Icon = item.icon;

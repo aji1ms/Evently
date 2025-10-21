@@ -22,7 +22,7 @@ const UserReviews: React.FC = () => {
     }, [dispatch, filters, pagination.currentPage]);
 
     return (
-        <div className="flex-1 min-h-screen bg-gray-50 p-6 md:ml-80">
+        <div className="min-h-screen bg-gray-50 p-6 md:ml-80 w-full">
             <div className="mx-auto">
                 {/* Header */}
                 <div className="mb-8">

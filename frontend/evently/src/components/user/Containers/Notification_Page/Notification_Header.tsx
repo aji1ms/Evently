@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 const Notification_Header = () => {
     const navigate = useNavigate()
-    
+
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
             <div className="flex items-center justify-between">
@@ -21,7 +21,7 @@ const Notification_Header = () => {
                         <House className="w-5 h-5 text-gray-600" />
                     </button>
                     <button className="bg-gray-100 hover:bg-gray-200 p-2 rounded-lg transition-colors cursor-pointer">
-                        <Settings className="w-5 h-5 text-gray-600" />
+                        <Settings className="w-5 h-5 text-gray-600" onClick={() => navigate("/profile")} />
                     </button>
                 </div>
             </div>

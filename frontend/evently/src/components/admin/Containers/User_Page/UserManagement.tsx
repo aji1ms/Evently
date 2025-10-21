@@ -1,4 +1,3 @@
-// UserManagement.tsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../../Redux/store';
@@ -32,7 +31,7 @@ const UserManagement: React.FC = () => {
     }
 
     return (
-        <div className="flex-1 min-h-screen bg-gray-50 p-6 md:ml-80">
+        <div className="min-h-screen bg-gray-50 p-6 md:ml-80 w-full">
             <div className="mx-auto">
                 {/* Header */}
                 <div className="mb-8">

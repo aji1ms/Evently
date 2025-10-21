@@ -6,9 +6,7 @@ const Notifications = () => {
     return (
         <div className="flex">
             <SideMenu menuData={SIDE_ADMIN_DATA} isFixed={true} role="admin" />
-            <div className="flex-1">
-                <NotificationManagement />
-            </div>
+            <NotificationManagement />
         </div>
     )
 }
