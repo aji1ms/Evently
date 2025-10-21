@@ -1,4 +1,4 @@
-import { Search, Download } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import type { AppDispatch, RootState } from '../../../../Redux/store';
@@ -84,12 +84,6 @@ const SearchFilter = () => {
                         Clear
                     </button>
                 )}
-
-                {/* Export Button */}
-                <button className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2 cursor-pointer">
-                    <Download className="w-4 h-4" />
-                    Export
-                </button>
             </div>
         </div>
     )
