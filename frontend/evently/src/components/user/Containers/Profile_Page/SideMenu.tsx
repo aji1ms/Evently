@@ -77,8 +77,8 @@ const SideMenu = ({ menuData, isFixed = false, role }: SideMenuProps) => {
             )}
 
             {/* Sidebar */}
-            <div className={`bg-slate-100 border-r border-gray-200 shadow-sm ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:${isFixed ? 'fixed' : 'relative'}
-                top-0 left-0 h-screen z-50 md:z-40 w-80 md:w-80 transition-transform duration-300 ease-in-out overflow-y-auto`}>
+            <div className={`
+                bg-slate-100 border-r border-gray-200 shadow-sm ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed ${isFixed ? 'md:fixed' : 'md:relative'} top-0 left-0 h-screen z-50 md:z-40 w-80 md:w-80 transition-transform duration-300 ease-in-out overflow-y-auto`}>
                 <div className="p-6 pt-20 md:pt-6">
                     <nav className="space-y-2 ">
                         {menuData.map((item) => {
