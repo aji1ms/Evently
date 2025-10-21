@@ -69,65 +69,55 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
 
         await booking.save();
 
-        await Event.findByIdAndUpdate(eventId, {
-            $inc: { availableSeats: -quantity }
-        });
+        await Event.findByIdAndUpdate(eventId, { $inc: { availableSeats: -quantity } });
+        await User.findByIdAndUpdate(userId, { $push: { bookings: booking._id } });
 
-        await User.findByIdAndUpdate(userId, {
-            $push: { bookings: booking._id }
-        });
+        let subject = "🎟️ Your Ticket Booking is Confirmed!";
+        let html = "";
+
+        if (event.eventType === "online") {
+            html = `
+                    <h2>Hi ${user.name},</h2>
+                    <p>Your booking for <b>${event.title}</b> is confirmed!</p>
+                    <p><b>Date:</b> ${formatDate(event.eventDate)}</p>
+                    <p><b>Time:</b> ${event.eventTime}</p>
+                    <p><b>Meeting Link:</b> <a href="${event.meetingLink}">${event.meetingLink}</a></p>
+                    <p>We can't wait to see you online 🎥</p>
+                    <br/>
+                    <p>– Team Evently</p>
+                    `;
+        } else {
+            html = `
+                    <h2>Hi ${user.name},</h2>
+                    <p>Your booking for <b>${event.title}</b> is confirmed!</p>
+                    <p><b>Date:</b> ${formatDate(event.eventDate)}</p>
+                    <p><b>Time:</b> ${event.eventTime}</p>
+                    <p><b>Venue:</b> 
+                    ${event?.location?.address || 'N/A'},
+                    ${event?.location?.venue || 'N/A'}, 
+                    ${event?.location?.city || 'N/A'},
+                    ${event?.location?.state || 'N/A'}
+                    </p>
+                    <p>We look forward to seeing you there 🎉</p>
+                    <br/>
+                    <p>– Team Evently</p>
+                    `;
+        }
+
+        try {
+            await sendMail({
+                to: user.email,
+                subject,
+                html,
+            });
+        } catch (mailError) {
+            console.error("Failed to send confirmation email:", mailError);
+        }
 
         res.status(201).json({
             message: "Booking confirmed successfully!",
             data: booking
         });
-
-        (async () => {
-            try {
-                let subject = "🎟️ Your Ticket Booking is Confirmed!";
-                let html = "";
-
-                if (event.eventType === "online") {
-                    html = `
-                        <h2>Hi ${user.name},</h2>
-                        <p>Your booking for <b>${event.title}</b> is confirmed!</p>
-                        <p><b>Date:</b> ${formatDate(event.eventDate)}</p>
-                        <p><b>Time:</b> ${event.eventTime}</p>
-                        <p><b>Meeting Link:</b> <a href="${event.meetingLink}">${event.meetingLink}</a></p>
-                        <p>We can't wait to see you online 🎥</p>
-                        <br/>
-                        <p>– Team Evently</p>
-                    `;
-                } else {
-                    html = `
-                        <h2>Hi ${user.name},</h2>
-                        <p>Your booking for <b>${event.title}</b> is confirmed!</p>
-                        <p><b>Date:</b> ${formatDate(event.eventDate)}</p>
-                        <p><b>Time:</b> ${event.eventTime}</p>
-                        <p><b>Venue:</b> 
-                        ${event?.location?.address || 'N/A'},
-                         ${event?.location?.venue || 'N/A'}, 
-                         ${event?.location?.city || 'N/A'},
-                         ${event?.location?.state || 'N/A'}
-                          </p>
-                        <p>We look forward to seeing you there 🎉</p>
-                        <br/>
-                        <p>– Team Evently</p>
-                    `;
-                }
-
-                await sendMail({
-                    to: user.email,
-                    subject,
-                    html,
-                });
-            } catch (error) {
-                res.status(500).json({
-                    message: "Internal server error"
-                });
-            }
-        })();
-
 
     } catch (error: any) {
         res.status(500).json({
