@@ -121,7 +121,6 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
         console.log('📧 Sending email to:', user.email);
 
         try {
-            // Add a timeout of 10 seconds for email
             await Promise.race([
                 sendMail({
                     to: user.email,
@@ -129,13 +128,14 @@ const checkout = async (req: Request, res: Response): Promise<void> => {
                     html,
                 }),
                 new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error('Email timeout')), 10000)
+                    setTimeout(() => reject(new Error('Email timeout after 30s')), 30000)
                 )
             ]);
             console.log('✅ Email sent successfully');
         } catch (emailError: any) {
-            // Log error but don't fail the booking
-            console.error('⚠️  Email failed but booking saved:', emailError.message);
+            console.error('⚠️ Email failed:', emailError.message);
+            console.error('This might be due to Render blocking SMTP ports (587/465)');
+            console.error('Consider using SendGrid or another email service');
         }
 
         // Send response after email attempt
