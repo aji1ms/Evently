@@ -10,7 +10,7 @@ The platform includes **real-time chat**, **secure payments**, and an **admin da
 - 🧭 **Event Discovery** – Browse and search events by category, location, or type  
 - 💬 **Real-time Chat** – Instant communication between users and event organizers using **Socket.IO**  
 - 🔐 **Secure Authentication** – User login and signup powered by **JWT**  
-- 💳 **Payment Integration** – Safe and reliable ticket payments via **Razorpay**  
+- 💳 **Payment Integration** – Safe and reliable ticket payments via **Paypal**  
 - 🗓️ **Event Booking & Management** – Book events, view booking history, and download tickets  
 - 🧠 **Admin Dashboard** – Verify events, manage users, and monitor platform activity  
 - 📢 **Notifications** – Real-time alerts for new messages, event updates, and confirmations  
