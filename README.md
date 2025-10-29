@@ -33,7 +33,7 @@ The platform includes **real-time chat**, **secure payments**, and an **admin da
 
 **Additional Tools:**
 - JWT for Authentication  
-- Razorpay for Payments  
+- Paypal for Payments  
 - Socket.IO for Real-time Chat  
 - Cloudinary & Firebase for File and Notification Handling  
 - Axios, dotenv, bcrypt, and other npm utilities  
