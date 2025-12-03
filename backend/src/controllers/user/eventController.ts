@@ -6,7 +6,7 @@ const Category = require("../../models/categorySchema");
 
 const loadEvents = async (req: Request, res: Response): Promise<void> => {
     try {
-        const events = await Events.find()
+        const events = await Events.find({ status: "upcoming" })
             .select('-meetingLink')
             .populate('category')
             .sort({ createdAt: -1 })
@@ -38,7 +38,9 @@ const getAllEvents = async (req: Request, res: Response): Promise<void> => {
             limit = 4,
         } = req.query;
 
-        let query: any = {}
+        let query: any = {
+            status: "upcoming",
+        }
 
         if (search) {
             query.title = { $regex: search, $options: "i" }
@@ -85,11 +87,11 @@ const getAllEvents = async (req: Request, res: Response): Promise<void> => {
             totalEvents,
             totalPages,
             currentPage: pageNum,
-            hasNext: pageNum < totalPages,                                                                
+            hasNext: pageNum < totalPages,
             hasPrev: pageNum > 1,
         })
     } catch (error) {
-        res.status(500).json({ message: "Internal server error" });                    
+        res.status(500).json({ message: "Internal server error" });
     }
 }
 
