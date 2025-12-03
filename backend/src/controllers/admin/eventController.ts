@@ -189,9 +189,12 @@ const editEvent = async (req: Request, res: Response): Promise<void> => {
 
         const currentDate = new Date();
         const inputDate = new Date(eventDate);
-        if (inputDate <= currentDate) {
-            res.status(400).json({ message: "Event date must be in future!" });
-            return;
+        const isDateChanged = existingEvent.eventDate.getTime() !== inputDate.getTime();
+        if (isDateChanged && status !== 'completed') {
+            if (inputDate <= currentDate) {
+                res.status(400).json({ message: "Event date must be in future!" });
+                return;
+            }
         }
 
         const updateData: any = {
@@ -199,7 +202,7 @@ const editEvent = async (req: Request, res: Response): Promise<void> => {
             description: description.trim(),
             category: categoryExists._id,
             eventType,
-            eventDate: new Date(eventDate),
+            eventDate: inputDate,
             eventTime: eventTime.trim(),
             regularPrice: regularPriceNum,
             salePrice: salePriceNum,
