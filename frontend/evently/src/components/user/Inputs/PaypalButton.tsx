@@ -7,12 +7,15 @@ interface PaypalButtonProps {
 }
 
 const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
-    const formattedAmount = amount.toFixed(2);
+    const clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+    const formattedAmount = Number(amount || 0).toFixed(2);
 
     return (
         <PayPalScriptProvider options={{
-            clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+            clientId: clientId,
             currency: "USD",
+            intent: "capture",
+            components: "buttons",
         }}>
             <PayPalButtons
                 style={{ layout: "vertical" }}
@@ -52,3 +55,5 @@ const PaypalButton = ({ amount, onSuccess, onError }: PaypalButtonProps) => {
 };
 
 export default PaypalButton;
+
+
