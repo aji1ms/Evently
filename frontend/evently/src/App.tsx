@@ -33,6 +33,7 @@ import AdminProtectedRoute from "./helper/AdminProtectedRoute";
 import UserProtectedRoutes from "./helper/UserProtectedRoutes";
 import TicketDetails from "./pages/User/TicketDetails";
 import BookingDetails from "./components/admin/Containers/Booking_Management/BookingDetails";
+import ScrollToTop from "./helper/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -48,6 +49,7 @@ function App() {
   return (
     <BrowserRouter>
       <Toaster position="top-right" reverseOrder={false} />
+      <ScrollToTop />
       <Routes>
         {/* User */}
         <Route>
